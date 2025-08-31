@@ -172,11 +172,11 @@ export default function ErrorDisplay({ error, onRetry, onReset }: ErrorDisplayPr
             Manual Recipe Entry (Coming Soon)
           </h4>
           <p className="text-sm text-blue-700 dark:text-blue-300 mb-3">
-            Can't find structured recipe data? Manual recipe parsing will be available in a future update.
+            Can&apos;t find structured recipe data? Manual recipe parsing will be available in a future update.
             For now, try these alternatives:
           </p>
           <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1 mb-3">
-            <li>• Look for a "Print Recipe" or "Recipe Card" button on the page</li>
+            <li>• Look for a &quot;Print Recipe&quot; or &quot;Recipe Card&quot; button on the page</li>
             <li>• Try a different recipe from the same website</li>
             <li>• Search for the recipe on AllRecipes or Food Network</li>
             <li>• Check if the page has a mobile version with cleaner formatting</li>
@@ -209,7 +209,7 @@ export default function ErrorDisplay({ error, onRetry, onReset }: ErrorDisplayPr
             <h5 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Best Practices</h5>
             <ul className="space-y-1">
               <li>• Copy URLs directly from browser</li>
-              <li>• Try "Print Recipe" versions</li>
+              <li>• Try &quot;Print Recipe&quot; versions</li>
               <li>• Use major cooking websites</li>
               <li>• Check mobile versions of pages</li>
             </ul>

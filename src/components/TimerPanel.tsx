@@ -96,7 +96,7 @@ export default function TimerPanel({ className = '' }: TimerPanelProps) {
             </button>
           </div>
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            Examples: "5" (5 min), "1h 30m", "2:30", "90s"
+            Examples: &quot;5&quot; (5 min), &quot;1h 30m&quot;, &quot;2:30&quot;, &quot;90s&quot;
           </p>
         </div>
       </div>
