@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { parseJsonLd, parseMicrodata } from '@/lib/parsers/structured-data';
+import { parseHtmlHeuristics } from '@/lib/parsers/html-heuristics';
 import { Recipe } from '@/types/recipe';
 
 // Request validation schema
@@ -173,14 +174,20 @@ export async function GET(request: NextRequest) {
       recipe = parseMicrodata(html, url);
     }
     
-    // 3. If no structured data found, we'll add HTML heuristics in the next step
+    // 3. Fall back to HTML heuristics if structured data fails
     if (!recipe) {
-      console.log(`❌ No structured data found for ${domain}`);
+      console.log(`⚠️ No structured data found for ${domain}, trying HTML heuristics...`);
+      recipe = parseHtmlHeuristics(html, url);
+    }
+    
+    // 4. If all parsing methods fail, return error
+    if (!recipe) {
+      console.log(`❌ All parsing methods failed for ${domain}`);
       return NextResponse.json(
         { 
           error: 'no_recipe_found', 
           message: 'No recipe data found on this page',
-          suggestion: 'This page may not contain a recipe, or the recipe may not be properly structured. Try a different recipe URL.'
+          suggestion: 'This page may not contain a recipe, or the recipe format is not supported. Try pasting the recipe text manually or use a different recipe URL.'
         } as ParseError,
         { status: 404 }
       );
