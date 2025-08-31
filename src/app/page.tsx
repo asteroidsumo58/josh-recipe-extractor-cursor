@@ -7,6 +7,7 @@ import ErrorDisplay from '@/components/ErrorDisplay';
 import { RecipeLoadingState } from '@/components/LoadingSpinner';
 import { Recipe } from '@/types/recipe';
 import { ParseError } from '@/app/api/parse/route';
+import { TimerProvider } from '@/contexts/TimerContext';
 
 type AppState = 'form' | 'loading' | 'recipe' | 'error';
 
@@ -63,8 +64,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
-      <div className="max-w-6xl mx-auto">
+    <TimerProvider>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
+        <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -138,7 +140,8 @@ export default function Home() {
             </div>
           </div>
         )}
+        </div>
       </div>
-    </div>
+    </TimerProvider>
   );
 }

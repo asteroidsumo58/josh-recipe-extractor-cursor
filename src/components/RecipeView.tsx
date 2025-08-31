@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Recipe, ParsedIngredient, RecipeInstruction } from '@/types/recipe';
 import { formatIngredientForStep } from '@/lib/parsers/ingredient-parser';
+import TimerButton from './TimerButton';
+import TimerPanel from './TimerPanel';
 
 interface RecipeViewProps {
   recipe: Recipe;
@@ -178,65 +180,70 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
         )}
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-8">
         {/* Ingredients */}
-        <div className="md:col-span-1">
-          <div className="sticky top-6">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-              Ingredients
-            </h2>
-            
-            {/* Servings Adjuster - We'll implement this in Step 8 */}
-            <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-              <div className="text-sm text-blue-800 dark:text-blue-200 mb-2">
-                Servings adjustment coming in Step 8!
+        <div className="lg:col-span-1 md:col-span-1">
+          <div className="sticky top-6 space-y-6">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+                Ingredients
+              </h2>
+              
+              {/* Servings Adjuster - We'll implement this in Step 8 */}
+              <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                <div className="text-sm text-blue-800 dark:text-blue-200 mb-2">
+                  Servings adjustment coming in Step 8!
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                {recipe.ingredients.map((ingredient, index) => (
+                  <label
+                    key={index}
+                    className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors
+                      ${checkedIngredients[index] 
+                        ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200' 
+                        : 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
+                      }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={checkedIngredients[index] || false}
+                      onChange={() => toggleIngredient(index)}
+                      className="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                    />
+                    <div className="flex-1">
+                      <div className={`${checkedIngredients[index] ? 'line-through' : ''}`}>
+                        {ingredient.quantity && (
+                          <span className="font-medium">
+                            {ingredient.quantity} {ingredient.unit && `${ingredient.unit} `}
+                          </span>
+                        )}
+                        <span>{ingredient.ingredient}</span>
+                        {ingredient.preparation && (
+                          <span className="text-gray-600 dark:text-gray-400">
+                            , {ingredient.preparation}
+                          </span>
+                        )}
+                        {ingredient.optional && (
+                          <span className="text-gray-500 dark:text-gray-400 text-sm ml-1">
+                            (optional)
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </label>
+                ))}
               </div>
             </div>
 
-            <div className="space-y-3">
-              {recipe.ingredients.map((ingredient, index) => (
-                <label
-                  key={index}
-                  className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors
-                    ${checkedIngredients[index] 
-                      ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200' 
-                      : 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
-                    }`}
-                >
-                  <input
-                    type="checkbox"
-                    checked={checkedIngredients[index] || false}
-                    onChange={() => toggleIngredient(index)}
-                    className="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-                  />
-                  <div className="flex-1">
-                    <div className={`${checkedIngredients[index] ? 'line-through' : ''}`}>
-                      {ingredient.quantity && (
-                        <span className="font-medium">
-                          {ingredient.quantity} {ingredient.unit && `${ingredient.unit} `}
-                        </span>
-                      )}
-                      <span>{ingredient.ingredient}</span>
-                      {ingredient.preparation && (
-                        <span className="text-gray-600 dark:text-gray-400">
-                          , {ingredient.preparation}
-                        </span>
-                      )}
-                      {ingredient.optional && (
-                        <span className="text-gray-500 dark:text-gray-400 text-sm ml-1">
-                          (optional)
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </label>
-              ))}
-            </div>
+            {/* Timer Panel */}
+            <TimerPanel />
           </div>
         </div>
 
         {/* Instructions */}
-        <div className="md:col-span-2">
+        <div className="lg:col-span-3 md:col-span-2">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
             Instructions
           </h2>
@@ -271,15 +278,13 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
                       {renderStepWithIngredients(instruction)}
                     </div>
                     
-                    {/* Timer - We'll implement this in Step 7 */}
+                    {/* Timer Button */}
                     {instruction.duration && (
-                      <div className="mt-3 inline-flex items-center px-3 py-1 bg-orange-100 dark:bg-orange-900/30 
-                                   text-orange-800 dark:text-orange-200 rounded-full text-sm">
-                        <span className="mr-2">⏲️</span>
-                        {instruction.duration.display}
-                        <span className="ml-2 text-xs opacity-75">
-                          (Timer coming in Step 7!)
-                        </span>
+                      <div className="mt-3">
+                        <TimerButton 
+                          duration={instruction.duration} 
+                          stepNumber={instruction.step}
+                        />
                       </div>
                     )}
                   </div>
