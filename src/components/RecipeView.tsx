@@ -4,8 +4,10 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Recipe, ParsedIngredient, RecipeInstruction } from '@/types/recipe';
 import { formatIngredientForStep } from '@/lib/parsers/ingredient-parser';
+import { useRecipeScaling } from '@/hooks/useRecipeScaling';
 import TimerButton from './TimerButton';
 import TimerPanel from './TimerPanel';
+import ServingsControl from './ServingsControl';
 
 interface RecipeViewProps {
   recipe: Recipe;
@@ -23,7 +25,18 @@ interface StepCheckState {
 export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
   const [checkedIngredients, setCheckedIngredients] = useState<IngredientCheckState>({});
   const [checkedSteps, setCheckedSteps] = useState<StepCheckState>({});
-  const [servings, setServings] = useState(1);
+  
+  // Use recipe scaling hook
+  const {
+    scaledRecipe,
+    currentServings,
+    originalServings,
+    scalingMultiplier,
+    setServings,
+    resetToOriginal,
+    canScaleDown,
+    canScaleUp,
+  } = useRecipeScaling(recipe);
 
   const toggleIngredient = (index: number) => {
     setCheckedIngredients(prev => ({
@@ -61,9 +74,9 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
     let text = instruction.text;
     const ingredientMatches: { ingredient: ParsedIngredient; name: string }[] = [];
 
-    // Find matching ingredients for this step
+    // Find matching ingredients for this step (use scaled ingredients)
     instruction.ingredients.forEach(ingredientName => {
-      const ingredient = recipe.ingredients.find(ing => 
+      const ingredient = scaledRecipe.ingredients.find(ing => 
         ing.ingredient.toLowerCase().includes(ingredientName.toLowerCase()) ||
         ingredientName.toLowerCase().includes(ing.ingredient.toLowerCase())
       );
@@ -87,8 +100,8 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
           if (index % 2 === 0) {
             return part; // Regular text
           } else {
-            // Find the ingredient for this part
-            const ingredient = recipe.ingredients.find(ing => 
+            // Find the scaled ingredient for this part
+            const ingredient = scaledRecipe.ingredients.find(ing => 
               ing.ingredient === part
             );
             return ingredient ? renderIngredientInline(ingredient) : part;
@@ -114,64 +127,75 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
         </button>
         
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-2">
-          <span>From {recipe.domain}</span>
+          <span>From {scaledRecipe.domain}</span>
           <span>•</span>
-          <span>Parsed via {recipe.source}</span>
+          <span>Parsed via {scaledRecipe.source}</span>
           <span>•</span>
-          <span>{recipe.parseTime}ms</span>
+          <span>{scaledRecipe.parseTime}ms</span>
+          {scalingMultiplier !== 1 && (
+            <>
+              <span>•</span>
+              <span className="text-blue-600 dark:text-blue-400 font-medium">
+                Scaled {scalingMultiplier}×
+              </span>
+            </>
+          )}
         </div>
       </div>
 
       {/* Recipe Header */}
       <div className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-          {recipe.title}
+          {scaledRecipe.title}
         </h1>
         
-        {recipe.description && (
+        {scaledRecipe.description && (
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-            {recipe.description}
+            {scaledRecipe.description}
           </p>
         )}
 
         {/* Recipe Meta */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          {recipe.totalTime && (
+          {scaledRecipe.totalTime && (
             <div className="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <div className="text-2xl mb-1">⏱️</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Total Time</div>
-              <div className="font-medium">{formatTime(recipe.totalTime)}</div>
+              <div className="font-medium">{formatTime(scaledRecipe.totalTime)}</div>
             </div>
           )}
-          {recipe.prepTime && (
+          {scaledRecipe.prepTime && (
             <div className="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <div className="text-2xl mb-1">🥄</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Prep Time</div>
-              <div className="font-medium">{formatTime(recipe.prepTime)}</div>
+              <div className="font-medium">{formatTime(scaledRecipe.prepTime)}</div>
             </div>
           )}
-          {recipe.cookTime && (
+          {scaledRecipe.cookTime && (
             <div className="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
               <div className="text-2xl mb-1">🔥</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Cook Time</div>
-              <div className="font-medium">{formatTime(recipe.cookTime)}</div>
+              <div className="font-medium">{formatTime(scaledRecipe.cookTime)}</div>
             </div>
           )}
-          {recipe.servings && (
-            <div className="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <div className="text-2xl mb-1">👥</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Servings</div>
-              <div className="font-medium">{recipe.servings}</div>
-            </div>
-          )}
+          <div className="text-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <div className="text-2xl mb-1">👥</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Servings</div>
+            <div className="font-medium text-blue-600 dark:text-blue-400">{currentServings}</div>
+            {scalingMultiplier !== 1 && (
+              <div className="text-xs text-blue-500 dark:text-blue-300">
+                (was {originalServings})
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Hero Image */}
-        {recipe.images.length > 0 && (
+        {scaledRecipe.images.length > 0 && (
           <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden mb-6">
             <Image
-              src={recipe.images[0]}
-              alt={recipe.title}
+              src={scaledRecipe.images[0]}
+              alt={scaledRecipe.title}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -189,15 +213,20 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
                 Ingredients
               </h2>
               
-              {/* Servings Adjuster - We'll implement this in Step 8 */}
-              <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                <div className="text-sm text-blue-800 dark:text-blue-200 mb-2">
-                  Servings adjustment coming in Step 8!
-                </div>
-              </div>
+              {/* Servings Control */}
+              <ServingsControl
+                originalServings={originalServings}
+                currentServings={currentServings}
+                scalingMultiplier={scalingMultiplier}
+                onServingsChange={setServings}
+                onReset={resetToOriginal}
+                canScaleDown={canScaleDown}
+                canScaleUp={canScaleUp}
+                className="mb-4"
+              />
 
               <div className="space-y-3">
-                {recipe.ingredients.map((ingredient, index) => (
+                {scaledRecipe.ingredients.map((ingredient, index) => (
                   <label
                     key={index}
                     className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors
@@ -249,7 +278,7 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
           </h2>
           
           <div className="space-y-6">
-            {recipe.instructions.map((instruction, index) => (
+            {scaledRecipe.instructions.map((instruction, index) => (
               <div
                 key={index}
                 className={`p-4 rounded-lg border-2 transition-colors
@@ -296,10 +325,15 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
       </div>
 
       {/* Footer */}
-      {recipe.author && (
+      {scaledRecipe.author && (
         <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
           <p className="text-gray-600 dark:text-gray-400">
-            Recipe by <span className="font-medium">{recipe.author}</span>
+            Recipe by <span className="font-medium">{scaledRecipe.author}</span>
+            {scalingMultiplier !== 1 && (
+              <span className="ml-2 text-sm text-blue-600 dark:text-blue-400">
+                (scaled {scalingMultiplier}× from original)
+              </span>
+            )}
           </p>
         </div>
       )}
