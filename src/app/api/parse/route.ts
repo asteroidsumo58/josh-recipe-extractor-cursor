@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { parseJsonLd, parseMicrodata } from '@/lib/parsers/structured-data';
 import { parseHtmlHeuristics } from '@/lib/parsers/html-heuristics';
 import { Recipe } from '@/types/recipe';
+import { ParseError, ParsedRecipe } from '@/types/api';
 import { recipeCache } from '@/lib/cache';
 import { rateLimiter } from '@/lib/rate-limiter';
 
@@ -12,22 +13,7 @@ const ParseRequestSchema = z.object({
 });
 
 // Legacy response type for backward compatibility
-export interface ParsedRecipe {
-  title: string;
-  ingredients: string[];
-  instructions: string[];
-  totalTime?: string;
-  servings?: string;
-  images: string[];
-  source: 'json-ld' | 'microdata' | 'html-heuristics';
-  parseTime: number;
-}
-
-export interface ParseError {
-  error: string;
-  message: string;
-  suggestion?: string;
-}
+// Now imported from @/types/api
 
 // Get client IP address from request headers
 function getClientIP(request: NextRequest): string {

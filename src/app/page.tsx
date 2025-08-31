@@ -6,7 +6,7 @@ import RecipeView from '@/components/RecipeView';
 import ErrorDisplay from '@/components/ErrorDisplay';
 import { RecipeLoadingState } from '@/components/LoadingSpinner';
 import { Recipe } from '@/types/recipe';
-import { ParseError } from '@/app/api/parse/route';
+import { ParseError } from '@/types/api';
 import { TimerProvider } from '@/contexts/TimerContext';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
