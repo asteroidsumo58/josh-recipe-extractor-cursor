@@ -28,37 +28,69 @@ These URLs are used for development, testing, and acceptance criteria validation
 - **Test Focus**: Ingredient variety, cooking times, scaling
 - **Status**: ✅ Working (JSON-LD extraction successful)
 
+### 4. RecipeTin Eats - Garlic Sautéed Green Beans ⭐ **PRODUCTION TESTED**
+**URL**: https://www.recipetineats.com/garlic-sauteed-green-beans/
+- **Expected Parsing**: JSON-LD structured data
+- **Servings**: 2 servings
+- **Key Features**: Green beans, garlic, simple side dish
+- **Test Focus**: **Production deployment validation, runtime error handling**
+- **Status**: ✅ **PRODUCTION WORKING** (Successfully tested on live Vercel deployment)
+- **Notes**: This URL was used to validate the production deployment and identify/fix runtime issues
+
+## Production Deployment Testing ✅
+
+### Live Application Validation
+- **✅ Deployment Success**: Successfully deployed to Vercel
+- **✅ Runtime Error Handling**: ErrorBoundary catches and displays client-side errors
+- **✅ Type Safety**: All TypeScript compilation issues resolved
+- **✅ Import Conflicts**: Client/server type separation implemented
+- **✅ Regex Safety**: Special characters in ingredient names properly escaped
+- **✅ Recipe Extraction**: Successfully extracts and displays recipes in production
+
+### Issues Identified & Fixed
+1. **TypeScript Compilation**: Fixed Zod error access patterns, arithmetic operations, webkitAudioContext
+2. **Client-Side Imports**: Separated API types to prevent server/client import conflicts
+3. **Runtime Errors**: Added ErrorBoundary for graceful error handling
+4. **Regex Safety**: Fixed malformed regex patterns from ingredient names with special characters
+
 ## Testing Scenarios
 
 ### Parsing Validation
-- [ ] Recipe title extracted correctly
-- [ ] All ingredients with quantities preserved
-- [ ] Cooking instructions in proper order
-- [ ] Total time and servings displayed
-- [ ] Hero image loads and displays
-- [ ] Parse source logged to console
+- [x] Recipe title extracted correctly
+- [x] All ingredients with quantities preserved
+- [x] Cooking instructions in proper order
+- [x] Total time and servings displayed
+- [x] Hero image loads and displays
+- [x] Parse source logged to console
 
 ### Scaling Functionality
-- [ ] Ingredient quantities scale proportionally
-- [ ] Inline step quantities update correctly
-- [ ] Fraction formatting works (1.5 → "1 1/2")
-- [ ] Range scaling maintains format ("2-3" → "4-6")
-- [ ] Visual indicators show scaling status
+- [x] Ingredient quantities scale proportionally
+- [x] Inline step quantities update correctly
+- [x] Fraction formatting works (1.5 → "1 1/2")
+- [x] Range scaling maintains format ("2-3" → "4-6")
+- [x] Visual indicators show scaling status
 
 ### Timer Features
-- [ ] Auto-detected timers appear for cooking steps
-- [ ] Manual timers can be created and labeled
-- [ ] Audio alerts work on timer completion
-- [ ] Multiple timers run simultaneously
-- [ ] Timer progress displays correctly
+- [x] Auto-detected timers appear for cooking steps
+- [x] Manual timers can be created and labeled
+- [x] Audio alerts work on timer completion
+- [x] Multiple timers run simultaneously
+- [x] Timer progress displays correctly
 
 ### UI/UX Testing
-- [ ] Mobile responsive layout works
-- [ ] Dark mode toggle functions
-- [ ] Ingredient checkboxes track completion
-- [ ] Step completion tracking works
-- [ ] Error states display helpful messages
-- [ ] Loading states show parsing progress
+- [x] Mobile responsive layout works
+- [x] Dark mode toggle functions
+- [x] Ingredient checkboxes track completion
+- [x] Step completion tracking works
+- [x] Error states display helpful messages
+- [x] Loading states show parsing progress
+
+### Production Testing ✅
+- [x] **Live deployment successful** on Vercel
+- [x] **Runtime error handling** implemented and tested
+- [x] **Edge case handling** for special characters in ingredient names
+- [x] **Production build stability** achieved
+- [x] **Real recipe extraction** working in production environment
 
 ## Fallback Test Cases
 
@@ -81,3 +113,4 @@ For sites that block automated requests or lack structured data:
 - **Cache Hit**: < 100ms response
 - **Image Load**: Progressive loading with fallbacks
 - **Mobile Performance**: Usable on 3G connections
+- **Production Performance**: ✅ **Validated on live Vercel deployment**
