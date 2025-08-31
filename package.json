@@ -7,7 +7,13 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest"
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
+    "test:unit": "vitest run src/test --exclude '**/e2e-*.test.ts'",
+    "test:e2e": "vitest run src/test/e2e-*.test.ts",
+    "test:ci": "vitest run --reporter=verbose --coverage"
   },
   "dependencies": {
     "cheerio": "^1.1.2",

@@ -68,39 +68,51 @@ export default function Home() {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
         <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
+        <header className="text-center mb-8">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Recipe Extractor
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
             Extract and display recipes from any URL with smart parsing and kitchen-friendly features
           </p>
-        </div>
+        </header>
 
         {/* Main Content */}
-        {state === 'form' && (
-          <RecipeForm 
-            onSubmit={handleSubmit} 
-            loading={false}
-          />
-        )}
+        <main role="main">
+          {state === 'form' && (
+            <section aria-label="Recipe URL input form">
+              <RecipeForm 
+                onSubmit={handleSubmit} 
+                loading={false}
+              />
+            </section>
+          )}
 
-        {state === 'loading' && <RecipeLoadingState />}
+          {state === 'loading' && (
+            <section aria-label="Loading recipe" aria-live="polite">
+              <RecipeLoadingState />
+            </section>
+          )}
 
-        {state === 'recipe' && recipe && (
-          <RecipeView 
-            recipe={recipe} 
-            onBack={handleBack}
-          />
-        )}
+          {state === 'recipe' && recipe && (
+            <section aria-label="Recipe display">
+              <RecipeView 
+                recipe={recipe} 
+                onBack={handleBack}
+              />
+            </section>
+          )}
 
-        {state === 'error' && error && (
-          <ErrorDisplay 
-            error={error} 
-            onRetry={handleRetry}
-            onReset={handleReset}
-          />
-        )}
+          {state === 'error' && error && (
+            <section aria-label="Error message" role="alert">
+              <ErrorDisplay 
+                error={error} 
+                onRetry={handleRetry}
+                onReset={handleReset}
+              />
+            </section>
+          )}
+        </main>
 
         {/* Features Preview (only show on form state) */}
         {state === 'form' && (

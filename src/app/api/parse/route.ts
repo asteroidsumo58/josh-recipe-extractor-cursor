@@ -3,6 +3,8 @@ import { z } from 'zod';
 import { parseJsonLd, parseMicrodata } from '@/lib/parsers/structured-data';
 import { parseHtmlHeuristics } from '@/lib/parsers/html-heuristics';
 import { Recipe } from '@/types/recipe';
+import { recipeCache } from '@/lib/cache';
+import { rateLimiter } from '@/lib/rate-limiter';
 
 // Request validation schema
 const ParseRequestSchema = z.object({
@@ -25,6 +27,42 @@ export interface ParseError {
   error: string;
   message: string;
   suggestion?: string;
+}
+
+// Get client IP address from request headers
+function getClientIP(request: NextRequest): string {
+  // Check various headers for the real IP (in order of preference)
+  const forwarded = request.headers.get('x-forwarded-for');
+  if (forwarded) {
+    // x-forwarded-for can contain multiple IPs, take the first one
+    return forwarded.split(',')[0].trim();
+  }
+  
+  const realIP = request.headers.get('x-real-ip');
+  if (realIP) {
+    return realIP;
+  }
+  
+  const cfConnectingIP = request.headers.get('cf-connecting-ip');
+  if (cfConnectingIP) {
+    return cfConnectingIP;
+  }
+  
+  // Fallback to a default IP for development
+  return '127.0.0.1';
+}
+
+// Generate cache key for a URL
+function getCacheKey(url: string): string {
+  // Normalize URL to ensure consistent caching
+  try {
+    const parsedUrl = new URL(url);
+    // Remove fragment and normalize
+    parsedUrl.hash = '';
+    return `recipe:${parsedUrl.toString()}`;
+  } catch {
+    return `recipe:${url}`;
+  }
 }
 
 // Security: Validate URL to prevent SSRF attacks
@@ -119,6 +157,31 @@ export async function GET(request: NextRequest) {
   const startTime = Date.now();
   
   try {
+    // Get client IP for rate limiting
+    const clientIP = getClientIP(request);
+    
+    // Check rate limit
+    const rateLimit = rateLimiter.checkLimit(clientIP);
+    if (!rateLimit.allowed) {
+      console.log(`🚫 Rate limit exceeded for IP ${clientIP.replace(/\d+/g, 'xxx')} (${rateLimit.remaining} remaining)`);
+      return NextResponse.json(
+        { 
+          error: 'rate_limit_exceeded', 
+          message: 'Too many requests. Please wait before trying again.',
+          suggestion: `Rate limit: ${rateLimiter.getStats().maxRequests} requests per minute. Try again in a few moments.`
+        } as ParseError,
+        { 
+          status: 429,
+          headers: {
+            'X-RateLimit-Limit': rateLimiter.getStats().maxRequests.toString(),
+            'X-RateLimit-Remaining': rateLimit.remaining.toString(),
+            'X-RateLimit-Reset': new Date(rateLimit.resetTime).toISOString(),
+            'Retry-After': Math.ceil((rateLimit.resetTime - Date.now()) / 1000).toString()
+          }
+        }
+      );
+    }
+    
     // Parse and validate URL parameter
     const { searchParams } = new URL(request.url);
     const url = searchParams.get('url');
@@ -157,6 +220,24 @@ export async function GET(request: NextRequest) {
       );
     }
     
+    // Check cache first
+    const cacheKey = getCacheKey(url);
+    const cachedRecipe = recipeCache.get(cacheKey);
+    
+    if (cachedRecipe) {
+      const totalTime = Date.now() - startTime;
+      const domain = new URL(url).hostname;
+      console.log(`💾 Cache HIT for ${domain} - served in ${totalTime}ms (${rateLimit.remaining} requests remaining)`);
+      
+      // Add cache headers
+      const response = NextResponse.json(cachedRecipe);
+      response.headers.set('X-Cache', 'HIT');
+      response.headers.set('X-RateLimit-Remaining', rateLimit.remaining.toString());
+      return response;
+    }
+    
+    console.log(`💾 Cache MISS for ${new URL(url).hostname} - fetching and parsing...`);
+    
     // Fetch the webpage
     const { html, domain, fetchTime } = await fetchWebpage(url);
     
@@ -193,10 +274,18 @@ export async function GET(request: NextRequest) {
       );
     }
     
-    const totalTime = Date.now() - startTime;
-    console.log(`✅ Successfully parsed ${recipe.source} recipe from ${domain} - fetch: ${fetchTime}ms, parse: ${recipe.parseTime}ms, total: ${totalTime}ms`);
+    // Cache the successful result
+    recipeCache.set(cacheKey, recipe);
     
-    return NextResponse.json(recipe);
+    const totalTime = Date.now() - startTime;
+    console.log(`✅ Successfully parsed ${recipe.source} recipe from ${domain} - fetch: ${fetchTime}ms, parse: ${recipe.parseTime}ms, total: ${totalTime}ms (cached for 24h, ${rateLimit.remaining} requests remaining)`);
+    
+    // Add cache and rate limit headers
+    const response = NextResponse.json(recipe);
+    response.headers.set('X-Cache', 'MISS');
+    response.headers.set('X-RateLimit-Remaining', rateLimit.remaining.toString());
+    
+    return response;
     
   } catch (error) {
     const totalTime = Date.now() - startTime;

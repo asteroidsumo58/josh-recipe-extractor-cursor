@@ -57,6 +57,19 @@ export default function TimerButton({ duration, stepNumber, className = '' }: Ti
 
   const { text, color, disabled } = getButtonState();
 
+  const getAriaLabel = () => {
+    if (existingTimer) {
+      if (existingTimer.isCompleted) {
+        return `Timer for step ${stepNumber} completed`;
+      } else if (existingTimer.isRunning) {
+        return `Timer for step ${stepNumber} is running, ${formatTime(existingTimer.remainingSeconds)} remaining. Click to view timer.`;
+      } else {
+        return `Resume timer for step ${stepNumber}`;
+      }
+    }
+    return `Start ${duration.display} timer for step ${stepNumber}`;
+  };
+
   return (
     <button
       onClick={handleStartTimer}
@@ -67,6 +80,7 @@ export default function TimerButton({ duration, stepNumber, className = '' }: Ti
         ${color} ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}
         ${className}
       `}
+      aria-label={getAriaLabel()}
       title={existingTimer?.isRunning ? 'Timer is running' : `Start ${duration.display} timer`}
     >
       {text}

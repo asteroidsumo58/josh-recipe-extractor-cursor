@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback, memo } from 'react';
 import { getSuggestedServings } from '@/hooks/useRecipeScaling';
 
 interface ServingsControlProps {
@@ -14,7 +14,7 @@ interface ServingsControlProps {
   className?: string;
 }
 
-export default function ServingsControl({
+function ServingsControl({
   originalServings,
   currentServings,
   scalingMultiplier,
@@ -29,26 +29,26 @@ export default function ServingsControl({
 
   const suggestedServings = getSuggestedServings(originalServings);
 
-  const handleCustomSubmit = () => {
+  const handleCustomSubmit = useCallback(() => {
     const customServings = parseInt(customInput);
     if (customServings > 0 && customServings <= 50) {
       onServingsChange(customServings);
       setCustomInput('');
       setShowCustomInput(false);
     }
-  };
+  }, [customInput, onServingsChange]);
 
-  const handleIncrement = () => {
+  const handleIncrement = useCallback(() => {
     if (canScaleUp) {
       onServingsChange(currentServings + 1);
     }
-  };
+  }, [canScaleUp, currentServings, onServingsChange]);
 
-  const handleDecrement = () => {
+  const handleDecrement = useCallback(() => {
     if (canScaleDown) {
       onServingsChange(currentServings - 1);
     }
-  };
+  }, [canScaleDown, currentServings, onServingsChange]);
 
   const getScaleDescription = () => {
     if (scalingMultiplier === 1) return 'Original recipe';
@@ -61,14 +61,15 @@ export default function ServingsControl({
   return (
     <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 ${className}`}>
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+        <h3 id="servings-heading" className="text-lg font-semibold text-gray-900 dark:text-gray-100">
           Servings
         </h3>
         {scalingMultiplier !== 1 && (
           <button
             onClick={onReset}
             className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 
-                     transition-colors duration-200"
+                     transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+            aria-label="Reset to original servings"
           >
             Reset to original
           </button>
@@ -77,7 +78,7 @@ export default function ServingsControl({
 
       {/* Current Servings Display */}
       <div className="text-center mb-4">
-        <div className="flex items-center justify-center gap-3">
+        <div className="flex items-center justify-center gap-3" role="group" aria-labelledby="servings-heading">
           <button
             onClick={handleDecrement}
             disabled={!canScaleDown}
@@ -87,12 +88,14 @@ export default function ServingsControl({
                 ? 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500 focus:ring-gray-500' 
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-600 cursor-not-allowed'
               }`}
+            aria-label={`Decrease servings to ${currentServings - 1}`}
+            aria-describedby="current-servings"
           >
             −
           </button>
           
           <div className="text-center">
-            <div className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            <div id="current-servings" className="text-3xl font-bold text-gray-900 dark:text-gray-100" aria-live="polite">
               {currentServings}
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400">
@@ -109,6 +112,8 @@ export default function ServingsControl({
                 ? 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500 focus:ring-gray-500' 
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-600 cursor-not-allowed'
               }`}
+            aria-label={`Increase servings to ${currentServings + 1}`}
+            aria-describedby="current-servings"
           >
             +
           </button>
@@ -224,3 +229,5 @@ export default function ServingsControl({
     </div>
   );
 }
+
+export default memo(ServingsControl);

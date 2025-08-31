@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback, memo } from 'react';
 import Image from 'next/image';
 import { Recipe, ParsedIngredient, RecipeInstruction } from '@/types/recipe';
 import { formatIngredientForStep } from '@/lib/parsers/ingredient-parser';
@@ -22,7 +22,7 @@ interface StepCheckState {
   [key: number]: boolean;
 }
 
-export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
+function RecipeView({ recipe, onBack }: RecipeViewProps) {
   const [checkedIngredients, setCheckedIngredients] = useState<IngredientCheckState>({});
   const [checkedSteps, setCheckedSteps] = useState<StepCheckState>({});
   
@@ -38,19 +38,19 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
     canScaleUp,
   } = useRecipeScaling(recipe);
 
-  const toggleIngredient = (index: number) => {
+  const toggleIngredient = useCallback((index: number) => {
     setCheckedIngredients(prev => ({
       ...prev,
       [index]: !prev[index]
     }));
-  };
+  }, []);
 
-  const toggleStep = (index: number) => {
+  const toggleStep = useCallback((index: number) => {
     setCheckedSteps(prev => ({
       ...prev,
       [index]: !prev[index]
     }));
-  };
+  }, []);
 
   const formatTime = (time?: string) => {
     if (!time) return null;
@@ -98,13 +98,17 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
       <span>
         {parts.map((part, index) => {
           if (index % 2 === 0) {
-            return part; // Regular text
+            return <span key={index}>{part}</span>; // Regular text with key
           } else {
             // Find the scaled ingredient for this part
             const ingredient = scaledRecipe.ingredients.find(ing => 
               ing.ingredient === part
             );
-            return ingredient ? renderIngredientInline(ingredient) : part;
+            return ingredient ? (
+              <span key={index}>{renderIngredientInline(ingredient)}</span>
+            ) : (
+              <span key={index}>{part}</span>
+            );
           }
         })}
       </span>
@@ -209,7 +213,7 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
         <div className="lg:col-span-1 md:col-span-1">
           <div className="sticky top-6 space-y-6">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+              <h2 id="ingredients-heading" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
                 Ingredients
               </h2>
               
@@ -225,7 +229,7 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
                 className="mb-4"
               />
 
-              <div className="space-y-3">
+              <div className="space-y-3" role="list" aria-labelledby="ingredients-heading">
                 {scaledRecipe.ingredients.map((ingredient, index) => (
                   <label
                     key={index}
@@ -234,12 +238,14 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
                         ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200' 
                         : 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
                       }`}
+                    role="listitem"
                   >
                     <input
                       type="checkbox"
                       checked={checkedIngredients[index] || false}
                       onChange={() => toggleIngredient(index)}
                       className="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                      aria-label={`Mark ${ingredient.ingredient} as completed`}
                     />
                     <div className="flex-1">
                       <div className={`${checkedIngredients[index] ? 'line-through' : ''}`}>
@@ -273,29 +279,32 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
 
         {/* Instructions */}
         <div className="lg:col-span-3 md:col-span-2">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+          <h2 id="instructions-heading" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
             Instructions
           </h2>
           
-          <div className="space-y-6">
+          <ol className="space-y-6" role="list" aria-labelledby="instructions-heading">
             {scaledRecipe.instructions.map((instruction, index) => (
-              <div
+              <li
                 key={index}
                 className={`p-4 rounded-lg border-2 transition-colors
                   ${checkedSteps[index] 
                     ? 'border-green-300 bg-green-50 dark:bg-green-900/20' 
                     : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800'
                   }`}
+                role="listitem"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
                     <button
                       onClick={() => toggleStep(index)}
                       className={`w-8 h-8 rounded-full border-2 flex items-center justify-center font-bold
+                        focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
                         ${checkedSteps[index]
                           ? 'border-green-500 bg-green-500 text-white'
                           : 'border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-green-500'
                         }`}
+                      aria-label={`Mark step ${instruction.step} as ${checkedSteps[index] ? 'incomplete' : 'complete'}`}
                     >
                       {checkedSteps[index] ? '✓' : instruction.step}
                     </button>
@@ -318,9 +327,9 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
                     )}
                   </div>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </div>
 
@@ -340,3 +349,5 @@ export default function RecipeView({ recipe, onBack }: RecipeViewProps) {
     </div>
   );
 }
+
+export default memo(RecipeView);

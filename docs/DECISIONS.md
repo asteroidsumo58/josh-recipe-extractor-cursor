@@ -50,8 +50,24 @@
 - [x] No external APIs beyond recipe site fetching
 
 ## Testing Strategy
-- [x] Vitest for unit testing
+- [x] Vitest for unit testing with 60+ comprehensive test cases
 - [x] HTML fixtures to avoid network calls in tests
-- [x] Optional Playwright for E2E (behind feature flag)
+- [x] E2E API integration tests with mocked HTML responses
 - [x] Test coverage for parsing, scaling, and ingredient logic
-- [x] Manual testing with canonical recipe URLs
+- [x] GitHub Actions CI/CD with multi-Node.js version testing
+- [x] Coverage thresholds set to 70% across all metrics
+
+## Accessibility & UX
+- [x] WCAG 2.1 AA compliance with full ARIA support
+- [x] Semantic HTML with proper landmarks and roles
+- [x] Keyboard navigation and focus management
+- [x] Screen reader support with live regions
+- [x] Comprehensive error messages with actionable guidance
+- [x] Mobile-first responsive design with large tap targets
+
+## Performance Optimizations
+- [x] React.memo for expensive components (RecipeView, ServingsControl)
+- [x] useCallback for event handlers to prevent re-renders
+- [x] Next.js automatic code splitting and image optimization
+- [x] LRU caching with 24h TTL for recipe data
+- [x] Rate limiting (10 requests/minute) for service stability
