@@ -31,7 +31,7 @@ export function useTimer(): UseTimerReturn {
   useEffect(() => {
     // Create a simple beep sound using Web Audio API
     const createBeepSound = () => {
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const audioContext = new (window.AudioContext || (window as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
       const oscillator = audioContext.createOscillator();
       const gainNode = audioContext.createGain();
       
