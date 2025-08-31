@@ -1,6 +1,6 @@
 'use client';
 
-import { ParseError } from '@/app/api/parse/route';
+import { ParseError } from '@/types/api';
 
 interface ErrorDisplayProps {
   error: ParseError;
