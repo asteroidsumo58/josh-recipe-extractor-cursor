@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio';
 import { Recipe, ParsedIngredient, RecipeInstruction } from '@/types/recipe';
 import { parseDuration, cleanText, cleanUrl, extractNumber } from '@/lib/utils';
+import { parseIngredient, extractIngredientNames, findIngredientsInStep } from '@/lib/parsers/ingredient-parser';
 
 /**
  * Parse recipe data using HTML heuristics (fallback when no structured data)
@@ -29,8 +30,8 @@ export function parseHtmlHeuristics(html: string, url: string): Recipe | null {
     return null;
   }
   
-  // Extract instructions
-  const instructions = extractInstructions($);
+  // Extract instructions (with ingredient mapping)
+  const instructions = extractInstructions($, ingredients);
   if (instructions.length === 0) {
     console.log(`❌ No instructions found for ${domain}`);
     return null;
@@ -171,10 +172,7 @@ function extractIngredients($: cheerio.CheerioAPI): ParsedIngredient[] {
       elements.each((index, element) => {
         const text = cleanText($(element).text());
         if (isLikelyIngredient(text)) {
-          ingredients.push({
-            raw: text,
-            ingredient: text, // Will be parsed properly in ingredient parsing step
-          });
+          ingredients.push(parseIngredient(text));
         }
       });
       
@@ -218,10 +216,13 @@ function isLikelyIngredient(text: string): boolean {
 }
 
 /**
- * Extract instructions using common patterns
+ * Extract instructions using common patterns with ingredient mapping
  */
-function extractInstructions($: cheerio.CheerioAPI): RecipeInstruction[] {
+function extractInstructions($: cheerio.CheerioAPI, ingredients: ParsedIngredient[]): RecipeInstruction[] {
   const instructions: RecipeInstruction[] = [];
+  
+  // Extract ingredient names for fuzzy matching
+  const ingredientNames = extractIngredientNames(ingredients);
   
   // Common instruction selectors
   const selectors = [
@@ -244,10 +245,13 @@ function extractInstructions($: cheerio.CheerioAPI): RecipeInstruction[] {
         const text = cleanText($(element).text());
         if (isLikelyInstruction(text)) {
           const duration = parseDuration(text);
+          const stepIngredients = findIngredientsInStep(text, ingredientNames);
+          
           instructions.push({
             step: index + 1,
             text,
             duration: duration || undefined,
+            ingredients: stepIngredients.length > 0 ? stepIngredients : undefined,
           });
         }
       });

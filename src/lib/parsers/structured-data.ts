@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio';
 import { Recipe, JsonLdRecipe, ParsedIngredient, RecipeInstruction } from '@/types/recipe';
 import { parseDuration, cleanText, cleanUrl } from '@/lib/utils';
+import { parseIngredient, extractIngredientNames, findIngredientsInStep } from '@/lib/parsers/ingredient-parser';
 
 /**
  * Parse JSON-LD structured data from HTML
@@ -98,8 +99,8 @@ function normalizeJsonLdRecipe(jsonLd: JsonLdRecipe, url: string, domain: string
   // Extract ingredients
   const ingredients = extractIngredients(jsonLd.recipeIngredient || []);
   
-  // Extract instructions
-  const instructions = extractInstructions(jsonLd.recipeInstructions || []);
+  // Extract instructions (with ingredient mapping)
+  const instructions = extractInstructions(jsonLd.recipeInstructions || [], ingredients);
   
   // Extract timing
   const totalTime = jsonLd.totalTime ? parseDuration(jsonLd.totalTime)?.display : undefined;
@@ -165,22 +166,20 @@ function extractImages(imageData: any, baseUrl: string): string[] {
 function extractIngredients(ingredientData: string[]): ParsedIngredient[] {
   if (!Array.isArray(ingredientData)) return [];
   
-  return ingredientData.map((ingredient, index) => {
+  return ingredientData.map((ingredient) => {
     const raw = cleanText(ingredient);
-    
-    // For now, we'll do basic parsing - we'll enhance this in step 5
-    return {
-      raw,
-      ingredient: raw, // Will be parsed properly in ingredient parsing step
-    };
+    return parseIngredient(raw);
   });
 }
 
 /**
- * Extract and parse instructions
+ * Extract and parse instructions with ingredient mapping
  */
-function extractInstructions(instructionData: any[]): RecipeInstruction[] {
+function extractInstructions(instructionData: any[], ingredients: ParsedIngredient[]): RecipeInstruction[] {
   if (!Array.isArray(instructionData)) return [];
+  
+  // Extract ingredient names for fuzzy matching
+  const ingredientNames = extractIngredientNames(ingredients);
   
   return instructionData.map((instruction, index) => {
     let text = '';
@@ -196,10 +195,14 @@ function extractInstructions(instructionData: any[]): RecipeInstruction[] {
     // Parse duration from instruction text
     const duration = parseDuration(text);
     
+    // Find ingredients mentioned in this step
+    const stepIngredients = findIngredientsInStep(text, ingredientNames);
+    
     return {
       step: index + 1,
       text,
       duration: duration || undefined,
+      ingredients: stepIngredients.length > 0 ? stepIngredients : undefined,
     };
   });
 }
@@ -268,23 +271,24 @@ export function parseMicrodata(html: string, url: string): Recipe | null {
   $recipe.find('[itemprop="recipeIngredient"]').each((index, el) => {
     const raw = cleanText($(el).text());
     if (raw) {
-      ingredients.push({
-        raw,
-        ingredient: raw, // Will be parsed properly in ingredient parsing step
-      });
+      ingredients.push(parseIngredient(raw));
     }
   });
   
-  // Extract instructions
+  // Extract instructions with ingredient mapping
+  const ingredientNames = extractIngredientNames(ingredients);
   const instructions: RecipeInstruction[] = [];
   $recipe.find('[itemprop="recipeInstructions"]').each((index, el) => {
     const text = cleanText($(el).text());
     if (text) {
       const duration = parseDuration(text);
+      const stepIngredients = findIngredientsInStep(text, ingredientNames);
+      
       instructions.push({
         step: index + 1,
         text,
         duration: duration || undefined,
+        ingredients: stepIngredients.length > 0 ? stepIngredients : undefined,
       });
     }
   });
