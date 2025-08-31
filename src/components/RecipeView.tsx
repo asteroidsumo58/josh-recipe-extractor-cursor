@@ -87,7 +87,9 @@ function RecipeView({ recipe, onBack }: RecipeViewProps) {
 
     // Replace ingredient mentions with inline components
     ingredientMatches.forEach(({ ingredient, name }) => {
-      const regex = new RegExp(`\\b${name}\\b`, 'gi');
+      // Escape special regex characters to prevent invalid regex errors
+      const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`\\b${escapedName}\\b`, 'gi');
       text = text.replace(regex, `__INGREDIENT_${ingredient.ingredient}__`);
     });
 
