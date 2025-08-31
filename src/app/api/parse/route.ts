@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { parseJsonLd, parseMicrodata } from '@/lib/parsers/structured-data';
+import { Recipe } from '@/types/recipe';
 
 // Request validation schema
 const ParseRequestSchema = z.object({
   url: z.string().min(1, 'URL is required'),
 });
 
-// Response types
+// Legacy response type for backward compatibility
 export interface ParsedRecipe {
   title: string;
   ingredients: string[];
@@ -157,24 +159,37 @@ export async function GET(request: NextRequest) {
     // Fetch the webpage
     const { html, domain, fetchTime } = await fetchWebpage(url);
     
-    // For now, return a placeholder response until we implement parsing
+    console.log(`🔍 Processing ${domain} - fetch: ${fetchTime}ms, parsing...`);
+    
+    // Try structured data parsing in order of preference
+    let recipe: Recipe | null = null;
+    
+    // 1. Try JSON-LD first (most reliable)
+    recipe = parseJsonLd(html, url);
+    
+    // 2. Fall back to microdata if JSON-LD fails
+    if (!recipe) {
+      console.log(`⚠️ No JSON-LD found for ${domain}, trying microdata...`);
+      recipe = parseMicrodata(html, url);
+    }
+    
+    // 3. If no structured data found, we'll add HTML heuristics in the next step
+    if (!recipe) {
+      console.log(`❌ No structured data found for ${domain}`);
+      return NextResponse.json(
+        { 
+          error: 'no_recipe_found', 
+          message: 'No recipe data found on this page',
+          suggestion: 'This page may not contain a recipe, or the recipe may not be properly structured. Try a different recipe URL.'
+        } as ParseError,
+        { status: 404 }
+      );
+    }
+    
     const totalTime = Date.now() - startTime;
+    console.log(`✅ Successfully parsed ${recipe.source} recipe from ${domain} - fetch: ${fetchTime}ms, parse: ${recipe.parseTime}ms, total: ${totalTime}ms`);
     
-    console.log(`🔍 Processing ${domain} - fetch: ${fetchTime}ms, total: ${totalTime}ms`);
-    
-    // Placeholder response - we'll implement actual parsing in the next steps
-    const placeholderRecipe: ParsedRecipe = {
-      title: `Recipe from ${domain}`,
-      ingredients: ['Parsing not yet implemented'],
-      instructions: ['Recipe parsing will be implemented in the next step'],
-      totalTime: 'Unknown',
-      servings: 'Unknown',
-      images: [],
-      source: 'html-heuristics',
-      parseTime: totalTime,
-    };
-    
-    return NextResponse.json(placeholderRecipe);
+    return NextResponse.json(recipe);
     
   } catch (error) {
     const totalTime = Date.now() - startTime;
