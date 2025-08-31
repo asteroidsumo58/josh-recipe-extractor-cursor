@@ -196,7 +196,7 @@ export async function GET(request: NextRequest) {
     // Validate request schema
     const parseResult = ParseRequestSchema.safeParse({ url });
     if (!parseResult.success) {
-      const errorMessage = parseResult.error.errors[0]?.message || 'Invalid URL format';
+      const errorMessage = parseResult.error.issues[0]?.message || 'Invalid URL format';
       return NextResponse.json(
         { 
           error: 'invalid_url', 

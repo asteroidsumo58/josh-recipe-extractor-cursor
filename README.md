@@ -1,6 +1,6 @@
 # Recipe Extractor 🍳
 
-A modern, intelligent recipe extraction and management application built with Next.js 15. Extract recipes from any URL with smart parsing and kitchen-friendly features. Extract recipes from any URL with smart parsing, automatic scaling, built-in timers, and kitchen-friendly features.
+A modern, intelligent recipe extraction and management application built with Next.js 15. Extract recipes from any URL with smart parsing, automatic scaling, built-in timers, and kitchen-friendly features.
 
 ![Recipe Extractor Demo](https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=Recipe+Extractor+Demo)
 
