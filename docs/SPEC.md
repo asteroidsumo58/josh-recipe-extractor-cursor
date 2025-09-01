@@ -28,6 +28,7 @@
 - Single URL input field with "Extract" button
 - Loading spinner with parsing stage indicators
 - Error messages with retry options and manual paste fallback
+- **Theme toggle button in header for dark/light mode switching**
 
 ### Recipe Display
 - Responsive layout (desktop + mobile)
@@ -35,6 +36,7 @@
 - Recipe metadata cards (time, servings, etc.)
 - Ingredient list with interactive checkboxes
 - Step-by-step instructions with completion tracking
+- **Theme toggle button in recipe view header**
 
 ### Scaling System
 - Servings control with +/- buttons and quick presets
@@ -56,6 +58,15 @@
 - Sufficient color contrast ratios
 - Large touch targets for mobile use
 - Focus management for interactive elements
+- **Theme toggle accessibility with proper ARIA labels**
+
+### Theme System
+- **Dark mode as default theme for new users**
+- **Smooth theme transitions with CSS animations**
+- **Theme persistence via localStorage**
+- **Comprehensive CSS custom properties for both themes**
+- **Theme toggle component with sun/moon icons**
+- **Hydration-safe theme application**
 
 ## Technical Requirements
 
@@ -93,6 +104,7 @@
 - **Regex Safety**: Proper escaping of special characters in ingredient names
 - **Build Stability**: ESLint disabled during builds for production reliability
 - **Runtime Safety**: Comprehensive error handling and edge case management
+- **Theme System**: Dark/light mode toggle with persistence and smooth transitions
 
 ## Acceptance Criteria
 
