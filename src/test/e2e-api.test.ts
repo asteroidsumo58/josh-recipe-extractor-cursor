@@ -1,6 +1,9 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import type { NextRequest } from 'next/server';
+import type { ParsedRecipe } from '@/types/api';
+import type { ParsedIngredient, RecipeInstruction } from '@/types/recipe';
 
 // Mock the fetch function to use local HTML fixtures instead of network requests
 const originalFetch = global.fetch;
@@ -65,8 +68,8 @@ describe('E2E API Integration with HTML Fixtures', () => {
     const request = new Request('http://localhost:3000/api/parse?url=https://www.allrecipes.com/recipe/20680/easy-mexican-casserole/');
     
     // Call the API handler
-    const response = await GET(request as any);
-    const data = await response.json();
+    const response = await GET(request as unknown as NextRequest);
+    const data = (await response.json()) as ParsedRecipe;
     
     // Verify successful parsing
     expect(response.status).toBe(200);
@@ -77,13 +80,13 @@ describe('E2E API Integration with HTML Fixtures', () => {
     expect(data.instructions).toHaveLength(7);
     
     // Verify specific ingredient parsing
-    const groundBeef = data.ingredients.find((ing: any) => ing.ingredient === 'lean ground beef');
+    const groundBeef = data.ingredients.find(ing => ing.ingredient === 'lean ground beef');
     expect(groundBeef).toBeTruthy();
     expect(groundBeef.quantity).toBe(1);
     expect(groundBeef.unit).toBe('pound');
     
     // Verify instruction with timer
-    const cookingStep = data.instructions.find((inst: any) => inst.text.includes('8 to 10 minutes'));
+    const cookingStep = data.instructions.find(inst => inst.text.includes('8 to 10 minutes'));
     expect(cookingStep).toBeTruthy();
     expect(cookingStep.duration?.minutes).toBe(10);
     
@@ -98,8 +101,8 @@ describe('E2E API Integration with HTML Fixtures', () => {
     
     const request = new Request('http://localhost:3000/api/parse?url=https://downshiftology.com/recipes/mediterranean-ground-beef-stir-fry/');
     
-    const response = await GET(request as any);
-    const data = await response.json();
+    const response = await GET(request as unknown as NextRequest);
+    const data = (await response.json()) as ParsedRecipe;
     
     expect(response.status).toBe(200);
     expect(data.title).toContain('Mediterranean');
@@ -115,8 +118,8 @@ describe('E2E API Integration with HTML Fixtures', () => {
     
     const request = new Request('http://localhost:3000/api/parse?url=https://www.foodnetwork.com/recipes/food-network-kitchen/extra-creamy-cacio-e-uova-with-grated-egg-12646498');
     
-    const response = await GET(request as any);
-    const data = await response.json();
+    const response = await GET(request as unknown as NextRequest);
+    const data = (await response.json()) as ParsedRecipe;
     
     expect(response.status).toBe(200);
     expect(data.title).toBe('Extra-Creamy Cacio e Uova with Grated Egg');
@@ -133,7 +136,7 @@ describe('E2E API Integration with HTML Fixtures', () => {
     
     // Test missing URL parameter
     const requestNoUrl = new Request('http://localhost:3000/api/parse');
-    const responseNoUrl = await GET(requestNoUrl as any);
+    const responseNoUrl = await GET(requestNoUrl as unknown as NextRequest);
     const dataNoUrl = await responseNoUrl.json();
     
     expect(responseNoUrl.status).toBe(400);
@@ -142,7 +145,7 @@ describe('E2E API Integration with HTML Fixtures', () => {
     
     // Test invalid URL format
     const requestInvalidUrl = new Request('http://localhost:3000/api/parse?url=not-a-url');
-    const responseInvalidUrl = await GET(requestInvalidUrl as any);
+    const responseInvalidUrl = await GET(requestInvalidUrl as unknown as NextRequest);
     const dataInvalidUrl = await responseInvalidUrl.json();
     
     expect(responseInvalidUrl.status).toBe(403);
@@ -150,7 +153,7 @@ describe('E2E API Integration with HTML Fixtures', () => {
     
     // Test localhost URL (should be blocked)
     const requestLocalhost = new Request('http://localhost:3000/api/parse?url=http://localhost:8080/recipe');
-    const responseLocalhost = await GET(requestLocalhost as any);
+    const responseLocalhost = await GET(requestLocalhost as unknown as NextRequest);
     const dataLocalhost = await responseLocalhost.json();
     
     expect(responseLocalhost.status).toBe(403);
@@ -161,7 +164,7 @@ describe('E2E API Integration with HTML Fixtures', () => {
     const { GET } = await import('@/app/api/parse/route');
     
     const request = new Request('http://localhost:3000/api/parse?url=https://example.com/nonexistent-recipe');
-    const response = await GET(request as any);
+    const response = await GET(request as unknown as NextRequest);
     const data = await response.json();
     
     expect(response.status).toBe(500);
@@ -174,7 +177,7 @@ describe('E2E API Integration with HTML Fixtures', () => {
     
     // First request should be a cache MISS
     const request1 = new Request('http://localhost:3000/api/parse?url=https://www.allrecipes.com/recipe/20680/easy-mexican-casserole/');
-    const response1 = await GET(request1 as any);
+    const response1 = await GET(request1 as unknown as NextRequest);
     
     expect(response1.status).toBe(200);
     expect(response1.headers.get('X-Cache')).toBe('MISS');
@@ -182,7 +185,7 @@ describe('E2E API Integration with HTML Fixtures', () => {
     
     // Second request should be a cache HIT
     const request2 = new Request('http://localhost:3000/api/parse?url=https://www.allrecipes.com/recipe/20680/easy-mexican-casserole/');
-    const response2 = await GET(request2 as any);
+    const response2 = await GET(request2 as unknown as NextRequest);
     
     expect(response2.status).toBe(200);
     expect(response2.headers.get('X-Cache')).toBe('HIT');
@@ -196,7 +199,7 @@ describe('E2E API Integration with HTML Fixtures', () => {
     const requests = [];
     for (let i = 0; i < 12; i++) {
       const request = new Request(`http://localhost:3000/api/parse?url=https://example.com/recipe-${i}`);
-      requests.push(GET(request as any));
+      requests.push(GET(request as unknown as NextRequest));
     }
     
     const responses = await Promise.all(requests);
@@ -219,8 +222,8 @@ describe('E2E API Integration with HTML Fixtures', () => {
     
     // Use a fresh URL that hasn't been used in other tests to avoid rate limiting
     const request = new Request('http://localhost:3000/api/parse?url=https://www.foodnetwork.com/recipes/food-network-kitchen/extra-creamy-cacio-e-uova-with-grated-egg-12646498');
-    const response = await GET(request as any);
-    const data = await response.json();
+    const response = await GET(request as unknown as NextRequest);
+    const data = (await response.json()) as ParsedRecipe;
     
     // Skip validation if rate limited (can happen due to previous tests)
     if (response.status === 429) {
@@ -242,14 +245,14 @@ describe('E2E API Integration with HTML Fixtures', () => {
     expect(data).toHaveProperty('images');
     
     // Validate ingredients structure
-    data.ingredients.forEach((ingredient: any) => {
+    data.ingredients.forEach((ingredient: ParsedIngredient) => {
       expect(ingredient).toHaveProperty('raw');
       expect(ingredient).toHaveProperty('ingredient');
       // quantity and unit are optional
     });
     
     // Validate instructions structure
-    data.instructions.forEach((instruction: any) => {
+    data.instructions.forEach((instruction: RecipeInstruction) => {
       expect(instruction).toHaveProperty('step');
       expect(instruction).toHaveProperty('text');
       expect(typeof instruction.step).toBe('number');
