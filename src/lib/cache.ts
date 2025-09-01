@@ -1,3 +1,5 @@
+import type { ParsedRecipe } from '@/types/api';
+
 /**
  * LRU Cache with TTL (Time To Live) support
  * Used for caching parsed recipe data with 24-hour expiration
@@ -142,4 +144,4 @@ export class LRUCache<T> {
 }
 
 // Global cache instance for recipe parsing
-export const recipeCache = new LRUCache<any>(100, 24 * 60 * 60 * 1000); // 100 entries, 24h TTL
+export const recipeCache = new LRUCache<ParsedRecipe>(100, 24 * 60 * 60 * 1000); // 100 entries, 24h TTL
