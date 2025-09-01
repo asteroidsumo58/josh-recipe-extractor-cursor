@@ -78,6 +78,12 @@
 - [x] **Accessibility**: Proper ARIA labels and keyboard navigation support
 - [x] **Error Handling**: Robust error logging and fallback mechanisms
 
+## Recent UI Polish (Mar 2025) ✅
+- [x] Updated "Extract Recipe" button: darker blue, white text; remains blue when disabled
+- [x] Heading styles explorer added and finalized (Warm gradient kept)
+- [x] Background texture: subtle dotted pattern with staggered rows; theme-aware (white in dark, black in light)
+- [x] CSS debug panel and console logging to validate styles in-browser
+
 ## Production Ready ✅
 **Recipe Extractor v1.1** - Fully functional and deployed with comprehensive features:
 - ✅ Smart recipe parsing (JSON-LD, Microdata, HTML heuristics)

@@ -84,6 +84,12 @@
 - [x] **Accessibility** - Proper ARIA labels and keyboard navigation support
 - [x] **Error Handling** - Robust error logging and fallback mechanisms
 
+### Visual Texture Decision (Mar 2025)
+- Adopt a subtle, performance-friendly dotted background using layered `radial-gradient`.
+- Dot size 1px, spacing 18px with second layer offset by half-spacing for a staggered grid.
+- Theme-aware: white dots at low opacity in dark mode; black dots at lower opacity in light mode.
+- Removed page-level solid backgrounds so the body texture is visible behind content.
+
 ## Deployment & Production
 - [x] **Vercel platform deployment - SUCCESSFULLY COMPLETED**
 - [x] **Production build optimization** - ESLint disabled during builds for stability

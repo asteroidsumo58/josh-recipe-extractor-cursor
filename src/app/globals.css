@@ -85,15 +85,25 @@ html.dark {
 }
 
 body {
-  background: var(--background);
+  background: var(--background) !important;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.18) 1px, transparent 0),
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.18) 1px, transparent 0) !important;
+  background-size: 18px 18px, 18px 18px !important;
+  background-position: 0 0, 9px 9px !important;
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, background-image 0.2s ease-in-out;
 }
 
 /* Ensure the body background changes with theme */
 .dark body {
-  background: var(--background);
+  background: var(--background) !important;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.18) 1px, transparent 0),
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.18) 1px, transparent 0) !important;
+  background-size: 18px 18px, 18px 18px !important;
+  background-position: 0 0, 9px 9px !important;
 }
 
 .light body {
@@ -126,6 +136,11 @@ body {
 /* Force light mode body styles */
 .light body {
   background: #ffffff !important;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.12) 1px, transparent 0),
+    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.12) 1px, transparent 0) !important;
+  background-size: 18px 18px, 18px 18px !important;
+  background-position: 0 0, 9px 9px !important;
   color: #171717 !important;
 }
 
