@@ -82,6 +82,12 @@ export function cleanText(text: string): string {
   return text
     .replace(/\s+/g, ' ') // Normalize whitespace
     .replace(/[\r\n\t]/g, ' ') // Remove line breaks and tabs
+    .replace(/&#39;/g, "'") // Decode apostrophe entity
+    .replace(/&quot;/g, '"') // Decode quote entity
+    .replace(/&amp;/g, '&') // Decode ampersand entity
+    .replace(/&lt;/g, '<') // Decode less than entity
+    .replace(/&gt;/g, '>') // Decode greater than entity
+    .replace(/&nbsp;/g, ' ') // Decode non-breaking space
     .trim();
 }
 

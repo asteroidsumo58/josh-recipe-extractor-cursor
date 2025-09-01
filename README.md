@@ -37,6 +37,10 @@ A modern, intelligent recipe extraction and management application built with Ne
 - **Error Handling**: Comprehensive error messages with helpful suggestions
 - **Network-free Testing**: Complete test suite with HTML fixtures
 
+## 🌐 Live Demo
+
+**Try the app now**: [https://josh-recipe-extractor-cursor-61rl4tpgu-joshua-summers-projects.vercel.app/](https://josh-recipe-extractor-cursor-61rl4tpgu-joshua-summers-projects.vercel.app/)
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -47,8 +51,8 @@ A modern, intelligent recipe extraction and management application built with Ne
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/recipe-extractor.git
-   cd recipe-extractor
+   git clone https://github.com/asteroidsumo58/josh-recipe-extractor-cursor.git
+   cd josh-recipe-extractor-cursor
    ```
 
 2. **Install dependencies**
