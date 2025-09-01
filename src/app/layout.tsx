@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,13 +24,41 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className="h-full" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const savedTheme = localStorage.getItem('theme');
+                  const theme = savedTheme === 'light' ? 'light' : 'dark';
+                  document.documentElement.classList.remove('light', 'dark');
+                  document.documentElement.classList.add(theme);
+                  if (!savedTheme) {
+                    localStorage.setItem('theme', 'dark');
+                  }
+                } catch (e) {
+                  document.documentElement.classList.add('dark');
+                  try {
+                    localStorage.setItem('theme', 'dark');
+                  } catch (storageError) {
+                    // Ignore storage errors
+                  }
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full transition-colors`}
       >
-        <div className="min-h-full">
-          {children}
-        </div>
+        <ThemeProvider>
+          <div className="min-h-full">
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

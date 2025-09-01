@@ -8,6 +8,7 @@ import { useRecipeScaling } from '@/hooks/useRecipeScaling';
 import TimerButton from './TimerButton';
 import TimerPanel from './TimerPanel';
 import ServingsControl from './ServingsControl';
+import ThemeToggle from './ThemeToggle';
 
 interface RecipeViewProps {
   recipe: Recipe;
@@ -120,17 +121,22 @@ function RecipeView({ recipe, onBack }: RecipeViewProps) {
   return (
     <div className="max-w-4xl mx-auto p-6">
       {/* Header */}
-      <div className="mb-6">
-        <button
-          onClick={onBack}
-          className="mb-4 inline-flex items-center text-blue-600 dark:text-blue-400 
-                   hover:text-blue-800 dark:hover:text-blue-200 transition-colors"
-        >
-          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Back to Search
-        </button>
+      <div className="mb-6 relative">
+        <div className="flex justify-between items-start">
+          <button
+            onClick={onBack}
+            className="inline-flex items-center text-blue-600 dark:text-blue-400 
+                     hover:text-blue-800 dark:hover:text-blue-200 transition-colors"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Search
+          </button>
+          
+          {/* Theme Toggle */}
+          <ThemeToggle />
+        </div>
         
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-2">
           <span>From {scaledRecipe.domain}</span>

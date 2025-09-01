@@ -9,6 +9,8 @@ import { Recipe } from '@/types/recipe';
 import { ParseError } from '@/types/api';
 import { TimerProvider } from '@/contexts/TimerContext';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import ThemeToggle from '@/components/ThemeToggle';
+import ThemeDebugPanel from '@/components/ThemeDebugPanel';
 
 type AppState = 'form' | 'loading' | 'recipe' | 'error';
 
@@ -70,7 +72,12 @@ export default function Home() {
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
         <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <header className="text-center mb-8">
+        <header className="text-center mb-8 relative">
+          {/* Theme Toggle */}
+          <div className="absolute top-0 right-0">
+            <ThemeToggle />
+          </div>
+          
           <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Recipe Extractor
           </h1>
@@ -157,6 +164,9 @@ export default function Home() {
         </div>
       </div>
         </TimerProvider>
+        
+        {/* Debug Panel - only show in development */}
+        {process.env.NODE_ENV === 'development' && <ThemeDebugPanel />}
       </ErrorBoundary>
     );
   }
