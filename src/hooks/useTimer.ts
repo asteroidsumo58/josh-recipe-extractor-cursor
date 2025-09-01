@@ -25,13 +25,18 @@ export interface UseTimerReturn {
 export function useTimer(): UseTimerReturn {
   const [timers, setTimers] = useState<Timer[]>([]);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioRef = useRef<{ play: () => void } | null>(null);
 
   // Initialize audio for timer completion
   useEffect(() => {
     // Create a simple beep sound using Web Audio API
     const createBeepSound = () => {
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      type WebkitAudioContext = {
+        webkitAudioContext: typeof AudioContext;
+      };
+      const AudioContextConstructor =
+        window.AudioContext || (window as unknown as WebkitAudioContext).webkitAudioContext;
+      const audioContext = new AudioContextConstructor();
       const oscillator = audioContext.createOscillator();
       const gainNode = audioContext.createGain();
       
@@ -49,7 +54,7 @@ export function useTimer(): UseTimerReturn {
       oscillator.stop(audioContext.currentTime + 0.5);
     };
 
-    audioRef.current = { play: createBeepSound } as any;
+    audioRef.current = { play: createBeepSound };
   }, []);
 
   // Timer update loop

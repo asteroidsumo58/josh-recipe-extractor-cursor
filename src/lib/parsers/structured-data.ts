@@ -37,7 +37,11 @@ export function parseJsonLd(html: string, url: string): Recipe | null {
 /**
  * Extract Recipe from JSON-LD data (handles nested structures and arrays)
  */
-function extractRecipeFromJsonLd(data: any, url: string, domain: string): Recipe | null {
+function extractRecipeFromJsonLd(
+  data: unknown,
+  url: string,
+  domain: string
+): Recipe | null {
   // Handle arrays of objects
   if (Array.isArray(data)) {
     for (const item of data) {
@@ -46,28 +50,38 @@ function extractRecipeFromJsonLd(data: any, url: string, domain: string): Recipe
     }
     return null;
   }
-  
+
+  if (!data || typeof data !== 'object') {
+    return null;
+  }
+
+  const record = data as Record<string, unknown>;
+
   // Handle @graph structures
-  if (data['@graph'] && Array.isArray(data['@graph'])) {
-    for (const item of data['@graph']) {
+  if (Array.isArray(record['@graph'])) {
+    for (const item of record['@graph'] as unknown[]) {
       const recipe = extractRecipeFromJsonLd(item, url, domain);
       if (recipe) return recipe;
     }
   }
-  
-  // Check if this is a Recipe object
-  if (data['@type'] === 'Recipe' || (Array.isArray(data['@type']) && data['@type'].includes('Recipe'))) {
-    return normalizeJsonLdRecipe(data as JsonLdRecipe, url, domain);
+
+  const type = record['@type'];
+  if (
+    type === 'Recipe' ||
+    (Array.isArray(type) && (type as unknown[]).includes('Recipe'))
+  ) {
+    return normalizeJsonLdRecipe(record as JsonLdRecipe, url, domain);
   }
-  
+
   // Recursively search nested objects
-  for (const key in data) {
-    if (typeof data[key] === 'object' && data[key] !== null) {
-      const recipe = extractRecipeFromJsonLd(data[key], url, domain);
+  for (const key in record) {
+    const value = record[key];
+    if (typeof value === 'object' && value !== null) {
+      const recipe = extractRecipeFromJsonLd(value, url, domain);
       if (recipe) return recipe;
     }
   }
-  
+
   return null;
 }
 
@@ -133,11 +147,11 @@ function normalizeJsonLdRecipe(jsonLd: JsonLdRecipe, url: string, domain: string
 /**
  * Extract images from various JSON-LD image formats
  */
-function extractImages(imageData: any, baseUrl: string): string[] {
+function extractImages(imageData: unknown, baseUrl: string): string[] {
   if (!imageData) return [];
-  
+
   const images: string[] = [];
-  
+
   // Handle different image formats
   if (typeof imageData === 'string') {
     const cleanedUrl = cleanUrl(imageData, baseUrl);
@@ -147,16 +161,16 @@ function extractImages(imageData: any, baseUrl: string): string[] {
       if (typeof img === 'string') {
         const cleanedUrl = cleanUrl(img, baseUrl);
         if (cleanedUrl) images.push(cleanedUrl);
-      } else if (img.url) {
-        const cleanedUrl = cleanUrl(img.url, baseUrl);
+      } else if (img && typeof img === 'object' && 'url' in img) {
+        const cleanedUrl = cleanUrl((img as { url?: string }).url ?? '', baseUrl);
         if (cleanedUrl) images.push(cleanedUrl);
       }
     }
-  } else if (imageData.url) {
-    const cleanedUrl = cleanUrl(imageData.url, baseUrl);
+  } else if (typeof imageData === 'object' && 'url' in imageData) {
+    const cleanedUrl = cleanUrl((imageData as { url?: string }).url ?? '', baseUrl);
     if (cleanedUrl) images.push(cleanedUrl);
   }
-  
+
   return images;
 }
 
@@ -175,34 +189,41 @@ function extractIngredients(ingredientData: string[]): ParsedIngredient[] {
 /**
  * Extract and parse instructions with ingredient mapping
  */
-function extractInstructions(instructionData: any[], ingredients: ParsedIngredient[]): RecipeInstruction[] {
+function extractInstructions(
+  instructionData: unknown[],
+  ingredients: ParsedIngredient[]
+): RecipeInstruction[] {
   if (!Array.isArray(instructionData)) return [];
-  
+
   // Extract ingredient names for fuzzy matching
   const ingredientNames = extractIngredientNames(ingredients);
-  
+
   return instructionData.map((instruction, index) => {
     let text = '';
-    
+
     if (typeof instruction === 'string') {
       text = cleanText(instruction);
-    } else if (instruction.text) {
-      text = cleanText(instruction.text);
-    } else if (instruction.name) {
-      text = cleanText(instruction.name);
+    } else if (instruction && typeof instruction === 'object') {
+      const instrObj = instruction as Record<string, unknown>;
+      if (typeof instrObj.text === 'string') {
+        text = cleanText(instrObj.text);
+      } else if (typeof instrObj.name === 'string') {
+        text = cleanText(instrObj.name);
+      }
     }
-    
+
     // Parse duration from instruction text
     const duration = parseDuration(text);
-    
+
     // Find ingredients mentioned in this step
     const stepIngredients = findIngredientsInStep(text, ingredientNames);
-    
+
     return {
       step: index + 1,
       text,
       duration: duration || undefined,
-      ingredients: stepIngredients.length > 0 ? stepIngredients : undefined,
+      ingredients:
+        stepIngredients.length > 0 ? stepIngredients : undefined,
     };
   });
 }
@@ -210,9 +231,9 @@ function extractInstructions(instructionData: any[], ingredients: ParsedIngredie
 /**
  * Extract servings/yield information
  */
-function extractServings(yieldData: any): string | undefined {
+function extractServings(yieldData: unknown): string | undefined {
   if (!yieldData) return undefined;
-  
+
   if (typeof yieldData === 'string') {
     return cleanText(yieldData);
   } else if (typeof yieldData === 'number') {
@@ -220,7 +241,7 @@ function extractServings(yieldData: any): string | undefined {
   } else if (Array.isArray(yieldData)) {
     return cleanText(yieldData[0]?.toString() || '');
   }
-  
+
   return undefined;
 }
 
