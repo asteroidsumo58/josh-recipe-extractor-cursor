@@ -10,6 +10,8 @@ Given a recipe URL, the app extracts structured recipe data (title, ingredients,
 
 **🚀 PRODUCTION READY & DEPLOYED** - Successfully deployed to Vercel with comprehensive error handling and runtime safety. The application is live and fully functional for recipe extraction.
 
+- Mar 2025: Inline step timers with circular countdown, improved inline ingredient matching (salt/pepper normalization, vulgar fractions), robust HTML entity decoding, and consolidated theme toggle.
+
 ## Key Features
 
 **Smart Parsing**: Automatically detects and extracts recipe data from popular cooking websites using schema.org standards with robust fallbacks for unstructured content.
@@ -18,7 +20,7 @@ Given a recipe URL, the app extracts structured recipe data (title, ingredients,
 
 **Recipe Scaling**: Dynamic servings adjustment (0.5×, 2×, custom) that intelligently scales ingredient quantities and inline step measurements with proper fraction formatting.
 
-**Timer System**: Auto-detected cooking timers from recipe steps plus three configurable manual timers with audio alerts and browser notifications.
+**Timer System**: Auto-detected cooking timers from recipe steps with inline circular countdowns, plus configurable manual timers with audio alerts and browser notifications.
 
 **Inline Ingredients**: Ingredient quantities appear contextually within cooking instructions (e.g., "Add 2 cups flour" shows as "Add **2 cups flour**") with automatic scaling.
 
