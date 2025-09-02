@@ -70,7 +70,8 @@ function extractRecipeFromJsonLd(
     type === 'Recipe' ||
     (Array.isArray(type) && (type as unknown[]).includes('Recipe'))
   ) {
-    return normalizeJsonLdRecipe(record as JsonLdRecipe, url, domain);
+    // We validated the @type above, safely cast through unknown
+    return normalizeJsonLdRecipe(record as unknown as JsonLdRecipe, url, domain);
   }
 
   // Recursively search nested objects
