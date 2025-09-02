@@ -84,6 +84,8 @@
 - [x] Background texture: subtle dotted pattern with staggered rows; theme-aware (white in dark, black in light)
 - [x] Removed CSS Debug Panel from UI (kept console diagnostics)
 - [x] Inline step timers with circular countdown; widened left pane and fixed overflow
+- [x] Consolidated theme toggle to global header (removed duplicate in RecipeView)
+- [x] Improved inline ingredient matching (salt/pepper normalization, vulgar fractions support)
 
 ## Production Ready ✅
 **Recipe Extractor v1.1** - Fully functional and deployed with comprehensive features:

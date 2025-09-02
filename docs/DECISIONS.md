@@ -95,6 +95,14 @@
 - Start/Resume on a step expands to show countdown, Pause/Cancel, and Remove controls
 - Left pane retains manual timer management list only
 
+## UI Consistency (Mar 2025)
+- Single source of truth for theme switching: only global header `ThemeToggle` is rendered
+- Removed duplicated toggle inside `RecipeView` to avoid confusion
+
+## Parsing & Matching Improvements (Mar 2025)
+- Normalize ingredient names for inline matching: handle unit/quantity stripping and vulgar fractions
+- Map common variants ("black pepper" → "pepper", "kosher sea salt" → "salt") for step detection
+
 ## Deployment & Production
 - [x] **Vercel platform deployment - SUCCESSFULLY COMPLETED**
 - [x] **Production build optimization** - ESLint disabled during builds for stability
