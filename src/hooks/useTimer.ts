@@ -20,12 +20,15 @@ export interface UseTimerReturn {
   resetTimer: (id: string) => void;
   deleteTimer: (id: string) => void;
   updateTimerLabel: (id: string, label: string) => void;
+  primaryTimerId: string | null;
+  setPrimaryTimer: (id: string | null) => void;
 }
 
 export function useTimer(): UseTimerReturn {
   const [timers, setTimers] = useState<Timer[]>([]);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const audioRef = useRef<{ play: () => void } | null>(null);
+  const [primaryTimerId, setPrimaryTimerId] = useState<string | null>(null);
 
   // Initialize audio for timer completion
   useEffect(() => {
@@ -147,6 +150,8 @@ export function useTimer(): UseTimerReturn {
       }
       return timer;
     }));
+    // If no primary is set, default to the started timer
+    setPrimaryTimerId(prev => prev ?? id);
   }, []);
 
   const pauseTimer = useCallback((id: string) => {
@@ -197,6 +202,8 @@ export function useTimer(): UseTimerReturn {
     resetTimer,
     deleteTimer,
     updateTimerLabel,
+    primaryTimerId,
+    setPrimaryTimer: setPrimaryTimerId,
   };
 }
 

@@ -80,7 +80,7 @@
 - [x] **CSS Custom Properties** - Comprehensive theme variables for both light and dark modes
 - [x] **Hydration Fix** - Resolved Next.js hydration mismatch with suppressHydrationWarning
 - [x] **Theme Persistence** - localStorage integration for theme preference persistence
-- [x] **Debug System** - Comprehensive debugging tools with ThemeDebugPanel for development
+- [x] **Debug System** - Removed on-screen ThemeDebugPanel; retained console diagnostics only
 - [x] **Accessibility** - Proper ARIA labels and keyboard navigation support
 - [x] **Error Handling** - Robust error logging and fallback mechanisms
 
@@ -89,6 +89,11 @@
 - Dot size 1px, spacing 18px with second layer offset by half-spacing for a staggered grid.
 - Theme-aware: white dots at low opacity in dark mode; black dots at lower opacity in light mode.
 - Removed page-level solid backgrounds so the body texture is visible behind content.
+
+## Timer UX Update (Mar 2025)
+- Inline, step-local circular countdown replaces separate left-pane featured timer
+- Start/Resume on a step expands to show countdown, Pause/Cancel, and Remove controls
+- Left pane retains manual timer management list only
 
 ## Deployment & Production
 - [x] **Vercel platform deployment - SUCCESSFULLY COMPLETED**

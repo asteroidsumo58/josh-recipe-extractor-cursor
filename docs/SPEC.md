@@ -48,7 +48,8 @@
 ### Timer Features
 - Auto-detected timers from step durations
 - "Start timer" buttons next to relevant steps
-- Three manual timers with custom labels
+- Inline step timers with circular countdown, Pause/Start, and Cancel controls
+- Manual timers with custom labels managed in the left panel
 - Audio alerts and browser notifications
 - Visual progress bars and countdown displays
 

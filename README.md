@@ -15,6 +15,7 @@ A modern, intelligent recipe extraction and management application built with Ne
 ### ⏱️ **Built-in Kitchen Timers**
 - **Auto-detection**: Automatically finds cooking times in recipe instructions
 - **Multiple Timers**: Run multiple timers simultaneously for complex recipes
+- **Inline Step Timers**: iOS-style circular countdown rendered directly within each recipe step
 - **Visual Indicators**: Clear status indicators and notifications
 - **Persistent State**: Timers continue running across page refreshes
 

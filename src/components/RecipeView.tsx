@@ -119,7 +119,7 @@ function RecipeView({ recipe, onBack }: RecipeViewProps) {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-6xl mx-auto p-6">
       {/* Header */}
       <div className="mb-6 relative">
         <div className="flex justify-between items-start">
@@ -216,10 +216,10 @@ function RecipeView({ recipe, onBack }: RecipeViewProps) {
         )}
       </div>
 
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-8">
+      <div className="grid lg:grid-cols-5 md:grid-cols-4 gap-8">
         {/* Ingredients */}
-        <div className="lg:col-span-1 md:col-span-1">
-          <div className="sticky top-6 space-y-6">
+        <div className="lg:col-span-2 md:col-span-2">
+          <div className="sticky top-6 space-y-6 min-w-0">
             <div>
               <h2 id="ingredients-heading" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
                 Ingredients

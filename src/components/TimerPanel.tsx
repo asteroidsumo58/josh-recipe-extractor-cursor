@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTimerContext } from '@/contexts/TimerContext';
 import { formatTime, parseTimeInput, Timer } from '@/hooks/useTimer';
 
@@ -9,7 +9,7 @@ interface TimerPanelProps {
 }
 
 export default function TimerPanel({ className = '' }: TimerPanelProps) {
-  const { timers, createTimer, startTimer, pauseTimer, resetTimer, deleteTimer, updateTimerLabel } = useTimerContext();
+  const { timers, createTimer, startTimer, pauseTimer, resetTimer, deleteTimer, updateTimerLabel, primaryTimerId, setPrimaryTimer } = useTimerContext();
   const [newTimerInput, setNewTimerInput] = useState('');
   const [newTimerLabel, setNewTimerLabel] = useState('');
   const [editingTimer, setEditingTimer] = useState<string | null>(null);
@@ -50,11 +50,21 @@ export default function TimerPanel({ className = '' }: TimerPanelProps) {
   const activeTimers = timers.filter(timer => !timer.isCompleted);
   const completedTimers = timers.filter(timer => timer.isCompleted);
 
+  // Choose a primary timer to feature in the big circular display
+  const primaryTimer = useMemo(() => {
+    if (primaryTimerId) return timers.find(t => t.id === primaryTimerId) || null;
+    if (activeTimers.length > 0) return activeTimers[0];
+    if (timers.length > 0) return timers[0];
+    return null;
+  }, [primaryTimerId, activeTimers, timers]);
+
   return (
     <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 ${className}`}>
       <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
         Kitchen Timers
       </h3>
+
+      {/* Large display removed to keep timers inline with steps */}
 
       {/* Create New Timer */}
       <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
@@ -73,21 +83,21 @@ export default function TimerPanel({ className = '' }: TimerPanelProps) {
                        focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-stretch min-w-0">
             <input
               type="text"
               placeholder="5m, 1h 30m, 2:30, etc."
               value={newTimerInput}
               onChange={(e) => setNewTimerInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleCreateTimer()}
-              className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg
+              className="min-w-0 flex-1 shrink px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg
                        bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100
                        focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
             <button
               onClick={handleCreateTimer}
               disabled={!newTimerInput.trim() || parseTimeInput(newTimerInput) <= 0}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700
+              className="flex-none px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700
                        disabled:bg-gray-400 disabled:cursor-not-allowed
                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
                        transition-colors duration-200"
