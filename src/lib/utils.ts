@@ -79,16 +79,32 @@ export function formatDuration(minutes: number): string {
 export function cleanText(text: string): string {
   if (!text) return '';
   
-  return text
-    .replace(/\s+/g, ' ') // Normalize whitespace
-    .replace(/[\r\n\t]/g, ' ') // Remove line breaks and tabs
-    .replace(/&#39;/g, "'") // Decode apostrophe entity
-    .replace(/&quot;/g, '"') // Decode quote entity
-    .replace(/&amp;/g, '&') // Decode ampersand entity
-    .replace(/&lt;/g, '<') // Decode less than entity
-    .replace(/&gt;/g, '>') // Decode greater than entity
-    .replace(/&nbsp;/g, ' ') // Decode non-breaking space
+  // First, normalize whitespace and remove control chars
+  let result = text
+    .replace(/\s+/g, ' ')
+    .replace(/[\r\n\t]/g, ' ')
     .trim();
+
+  // Decode ampersands first to handle double-escaped entities like &amp;#039;
+  result = result.replace(/&amp;/g, '&');
+
+  // Decode numeric entities (decimal and hex)
+  result = result
+    .replace(/&#(\d+);/g, (_, dec: string) => String.fromCharCode(parseInt(dec, 10)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex: string) => String.fromCharCode(parseInt(hex, 16)));
+
+  // Decode common named entities
+  result = result
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lsquo;/g, "'")
+    .replace(/&rsquo;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, ' ');
+
+  return result.trim();
 }
 
 /**
