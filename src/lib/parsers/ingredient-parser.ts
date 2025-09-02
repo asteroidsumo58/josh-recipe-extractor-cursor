@@ -256,8 +256,12 @@ export function extractIngredientNames(ingredients: ParsedIngredient[]): string[
       .replace(/\b(to|–|-)\b/gi, ' '); // range connectors
 
     // Remove common descriptors and preparations
-    name = name.replace(/\b(fresh|dried|frozen|canned|organic|raw|cooked)\b/gi, ' ');
+    name = name.replace(/\b(fresh|freshly|dried|frozen|canned|organic|raw|cooked|ground|coarsely|coarse|finely|cracked)\b/gi, ' ');
     name = name.replace(/\b(all-purpose|whole wheat|self-rising)\b/gi, ' ');
+
+    // Normalize special cases so step text like "salt, pepper" matches
+    name = name.replace(/\b(kosher|sea|table|iodized)\s+salt\b/gi, 'salt');
+    name = name.replace(/\bblack\s+pepper\b/gi, 'pepper');
 
     // Clean punctuation and spaces
     name = name.replace(/[^a-zA-Z\s]/g, ' ');
