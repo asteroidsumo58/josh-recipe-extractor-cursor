@@ -234,15 +234,33 @@ function normalizeUnit(unitStr: string): string | undefined {
  * Extract ingredient names for fuzzy matching
  */
 export function extractIngredientNames(ingredients: ParsedIngredient[]): string[] {
+  // Build a regex for known unit variations
+  const unitPatterns = Array.from(UNIT_LOOKUP.keys())
+    .sort((a, b) => b.length - a.length) // longer first to avoid partials
+    .map(u => u.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    .join('|');
+  const unitRegex = new RegExp(`\\b(${unitPatterns})\\b`, 'gi');
+
+  // Unicode vulgar fraction characters (common ones)
+  const vulgarFractions = /[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]/g;
+
   return ingredients.map(ing => {
     // Use the parsed ingredient name, or fall back to raw text
-    let name = ing.ingredient;
-    
+    let name = ing.ingredient || ing.raw;
+
+    // Drop leading quantities (numbers, ranges, ascii fractions) and vulgar fractions
+    name = name
+      .replace(vulgarFractions, ' ') // replace with space to keep word boundaries
+      .replace(/\b\d+[\d\s\/.\-]*\b/g, ' ') // numbers, ranges, ascii fractions
+      .replace(unitRegex, ' ') // units
+      .replace(/\b(to|–|-)\b/gi, ' '); // range connectors
+
     // Remove common descriptors and preparations
-    name = name.replace(/\b(fresh|dried|frozen|canned|organic|raw|cooked)\b/gi, '');
-    name = name.replace(/\b(all-purpose|whole wheat|self-rising)\b/gi, '');
-    
-    // Clean up extra spaces
+    name = name.replace(/\b(fresh|dried|frozen|canned|organic|raw|cooked)\b/gi, ' ');
+    name = name.replace(/\b(all-purpose|whole wheat|self-rising)\b/gi, ' ');
+
+    // Clean punctuation and spaces
+    name = name.replace(/[^a-zA-Z\s]/g, ' ');
     name = name.replace(/\s+/g, ' ').trim();
     
     return name;
