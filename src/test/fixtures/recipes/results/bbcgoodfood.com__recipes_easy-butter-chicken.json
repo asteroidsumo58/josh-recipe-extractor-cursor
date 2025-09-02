@@ -1,0 +1,211 @@
+{
+  "title": "Easy butter chicken",
+  "description": "Fancy a healthy version of your favourite Friday night curry? Try our easy butter chicken – the meat can be marinaded the day before so you can get ahead on your prep",
+  "author": "Jennifer Joyce",
+  "ingredients": [
+    {
+      "raw": "500g skinless boneless chicken thighs",
+      "ingredient": "skinless boneless chicken thighs",
+      "quantity": 500,
+      "unit": "gram"
+    },
+    {
+      "raw": "1/2-1 lemon (to taste) juiced",
+      "ingredient": "lemon (to taste) juiced",
+      "quantity": 1
+    },
+    {
+      "raw": "2 tsp ground cumin",
+      "ingredient": "ground cumin",
+      "quantity": 2,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "2 tsp paprika",
+      "ingredient": "paprika",
+      "quantity": 2,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "1-2 tsp hot chilli powder",
+      "ingredient": "hot chilli powder",
+      "quantity": "1-2",
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "200g natural yogurt",
+      "ingredient": "natural yogurt",
+      "quantity": 200,
+      "unit": "gram"
+    },
+    {
+      "raw": "2 tbsp vegetable oil",
+      "ingredient": "vegetable oil",
+      "quantity": 2,
+      "unit": "tablespoon"
+    },
+    {
+      "raw": "1 large onion chopped",
+      "ingredient": "onion chopped",
+      "quantity": 1,
+      "unit": "large"
+    },
+    {
+      "raw": "3 garlic cloves crushed",
+      "ingredient": "garlic cloves crushed",
+      "quantity": 3
+    },
+    {
+      "raw": "1 green chilli deseeded and finely chopped (optional)",
+      "ingredient": "green chilli deseeded and finely chopped",
+      "optional": true,
+      "quantity": 1
+    },
+    {
+      "raw": "thumb-sized piece ginger grated",
+      "ingredient": "thumb-sized piece ginger grated"
+    },
+    {
+      "raw": "1 tsp garam masala",
+      "ingredient": "garam masala",
+      "quantity": 1,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "2 tsp ground fenugreek",
+      "ingredient": "ground fenugreek",
+      "quantity": 2,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "3 tbsp tomato purée",
+      "ingredient": "tomato purée",
+      "quantity": 3,
+      "unit": "tablespoon"
+    },
+    {
+      "raw": "300ml chicken stock",
+      "ingredient": "chicken stock",
+      "quantity": 300,
+      "unit": "milliliter"
+    },
+    {
+      "raw": "50g flaked almonds toasted",
+      "ingredient": "flaked almonds toasted",
+      "quantity": 50,
+      "unit": "gram"
+    },
+    {
+      "raw": "cooked basmati rice",
+      "ingredient": "cooked basmati rice"
+    },
+    {
+      "raw": "naan bread",
+      "ingredient": "naan bread"
+    },
+    {
+      "raw": "mango chutney or lime pickle",
+      "ingredient": "mango chutney or lime pickle"
+    },
+    {
+      "raw": "fresh coriander",
+      "ingredient": "fresh coriander"
+    },
+    {
+      "raw": "lime wedges",
+      "ingredient": "lime wedges"
+    }
+  ],
+  "instructions": [
+    {
+      "step": 1,
+      "text": "In a medium bowl, mix all the marinade ingredients with some seasoning. Chop the chicken into bite-sized pieces and toss with the marinade. Cover and chill in the fridge for 1 hr or overnight.",
+      "duration": {
+        "minutes": 60,
+        "display": "1 hour",
+        "iso8601": "PT60M"
+      },
+      "ingredients": [
+        "skinless boneless chicken thighs",
+        "ground cumin",
+        "paprika",
+        "natural yogurt",
+        "vegetable oil",
+        "onion chopped",
+        "garlic crushed",
+        "green chilli deseeded and chopped",
+        "thumb sized ginger grated",
+        "garam masala",
+        "chicken stock",
+        "flaked almonds toasted",
+        "basmati rice",
+        "naan bread",
+        "coriander"
+      ]
+    },
+    {
+      "step": 2,
+      "text": "In a large, heavy saucepan, heat the oil. Add the onion, garlic, green chilli, ginger and some seasoning. Fry on a medium heat for 10 mins or until soft.",
+      "duration": {
+        "minutes": 10,
+        "display": "10 minutes",
+        "iso8601": "PT10M"
+      },
+      "ingredients": [
+        "skinless boneless chicken thighs",
+        "lemon taste juiced",
+        "ground cumin",
+        "paprika",
+        "natural yogurt",
+        "vegetable oil",
+        "onion chopped",
+        "garlic crushed",
+        "green chilli deseeded and chopped",
+        "thumb sized ginger grated",
+        "garam masala",
+        "flaked almonds toasted",
+        "basmati rice",
+        "naan bread",
+        "coriander"
+      ]
+    },
+    {
+      "step": 3,
+      "text": "Add the spices with the tomato purée, cook for a further 2 mins until fragrant, then add the stock and marinated chicken. Cook for 15 mins, then add any remaining marinade left in the bowl. Simmer for 5 mins, then sprinkle with the toasted almonds. Serve with rice, naan bread, chutney, coriander and lime wedges, if you like.",
+      "duration": {
+        "minutes": 2,
+        "display": "2 minutes",
+        "iso8601": "PT2M"
+      },
+      "ingredients": [
+        "skinless boneless chicken thighs",
+        "ground cumin",
+        "paprika",
+        "natural yogurt",
+        "vegetable oil",
+        "garlic crushed",
+        "thumb sized ginger grated",
+        "garam masala",
+        "tomato pur e",
+        "chicken stock",
+        "flaked almonds toasted",
+        "basmati rice",
+        "naan bread",
+        "mango chutney or lime pickle",
+        "coriander",
+        "lime wedges"
+      ]
+    }
+  ],
+  "totalTime": "50 minutes",
+  "prepTime": "15 minutes",
+  "cookTime": "35 minutes",
+  "servings": "4",
+  "images": [
+    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/butter-chicken-cf6f9e2.jpg?resize=440,400"
+  ],
+  "url": "https://www.bbcgoodfood.com/recipes/easy-butter-chicken",
+  "domain": "www.bbcgoodfood.com",
+  "source": "json-ld",
+  "parseTime": 18
+}

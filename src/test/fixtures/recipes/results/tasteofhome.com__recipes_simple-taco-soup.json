@@ -1,0 +1,121 @@
+{
+  "title": "Taco Soup",
+  "description": "Love chili? Give our easy taco soup recipe a try. Filled with ground beef, chiles, beans and stewed tomatoes, this one-pot meal is a snap to put together. Everyone in the family will have fun adding their favorite toppings!",
+  "author": "Kelsey Dimberg",
+  "ingredients": [
+    {
+      "raw": "2 pounds ground beef",
+      "ingredient": "ground beef",
+      "quantity": 2,
+      "unit": "pound"
+    },
+    {
+      "raw": "1 envelope taco seasoning",
+      "ingredient": "envelope taco seasoning",
+      "quantity": 1
+    },
+    {
+      "raw": "1-1/2 cups water",
+      "ingredient": "water",
+      "quantity": 1,
+      "unit": "cup"
+    },
+    {
+      "raw": "1 can (16 ounces) mild chili beans, undrained",
+      "ingredient": "(16 ounces) mild chili beans",
+      "quantity": 1,
+      "unit": "can",
+      "preparation": "undrained"
+    },
+    {
+      "raw": "1 can (15-1/4 ounces) whole kernel corn, drained",
+      "ingredient": "(15-1/4 ounces) whole kernel corn",
+      "quantity": 1,
+      "unit": "can",
+      "preparation": "drained"
+    },
+    {
+      "raw": "1 can (15 ounces) pinto beans, rinsed and drained",
+      "ingredient": "(15 ounces) pinto beans",
+      "quantity": 1,
+      "unit": "can",
+      "preparation": "rinsed and drained"
+    },
+    {
+      "raw": "1 can (14-1/2 ounces) stewed tomatoes",
+      "ingredient": "(14-1/2 ounces) stewed tomatoes",
+      "quantity": 1,
+      "unit": "can"
+    },
+    {
+      "raw": "1 can (10 ounces) diced tomato with green chiles",
+      "ingredient": "(10 ounces) diced tomato with green chiles",
+      "quantity": 1,
+      "unit": "can"
+    },
+    {
+      "raw": "1 can (4 ounces) chopped green chiles, optional",
+      "ingredient": "(4 ounces) chopped green chiles,",
+      "optional": true,
+      "quantity": 1,
+      "unit": "can"
+    },
+    {
+      "raw": "1 envelope ranch salad dressing mix",
+      "ingredient": "envelope ranch salad dressing mix",
+      "quantity": 1
+    },
+    {
+      "raw": "Optional: Sour cream and green onions",
+      "ingredient": ": Sour cream and green onions"
+    }
+  ],
+  "instructions": [
+    {
+      "step": 1,
+      "text": "In a Dutch oven, cook the beef over medium heat until it is no longer pink, breaking it into crumbles with a wooden spoon or spatula as it cooks. Drain some or all the excess fat. Add the taco seasoning to the beef and mix well.",
+      "ingredients": [
+        "ground beef",
+        "envelope taco seasoning",
+        "water",
+        "pinto beans",
+        "stewed tomatoes",
+        "envelope ranch salad dressing mix"
+      ]
+    },
+    {
+      "step": 2,
+      "text": "Stir in the water, beans, corn, tomatoes and optional chiles. Stir in the ranch dressing mix. Bring the mixture to a boil, then reduce the heat. Simmer, uncovered, stirring occasionally for 15 minutes or until heated through.",
+      "duration": {
+        "minutes": 15,
+        "display": "15 minutes",
+        "iso8601": "PT15M"
+      },
+      "ingredients": [
+        "envelope taco seasoning",
+        "water",
+        "pinto beans",
+        "stewed tomatoes",
+        "envelope ranch salad dressing mix"
+      ]
+    },
+    {
+      "step": 3,
+      "text": "Serve the soup. If desired, garnish bowls with sour cream and green onions.",
+      "ingredients": [
+        "Sour cream and green onions"
+      ]
+    }
+  ],
+  "totalTime": "25 minutes",
+  "prepTime": "5 minutes",
+  "cookTime": "20 minutes",
+  "servings": "8 servings (about 2 quarts)",
+  "images": [
+    "https://www.tasteofhome.com/wp-content/uploads/2025/01/Simple-Taco-Soup_EXPS_FT24_8202_EC_020824_4.jpg"
+  ],
+  "url": "https://www.tasteofhome.com/recipes/simple-taco-soup/",
+  "domain": "www.tasteofhome.com",
+  "source": "json-ld",
+  "parseTime": 0
+}

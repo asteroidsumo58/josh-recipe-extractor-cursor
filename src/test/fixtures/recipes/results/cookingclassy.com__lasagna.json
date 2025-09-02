@@ -1,0 +1,355 @@
+{
+  "title": "Lasagna",
+  "description": "Perfect homemade lasagna layered with tender pasta, beefy flavorful marinara sauce and plenty of cheeses! Comfort food at it's best!",
+  "author": "",
+  "ingredients": [
+    {
+      "raw": "1 lb lean ground beef",
+      "ingredient": "lean ground beef",
+      "quantity": 1,
+      "unit": "pound"
+    },
+    {
+      "raw": "12 oz Italian sausage",
+      "ingredient": "Italian sausage",
+      "quantity": 12,
+      "unit": "ounce"
+    },
+    {
+      "raw": "2 Tbsp extra virgin olive oil (, divided)",
+      "ingredient": "extra virgin olive oil (",
+      "quantity": 2,
+      "unit": "tablespoon",
+      "preparation": "divided)"
+    },
+    {
+      "raw": "Salt and freshly ground black pepper",
+      "ingredient": "Salt and freshly ground black pepper"
+    },
+    {
+      "raw": "1/3 cup finely chopped yellow onion",
+      "ingredient": "finely chopped yellow onion",
+      "quantity": "1/3",
+      "unit": "cup"
+    },
+    {
+      "raw": "2 cloves garlic (, finely minced)",
+      "ingredient": "garlic (",
+      "quantity": 2,
+      "unit": "clove",
+      "preparation": "finely minced)"
+    },
+    {
+      "raw": "2 (29 oz) cans tomato puree",
+      "ingredient": "(29 oz) cans tomato puree",
+      "quantity": 2
+    },
+    {
+      "raw": "1 (6 oz) can tomato paste",
+      "ingredient": "(6 oz) can tomato paste",
+      "quantity": 1
+    },
+    {
+      "raw": "1 Tbsp granulated sugar",
+      "ingredient": "granulated sugar",
+      "quantity": 1,
+      "unit": "tablespoon"
+    },
+    {
+      "raw": "1 Tbsp dried basil",
+      "ingredient": "dried basil",
+      "quantity": 1,
+      "unit": "tablespoon"
+    },
+    {
+      "raw": "1 tsp dried fennel seeds (, crushed)",
+      "ingredient": "dried fennel seeds (",
+      "quantity": 1,
+      "unit": "teaspoon",
+      "preparation": "crushed)"
+    },
+    {
+      "raw": "3/4 tsp dried oregano",
+      "ingredient": "dried oregano",
+      "quantity": "3/4",
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "1/2 tsp dried thyme",
+      "ingredient": "dried thyme",
+      "quantity": "1/2",
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "1/2 tsp dried marjoram",
+      "ingredient": "dried marjoram",
+      "quantity": "1/2",
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "16 oz lasagna noodles",
+      "ingredient": "lasagna noodles",
+      "quantity": 16,
+      "unit": "ounce"
+    },
+    {
+      "raw": "15 oz part-skim Ricotta cheese",
+      "ingredient": "part-skim Ricotta cheese",
+      "quantity": 15,
+      "unit": "ounce"
+    },
+    {
+      "raw": "1 large egg",
+      "ingredient": "egg",
+      "quantity": 1,
+      "unit": "large"
+    },
+    {
+      "raw": "1 1/2 tsp dried parsley",
+      "ingredient": "dried parsley",
+      "quantity": "1 1/2",
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "16 oz whole milk mozzarella (, shredded (4 cups))",
+      "ingredient": "whole milk mozzarella (",
+      "quantity": 16,
+      "unit": "ounce",
+      "preparation": "shredded (4 cups))"
+    },
+    {
+      "raw": "2 oz Parmesan cheese (, finely shredded (packed 1/2 cup))",
+      "ingredient": "Parmesan cheese (",
+      "quantity": 2,
+      "unit": "ounce",
+      "preparation": "finely shredded (packed 1/2 cup))"
+    },
+    {
+      "raw": "2 oz Romano cheese (, finely shredded (packed 1/2 cup), plus more for serving)",
+      "ingredient": "Romano cheese (",
+      "quantity": 2,
+      "unit": "ounce",
+      "preparation": "finely shredded (packed 1/2 cup), plus more for serving)"
+    }
+  ],
+  "instructions": [
+    {
+      "step": 1,
+      "text": "Heat 1 Tbsp olive oil in a large enameled cast iron pot over medium-high heat. Once oil is hot, crumble beef and sausage into pot, season lightly with salt and pepper and cook, stirring occasionally until browned and cooked through.",
+      "ingredients": [
+        "lean ground beef",
+        "Italian sausage",
+        "extra virgin olive oil",
+        "Salt and ground pepper",
+        "garlic",
+        "tomato puree",
+        "tomato paste",
+        "granulated sugar",
+        "basil",
+        "oregano",
+        "marjoram",
+        "lasagna noodles",
+        "part skim Ricotta cheese",
+        "parsley",
+        "Parmesan cheese",
+        "Romano cheese"
+      ]
+    },
+    {
+      "step": 2,
+      "text": "Remove from heat and drain into a large bowl lined with plenty of paper towels. Pour drained beef and sausage into a food processor and pulse mixture about 10 - 15 seconds until ground into small pieces, set aside.",
+      "duration": {
+        "minutes": 0,
+        "display": "0 minutes",
+        "iso8601": "PT0M"
+      },
+      "ingredients": [
+        "lean ground beef",
+        "Italian sausage",
+        "Salt and ground pepper",
+        "garlic",
+        "tomato puree",
+        "tomato paste",
+        "granulated sugar",
+        "basil",
+        "oregano",
+        "marjoram",
+        "lasagna noodles",
+        "part skim Ricotta cheese",
+        "parsley",
+        "Parmesan cheese",
+        "Romano cheese"
+      ]
+    },
+    {
+      "step": 3,
+      "text": "Return pot to medium-high heat, add in remaining 1 Tbsp olive oil. Once oil is hot, add onion and saute until golden, about 2 - 3 minutes, adding garlic during the last 30 seconds of sauteing.",
+      "duration": {
+        "minutes": 4,
+        "display": "4 minutes",
+        "iso8601": "PT4M"
+      },
+      "ingredients": [
+        "extra virgin olive oil",
+        "garlic",
+        "tomato puree",
+        "tomato paste"
+      ]
+    },
+    {
+      "step": 4,
+      "text": "Add tomato puree, tomato paste, sugar, basil, crushed fennel seeds, oregano, thyme, marjoram, then season with 1 tsp salt and more to taste and 1/4 tsp freshly ground black pepper. Add cooked meat.",
+      "ingredients": [
+        "Salt and ground pepper",
+        "tomato puree",
+        "tomato paste",
+        "granulated sugar",
+        "basil",
+        "fennel seeds",
+        "oregano",
+        "thyme",
+        "marjoram"
+      ]
+    },
+    {
+      "step": 5,
+      "text": "Bring mixture to a simmer, then reduce heat to low and simmer uncovered 45 minutes - 1 hour, stirring occasionally, until sauce has reduced and thickened slightly.",
+      "duration": {
+        "minutes": 105,
+        "display": "1 hour 45 minutes",
+        "iso8601": "PT105M"
+      },
+      "ingredients": [
+        "Italian sausage",
+        "Salt and ground pepper",
+        "garlic",
+        "tomato puree",
+        "tomato paste",
+        "granulated sugar",
+        "basil",
+        "oregano",
+        "marjoram",
+        "lasagna noodles",
+        "part skim Ricotta cheese",
+        "parsley",
+        "Parmesan cheese",
+        "Romano cheese"
+      ]
+    },
+    {
+      "step": 6,
+      "text": "Cook pasta to al dente according to directions listed on package (now is a good time to shred cheese). Drain pasta (do not rinse) and once cool enough to handle, align noodles in a single layer on sheets of wax paper (you can also hang some of them over the colander used to strain pasta).",
+      "ingredients": [
+        "Italian sausage",
+        "extra virgin olive oil",
+        "Salt and ground pepper",
+        "garlic",
+        "tomato puree",
+        "tomato paste",
+        "granulated sugar",
+        "basil",
+        "oregano",
+        "marjoram",
+        "lasagna noodles",
+        "part skim Ricotta cheese",
+        "parsley",
+        "Parmesan cheese",
+        "Romano cheese"
+      ]
+    },
+    {
+      "step": 7,
+      "text": "In a mixing bowl using a fork, blend together Ricotta cheese, egg and parsley, set aside. In a mixing bowl or large ziploc bag, toss together mozzarella, Parmesan and Romano cheese, set aside.",
+      "ingredients": [
+        "Italian sausage",
+        "extra virgin olive oil",
+        "Salt and ground pepper",
+        "garlic",
+        "tomato puree",
+        "tomato paste",
+        "granulated sugar",
+        "basil",
+        "oregano",
+        "marjoram",
+        "lasagna noodles",
+        "part skim Ricotta cheese",
+        "egg",
+        "parsley",
+        "Parmesan cheese",
+        "Romano cheese"
+      ]
+    },
+    {
+      "step": 8,
+      "text": "Preheat oven to 350 degrees. To assemble lasagna, evenly spread 1 cup ground beef pasta sauce into the bottom of a 13 x 9-inch baking dish. Align 4 - 5* lasagna noodles over sauce. Spread 1/3 of the ricotta mixture over lasagna noodle layer (it will be a thin layer) then sprinkle 1/4 of the mozzarela cheese mixture into an even layer.",
+      "ingredients": [
+        "lean ground beef",
+        "Italian sausage",
+        "Salt and ground pepper",
+        "garlic",
+        "tomato puree",
+        "tomato paste",
+        "granulated sugar",
+        "basil",
+        "oregano",
+        "marjoram",
+        "lasagna noodles",
+        "part skim Ricotta cheese",
+        "parsley",
+        "Parmesan cheese",
+        "Romano cheese"
+      ]
+    },
+    {
+      "step": 9,
+      "text": "Dollop and spread 1 1/2 cups pasta sauce evenly over cheese, then repeat this layering process 2 more times. Finish top with 1 more layer of 4 - 5 lasagna noodles, then spread 1/2 cup pasta sauce over top of noodles and sprinkle with remaining mozzarella cheese mixture. Tent baking dish with foil (don't allow foil to touch cheese on top.",
+      "ingredients": [
+        "tomato puree",
+        "tomato paste",
+        "lasagna noodles",
+        "Parmesan cheese",
+        "Romano cheese"
+      ]
+    },
+    {
+      "step": 10,
+      "text": "Also if you may want to rest it on a baking sheet if it's looking very full in the baking dish to prevent it from spilling over) and bake in preheated oven 35 minutes, then remove foil and bake uncovered for 15 minutes. Serve warm garnished with additional Romano cheese and fresh parsley or basil if desired.",
+      "duration": {
+        "minutes": 35,
+        "display": "35 minutes",
+        "iso8601": "PT35M"
+      },
+      "ingredients": [
+        "Italian sausage",
+        "extra virgin olive oil",
+        "Salt and ground pepper",
+        "garlic",
+        "tomato puree",
+        "tomato paste",
+        "granulated sugar",
+        "basil",
+        "oregano",
+        "marjoram",
+        "lasagna noodles",
+        "part skim Ricotta cheese",
+        "parsley",
+        "Parmesan cheese",
+        "Romano cheese"
+      ]
+    }
+  ],
+  "totalTime": "2 hours 25 minutes",
+  "prepTime": "35 minutes",
+  "cookTime": "1 hour 50 minutes",
+  "servings": "15",
+  "images": [
+    "https://www.cookingclassy.com/wp-content/uploads/2013/03/lasagna15.jpg",
+    "https://www.cookingclassy.com/wp-content/uploads/2013/03/lasagna15-500x500.jpg",
+    "https://www.cookingclassy.com/wp-content/uploads/2013/03/lasagna15-500x375.jpg",
+    "https://www.cookingclassy.com/wp-content/uploads/2013/03/lasagna15-480x270.jpg"
+  ],
+  "url": "https://www.cookingclassy.com/lasagna/",
+  "domain": "www.cookingclassy.com",
+  "source": "json-ld",
+  "parseTime": 2
+}

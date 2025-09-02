@@ -13,6 +13,9 @@
 - [x] **Step 10**: Create HTML fixtures and unit/e2e tests for parsing and UI
 - [x] **Step 11**: Add accessibility, error handling, dark mode polish, and README
 - [x] **Step 12**: Deploy to Vercel and fix production issues
+- [x] **Step 13**: Add 50+ recipe snapshots and batch E2E tests
+- [x] **Step 14**: Add automated audit (JSON/Markdown) and one-command pipeline
+- [x] **Step 15**: Improve ingredient name extraction and inline reference matching
 
 ## Top Priority 🔥
 1. **Fix remaining runtime issues** - Address any remaining edge cases in recipe parsing
@@ -20,6 +23,7 @@
 3. **Improve timer audio compatibility** - Cross-browser audio notification support
 4. **Add loading states** - Better UX for slow recipe parsing operations
 5. **Optimize image handling** - Loading states and fallback for broken images
+6. **HTML heuristics** - Improve fallback selectors for sites without structured data
 
 ## Future Enhancements 💡
 - [ ] Manual recipe entry for sites without structured data
@@ -88,7 +92,7 @@
 - [x] Improved inline ingredient matching (salt/pepper normalization, vulgar fractions support)
 
 ## Production Ready ✅
-**Recipe Extractor v1.1** - Fully functional and deployed with comprehensive features:
+**Recipe Extractor v1.2** - Fully functional and deployed with comprehensive features:
 - ✅ Smart recipe parsing (JSON-LD, Microdata, HTML heuristics)
 - ✅ Dynamic recipe scaling with intelligent quantity adjustment
 - ✅ Built-in kitchen timers with auto-detection
@@ -96,7 +100,7 @@
 - ✅ **Dark/Light Mode Toggle** with smooth transitions and persistence
 - ✅ Mobile-optimized responsive design
 - ✅ Full accessibility compliance (WCAG 2.1 AA)
-- ✅ Comprehensive test suite (60+ tests, 70% coverage)
+- ✅ Comprehensive test suite (62+ tests, 70% coverage)
 - ✅ Performance optimizations (caching, memoization)
 - ✅ Professional documentation and deployment guides
 - ✅ **LIVE DEPLOYMENT** - Successfully deployed to Vercel

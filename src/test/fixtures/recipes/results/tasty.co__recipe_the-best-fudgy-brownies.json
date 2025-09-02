@@ -1,0 +1,131 @@
+{
+  "title": "The Best Fudgy Brownies Recipe by Tasty",
+  "description": "Why settle for box mix brownies when you can make the ultimate fudgy ones at home? This delectable recipe combines the rich flavors of cocoa powder, melted semi-sweet chocolate, and generous chunks of chocolate for the fudgiest results. They're made with basic pantry staples, come together fast, and kick box mix brownies to the curb. We bet you already have everything you need in your kitchen right now! The steps are simple, and no mixer is required, ensuring that even novice bakers can achieve mouthwatering results. Get ready; these irresistibly gooey, chocolaty brownies will disappear in minutes. We guarantee it!",
+  "author": "Alvin Zhou",
+  "ingredients": [
+    {
+      "raw": "8 oz good-quality chocolate, semi-sweet",
+      "ingredient": "good-quality chocolate",
+      "quantity": 8,
+      "unit": "ounce",
+      "preparation": "semi-sweet"
+    },
+    {
+      "raw": "12 tablespoons butter, melted",
+      "ingredient": "butter",
+      "quantity": 12,
+      "unit": "tablespoon",
+      "preparation": "melted"
+    },
+    {
+      "raw": "1 ¼ cups sugar",
+      "ingredient": "¼ cups sugar",
+      "quantity": 1
+    },
+    {
+      "raw": "2 eggs",
+      "ingredient": "eggs",
+      "quantity": 2
+    },
+    {
+      "raw": "2 teaspoons vanilla extract",
+      "ingredient": "vanilla extract",
+      "quantity": 2,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "¾ cup all-purpose flour",
+      "ingredient": "¾ cup all-purpose flour"
+    },
+    {
+      "raw": "¼ cup cocoa powder",
+      "ingredient": "¼ cup cocoa powder"
+    },
+    {
+      "raw": "1 teaspoon salt",
+      "ingredient": "salt",
+      "quantity": 1,
+      "unit": "teaspoon"
+    }
+  ],
+  "instructions": [
+    {
+      "step": 1,
+      "text": "Preheat the oven to 350°F (180°C). Line an 8-inch (20 cm) square baking dish with parchment paper.",
+      "ingredients": [
+        "vanilla extract"
+      ]
+    },
+    {
+      "step": 2,
+      "text": "Chop the chocolate into chunks. Melt half of the chocolate in the microwave in 20-second intervals, saving the other half for later."
+    },
+    {
+      "step": 3,
+      "text": "In a large bowl, mix the butter and sugar with an electric hand mixer, then beat in the eggs and vanilla for 1-2 minutes, until the mixture becomes fluffy and light in color.",
+      "duration": {
+        "minutes": 2,
+        "display": "2 minutes",
+        "iso8601": "PT2M"
+      },
+      "ingredients": [
+        "good quality chocolate",
+        "butter",
+        "sugar",
+        "eggs",
+        "vanilla extract",
+        "cocoa powder",
+        "salt"
+      ]
+    },
+    {
+      "step": 4,
+      "text": "Whisk in the melted chocolate (make sure it's not too hot or else the eggs will cook), then sift in the flour, cocoa powder, and salt. Fold to incorporate the dry ingredients, being careful not to overmix as this will cause the brownies to be more cake-like in texture.",
+      "ingredients": [
+        "eggs",
+        "flour",
+        "cocoa powder",
+        "salt"
+      ]
+    },
+    {
+      "step": 5,
+      "text": "Fold in the chocolate chunks, then transfer the batter to the prepared baking dish."
+    },
+    {
+      "step": 6,
+      "text": "Bake for 20-25 minutes, depending on how fudgy you like your brownies, then cool completely.",
+      "duration": {
+        "minutes": 25,
+        "display": "25 minutes",
+        "iso8601": "PT25M"
+      }
+    },
+    {
+      "step": 7,
+      "text": "Slice, then serve with a nice cold glass of milk!",
+      "ingredients": [
+        "good quality chocolate",
+        "sugar",
+        "vanilla extract",
+        "cocoa powder",
+        "salt"
+      ]
+    },
+    {
+      "step": 8,
+      "text": "Enjoy!"
+    }
+  ],
+  "totalTime": "45 minutes",
+  "prepTime": "15 minutes",
+  "cookTime": "30 minutes",
+  "servings": "9 servings",
+  "images": [
+    "https://img.buzzfeed.com/video-api-prod/assets/fafe8090b4f3434f80c33b6e4ce40e24/BFV21539_BestFudgyBrownies-ThumbB1080.jpg?resize=1200:*"
+  ],
+  "url": "https://www.tasty.co/recipe/the-best-fudgy-brownies",
+  "domain": "www.tasty.co",
+  "source": "json-ld",
+  "parseTime": 0
+}

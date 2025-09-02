@@ -103,8 +103,8 @@ function normalizeJsonLdRecipe(jsonLd: JsonLdRecipe, url: string, domain: string
       author = jsonLd.author;
     } else if (Array.isArray(jsonLd.author)) {
       author = jsonLd.author[0]?.name || '';
-    } else if (jsonLd.author.name) {
-      author = jsonLd.author.name;
+    } else if ((jsonLd.author as any).name) {
+      author = (jsonLd.author as any).name;
     }
   }
   
@@ -196,10 +196,32 @@ function extractInstructions(
 ): RecipeInstruction[] {
   if (!Array.isArray(instructionData)) return [];
 
+  // Handle HowToSection with itemListElement nesting by flattening first
+  const flatten = (data: unknown[]): Array<string | Record<string, unknown>> => {
+    const out: Array<string | Record<string, unknown>> = [];
+    for (const item of data) {
+      if (item && typeof item === 'object') {
+        const obj = item as Record<string, unknown>;
+        // If it has itemListElement, expand
+        if (Array.isArray(obj.itemListElement)) {
+          out.push(...flatten(obj.itemListElement as unknown[]));
+          continue;
+        }
+      }
+      out.push(item as any);
+    }
+    return out;
+  };
+
+  const flatInstructions = flatten(instructionData);
+
   // Extract ingredient names for fuzzy matching
   const ingredientNames = extractIngredientNames(ingredients);
 
-  return instructionData.map((instruction, index) => {
+  // Slightly lower threshold to better capture common references
+  const MATCH_THRESHOLD = 0.5;
+
+  return flatInstructions.map((instruction, index) => {
     let text = '';
 
     if (typeof instruction === 'string') {
@@ -210,6 +232,9 @@ function extractInstructions(
         text = cleanText(instrObj.text);
       } else if (typeof instrObj.name === 'string') {
         text = cleanText(instrObj.name);
+      } else if (typeof instrObj['@type'] === 'string' && typeof instrObj['description'] === 'string') {
+        // Some HowToStep objects use 'description'
+        text = cleanText(instrObj['description'] as string);
       }
     }
 
@@ -217,7 +242,7 @@ function extractInstructions(
     const duration = parseDuration(text);
 
     // Find ingredients mentioned in this step
-    const stepIngredients = findIngredientsInStep(text, ingredientNames);
+    const stepIngredients = findIngredientsInStep(text, ingredientNames, MATCH_THRESHOLD);
 
     return {
       step: index + 1,

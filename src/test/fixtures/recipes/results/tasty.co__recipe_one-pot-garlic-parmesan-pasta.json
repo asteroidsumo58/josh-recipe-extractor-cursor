@@ -1,0 +1,138 @@
+{
+  "title": "One-Pot Garlic Parmesan Pasta Recipe by Tasty",
+  "description": "This delicious one-pot pasta dish is a godsend for busy evenings when you crave a satisfying meal without the hassle of cooking and cleanup. In a single pot, you sauté garlic until golden and aromatic, then add the chicken broth, milk, and fettuccine and let the magic happen. As the pasta simmers, it soaks up the flavors of the garlicky broth, making it super tasty. Once the pasta is tender, generous handfuls of grated Parmesan cheese are stirred into the dish, adding a luxurious touch. It's a mouthwatering combination of flavors and textures that kids and adults adore, making it a surefire hit at the dinner table.",
+  "author": "Tasty",
+  "ingredients": [
+    {
+      "raw": "2 tablespoons unsalted butter",
+      "ingredient": "unsalted butter",
+      "quantity": 2,
+      "unit": "tablespoon"
+    },
+    {
+      "raw": "4 cloves garlic, minced",
+      "ingredient": "garlic",
+      "quantity": 4,
+      "unit": "clove",
+      "preparation": "minced"
+    },
+    {
+      "raw": "2 cups chicken broth",
+      "ingredient": "chicken broth",
+      "quantity": 2,
+      "unit": "cup"
+    },
+    {
+      "raw": "1 cup milk",
+      "ingredient": "milk",
+      "quantity": 1,
+      "unit": "cup"
+    },
+    {
+      "raw": "8 oz fettuccine",
+      "ingredient": "fettuccine",
+      "quantity": 8,
+      "unit": "ounce"
+    },
+    {
+      "raw": "salt, to taste",
+      "ingredient": "salt, to taste"
+    },
+    {
+      "raw": "pepper, to taste",
+      "ingredient": "pepper, to taste"
+    },
+    {
+      "raw": "¼ cup grated parmesan cheese",
+      "ingredient": "¼ cup grated parmesan cheese"
+    },
+    {
+      "raw": "2 tablespoons fresh parsley, chopped",
+      "ingredient": "fresh parsley",
+      "quantity": 2,
+      "unit": "tablespoon",
+      "preparation": "chopped"
+    }
+  ],
+  "instructions": [
+    {
+      "step": 1,
+      "text": "Heat unsalted butter in a large skillet over medium high heat. Add garlic and cook, stirring frequently, until fragrant, about 1-2 minutes.",
+      "duration": {
+        "minutes": 2,
+        "display": "2 minutes",
+        "iso8601": "PT2M"
+      },
+      "ingredients": [
+        "unsalted butter",
+        "garlic",
+        "fettuccine",
+        "salt taste",
+        "pepper taste",
+        "grated parmesan cheese",
+        "parsley"
+      ]
+    },
+    {
+      "step": 2,
+      "text": "Add in the chicken broth, milk, and fettuccine. Season with salt and pepper.",
+      "ingredients": [
+        "unsalted butter",
+        "chicken broth",
+        "milk",
+        "fettuccine",
+        "salt taste",
+        "pepper taste"
+      ]
+    },
+    {
+      "step": 3,
+      "text": "Bring the pot to a boil, then reduce heat and simmer, stirring occasionally, until pasta is cooked through, about 18-20 minutes.",
+      "duration": {
+        "minutes": 20,
+        "display": "20 minutes",
+        "iso8601": "PT20M"
+      },
+      "ingredients": [
+        "unsalted butter",
+        "garlic",
+        "salt taste",
+        "pepper taste",
+        "grated parmesan cheese",
+        "parsley"
+      ]
+    },
+    {
+      "step": 4,
+      "text": "Stir in Parmesan. If the mixture is too thick, add more milk as needed until desired consistency is reached.",
+      "ingredients": [
+        "milk",
+        "fettuccine",
+        "salt taste",
+        "pepper taste"
+      ]
+    },
+    {
+      "step": 5,
+      "text": "Serve immediately, and top with parsley.",
+      "ingredients": [
+        "parsley"
+      ]
+    },
+    {
+      "step": 6,
+      "text": "Enjoy!"
+    }
+  ],
+  "totalTime": "32 minutes",
+  "prepTime": "10 minutes",
+  "cookTime": "22 minutes",
+  "servings": "4 servings",
+  "images": [
+    "https://img.buzzfeed.com/thumbnailer-prod-us-east-1/f69a7f4192b94d8395757b365ac6d866/GarlicParmPasta.jpg?resize=1200:*"
+  ],
+  "url": "https://www.tasty.co/recipe/one-pot-garlic-parmesan-pasta",
+  "domain": "www.tasty.co",
+  "source": "json-ld",
+  "parseTime": 0
+}

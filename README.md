@@ -103,15 +103,37 @@ npm run test:watch
 
 # CI-optimized test run
 npm run test:ci
+
+# Fetch 50+ recipe snapshots (offline fixtures)
+npm run fetch:recipes
+
+# Batch-parse all snapshots via API route	n
+npm run test:recipes
+
+# Generate JSON/Markdown audit reports
+npm run audit:recipes
+
+# One-command refresh + audit pipeline
+npm run pipeline:recipes
 ```
 
 ### Test Coverage
 The project maintains comprehensive test coverage with:
-- **60 test cases** across 5 test files
+- **62 test cases** across 7 test files
 - **Unit tests** for all parsing and scaling logic
 - **E2E tests** for complete API integration
 - **HTML fixtures** for network-free testing
+- **Batch recipe suite** for 50+ real-world snapshots
+- **Audit reports** (JSON/Markdown) summarizing successes/failures by domain and feature coverage
 - **Coverage thresholds** set to 70% across all metrics
+
+### Snapshot & Audit Workflow
+- Snapshots are saved to `src/test/fixtures/recipes/*.html` with an auto-generated `index.json`.
+- Batch suite (`src/test/e2e-batch-recipes.test.ts`) mocks network using snapshots and exercises the real API.
+- Audit suite (`src/test/e2e-audit.test.ts`) writes:
+  - Per-recipe JSON outputs to `src/test/fixtures/recipes/results/*.json`
+  - Aggregate `report.json` and `report.md` to `src/test/fixtures/recipes/`
+- Anti-bot/placeholder pages may parse as failures; use the audit to focus parser improvements on real gaps.
 
 ## 🏗️ Architecture
 

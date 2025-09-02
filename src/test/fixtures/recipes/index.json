@@ -1,0 +1,406 @@
+{
+  "generatedAt": "2025-09-02T00:53:30.103Z",
+  "count": 50,
+  "entries": [
+    {
+      "url": "https://downshiftology.com/recipes/mediterranean-ground-beef-stir-fry/",
+      "file": "downshiftology.com__recipes_mediterranean-ground-beef-stir-fry.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 674485
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/240208/homemade-black-bean-veggie-burgers/",
+      "file": "allrecipes.com__recipe_240208_homemade-black-bean-veggie-burgers.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html;charset=utf-8",
+      "bytes": 156586
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/229960/chef-johns-buttermilk-fried-chicken/",
+      "file": "allrecipes.com__recipe_229960_chef-johns-buttermilk-fried-chicken.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html;charset=utf-8",
+      "bytes": 156586
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/24074/alysias-basic-meat-lasagna/",
+      "file": "allrecipes.com__recipe_24074_alysias-basic-meat-lasagna.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html;charset=utf-8",
+      "bytes": 607620
+    },
+    {
+      "url": "https://www.allrecipes.com/recipe/222247/chef-johns-chicken-parmesan/",
+      "file": "allrecipes.com__recipe_222247_chef-johns-chicken-parmesan.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html;charset=utf-8",
+      "bytes": 156586
+    },
+    {
+      "url": "https://www.seriouseats.com/creamy-stovetop-macaroni-and-cheese-recipe",
+      "file": "seriouseats.com__creamy-stovetop-macaroni-and-cheese-recipe.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html;charset=utf-8",
+      "bytes": 147520
+    },
+    {
+      "url": "https://www.seriouseats.com/classic-roast-chicken-recipe",
+      "file": "seriouseats.com__classic-roast-chicken-recipe.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html;charset=utf-8",
+      "bytes": 147398
+    },
+    {
+      "url": "https://www.bonappetit.com/recipe/bas-best-chocolate-chip-cookies",
+      "file": "bonappetit.com__recipe_bas-best-chocolate-chip-cookies.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 804037
+    },
+    {
+      "url": "https://www.simplyrecipes.com/recipes/perfect_guacamole/",
+      "file": "simplyrecipes.com__recipes_perfect_guacamole.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html;charset=utf-8",
+      "bytes": 386433
+    },
+    {
+      "url": "https://www.simplyrecipes.com/recipes/classic_beef_chili/",
+      "file": "simplyrecipes.com__recipes_classic_beef_chili.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html;charset=utf-8",
+      "bytes": 132457
+    },
+    {
+      "url": "https://downshiftology.com/recipes/lemon-garlic-baked-salmon/",
+      "file": "downshiftology.com__recipes_lemon-garlic-baked-salmon.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 268276
+    },
+    {
+      "url": "https://www.epicurious.com/recipes/food/views/classic-pancakes-51220220",
+      "file": "epicurious.com__recipes_food_views_classic-pancakes-51220220.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 455011
+    },
+    {
+      "url": "https://www.bonappetit.com/recipe/spaghetti-aglio-e-olio-2",
+      "file": "bonappetit.com__recipe_spaghetti-aglio-e-olio-2.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 481846
+    },
+    {
+      "url": "https://www.delish.com/cooking/recipe-ideas/a19665234/best-lasagna-recipe/",
+      "file": "delish.com__cooking_recipe-ideas_a19665234_best-lasagna-recipe.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 193736
+    },
+    {
+      "url": "https://www.epicurious.com/recipes/food/views/perfect-roast-turkey-51207010",
+      "file": "epicurious.com__recipes_food_views_perfect-roast-turkey-51207010.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 455055
+    },
+    {
+      "url": "https://www.recipetineats.com/beef-stroganoff/",
+      "file": "recipetineats.com__beef-stroganoff.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 471560
+    },
+    {
+      "url": "https://www.recipetineats.com/garlic-sauteed-green-beans/",
+      "file": "recipetineats.com__garlic-sauteed-green-beans.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 472691
+    },
+    {
+      "url": "https://www.delish.com/cooking/recipe-ideas/a19665918/best-banana-bread-recipe/",
+      "file": "delish.com__cooking_recipe-ideas_a19665918_best-banana-bread-recipe.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 468408
+    },
+    {
+      "url": "https://www.cookingclassy.com/chicken-alfredo/",
+      "file": "cookingclassy.com__chicken-alfredo.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 347385
+    },
+    {
+      "url": "https://www.loveandlemons.com/banana-bread/",
+      "file": "loveandlemons.com__banana-bread.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 572753
+    },
+    {
+      "url": "https://www.cookingclassy.com/lasagna/",
+      "file": "cookingclassy.com__lasagna.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 366001
+    },
+    {
+      "url": "https://www.loveandlemons.com/cauliflower-tacos/",
+      "file": "loveandlemons.com__cauliflower-tacos.html",
+      "status": 406,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 541563
+    },
+    {
+      "url": "https://www.inspiredtaste.net/31762/garlic-butter-baked-salmon/",
+      "file": "inspiredtaste.net__31762_garlic-butter-baked-salmon.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "image/jpeg",
+      "bytes": 91931
+    },
+    {
+      "url": "https://www.inspiredtaste.net/38859/easy-homemade-pizza-dough-recipe/",
+      "file": "inspiredtaste.net__38859_easy-homemade-pizza-dough-recipe.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 241839
+    },
+    {
+      "url": "https://pinchofyum.com/the-best-soft-chocolate-chip-cookies",
+      "file": "pinchofyum.com__the-best-soft-chocolate-chip-cookies.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 752605
+    },
+    {
+      "url": "https://sallysbakingaddiction.com/homemade-pizza/",
+      "file": "sallysbakingaddiction.com__homemade-pizza.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 593081
+    },
+    {
+      "url": "https://sallysbakingaddiction.com/my-favorite-banana-bread/",
+      "file": "sallysbakingaddiction.com__my-favorite-banana-bread.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 406705
+    },
+    {
+      "url": "https://www.thekitchn.com/how-to-cook-chicken-breasts-in-the-oven-98389",
+      "file": "thekitchn.com__how-to-cook-chicken-breasts-in-the-oven-98389.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 172948
+    },
+    {
+      "url": "https://www.gimmesomeoven.com/best-chicken-enchiladas-ever/",
+      "file": "gimmesomeoven.com__best-chicken-enchiladas-ever.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 392982
+    },
+    {
+      "url": "https://pinchofyum.com/garlic-butter-baked-salmon",
+      "file": "pinchofyum.com__garlic-butter-baked-salmon.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 121041
+    },
+    {
+      "url": "https://www.thekitchn.com/how-to-cook-perfect-rice-227490",
+      "file": "thekitchn.com__how-to-cook-perfect-rice-227490.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 498567
+    },
+    {
+      "url": "https://minimalistbaker.com/the-best-vegan-biscuits/",
+      "file": "minimalistbaker.com__the-best-vegan-biscuits.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 264322
+    },
+    {
+      "url": "https://minimalistbaker.com/creamy-vegan-tomato-soup/",
+      "file": "minimalistbaker.com__creamy-vegan-tomato-soup.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 264332
+    },
+    {
+      "url": "https://www.budgetbytes.com/creamy-tomato-pasta/",
+      "file": "budgetbytes.com__creamy-tomato-pasta.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 356842
+    },
+    {
+      "url": "https://www.budgetbytes.com/oven-baked-frittata/",
+      "file": "budgetbytes.com__oven-baked-frittata.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 356842
+    },
+    {
+      "url": "https://www.tasteofhome.com/recipes/the-best-ever-grilled-cheese-sandwich/",
+      "file": "tasteofhome.com__recipes_the-best-ever-grilled-cheese-sandwich.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 218020
+    },
+    {
+      "url": "https://cookieandkate.com/simple-veggie-fried-rice/",
+      "file": "cookieandkate.com__simple-veggie-fried-rice.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 268405
+    },
+    {
+      "url": "https://www.tasteofhome.com/recipes/simple-taco-soup/",
+      "file": "tasteofhome.com__recipes_simple-taco-soup.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 244050
+    },
+    {
+      "url": "https://www.foodnetwork.com/recipes/ina-garten/perfect-roast-chicken-recipe-1940592",
+      "file": "foodnetwork.com__recipes_ina-garten_perfect-roast-chicken-recipe-1940592.html",
+      "status": 403,
+      "ok": false,
+      "contentType": "text/html",
+      "bytes": 456
+    },
+    {
+      "url": "https://www.foodnetwork.com/recipes/ree-drummond/white-chicken-chili-3362883",
+      "file": "foodnetwork.com__recipes_ree-drummond_white-chicken-chili-3362883.html",
+      "status": 403,
+      "ok": false,
+      "contentType": "text/html",
+      "bytes": 445
+    },
+    {
+      "url": "https://cookieandkate.com/spaghetti-aglio-e-olio-recipe/",
+      "file": "cookieandkate.com__spaghetti-aglio-e-olio-recipe.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 268415
+    },
+    {
+      "url": "https://www.bbcgoodfood.com/recipes/easy-butter-chicken",
+      "file": "bbcgoodfood.com__recipes_easy-butter-chicken.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 467642
+    },
+    {
+      "url": "https://www.bbcgoodfood.com/recipes/easy-pancakes",
+      "file": "bbcgoodfood.com__recipes_easy-pancakes.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 463598
+    },
+    {
+      "url": "https://www.skinnytaste.com/slow-cooker-chicken-taco-chili/",
+      "file": "skinnytaste.com__slow-cooker-chicken-taco-chili.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 417701
+    },
+    {
+      "url": "https://www.skinnytaste.com/crispy-air-fryer-chicken-wings/",
+      "file": "skinnytaste.com__crispy-air-fryer-chicken-wings.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 417701
+    },
+    {
+      "url": "https://www.tasty.co/recipe/the-best-fudgy-brownies",
+      "file": "tasty.co__recipe_the-best-fudgy-brownies.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 406644
+    },
+    {
+      "url": "https://www.tasty.co/recipe/one-pot-garlic-parmesan-pasta",
+      "file": "tasty.co__recipe_one-pot-garlic-parmesan-pasta.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 405988
+    },
+    {
+      "url": "https://www.jamieoliver.com/recipes/chicken-recipes/perfect-roast-chicken/",
+      "file": "jamieoliver.com__recipes_chicken-recipes_perfect-roast-chicken.html",
+      "status": 200,
+      "ok": true,
+      "contentType": "text/html",
+      "bytes": 866650
+    },
+    {
+      "url": "https://www.jamieoliver.com/recipes/pasta-recipes/quick-easy-spaghetti-bolognese/",
+      "file": "jamieoliver.com__recipes_pasta-recipes_quick-easy-spaghetti-bolognese.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html",
+      "bytes": 487069
+    },
+    {
+      "url": "https://www.gimmesomeoven.com/best-chocolate-chip-cookies/",
+      "file": "gimmesomeoven.com__best-chocolate-chip-cookies.html",
+      "status": 404,
+      "ok": false,
+      "contentType": "text/html; charset=UTF-8",
+      "bytes": 234634
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "title": "Roasted Cauliflower Tacos",
+  "description": "This roasted cauliflower tacos recipe is lightly adapted from Simply Julia by Julia Turshen and is reprinted with permission from the publisher. Feel free to get creative with the toppings here! I used what's listed in the recipe below, but Julia also suggests diced white onion, pickled jalapeños, and hot sauce.",
+  "author": "Jeanine Donofrio",
+  "ingredients": [
+    {
+      "raw": "1 small cauliflower (outer leaves and core discarded, cut into small florets)",
+      "ingredient": "cauliflower (outer leaves and core discarded",
+      "quantity": 1,
+      "unit": "small",
+      "preparation": "cut into small florets)"
+    },
+    {
+      "raw": "1 pound red cabbage (thinly sliced (about 1/2 small red cabbage or 6 cups sliced))",
+      "ingredient": "red cabbage (thinly sliced (about 1/2 small red cabbage or 6 cups sliced))",
+      "quantity": 1,
+      "unit": "pound"
+    },
+    {
+      "raw": "¼ cup extra-virgin olive oil",
+      "ingredient": "¼ cup extra-virgin olive oil"
+    },
+    {
+      "raw": "1 teaspoon ground cumin",
+      "ingredient": "ground cumin",
+      "quantity": 1,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "1 teaspoon ground coriander",
+      "ingredient": "ground coriander",
+      "quantity": 1,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "1 teaspoon kosher salt",
+      "ingredient": "kosher salt",
+      "quantity": 1,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "1 recipe Avocado Sauce",
+      "ingredient": "recipe Avocado Sauce",
+      "quantity": 1
+    },
+    {
+      "raw": "12 corn tortillas (warmed)",
+      "ingredient": "corn tortillas (warmed)",
+      "quantity": 12
+    },
+    {
+      "raw": "Thinly sliced radishes (optional)",
+      "ingredient": "Thinly sliced radishes",
+      "optional": true
+    },
+    {
+      "raw": "Sliced serrano peppers (optional)",
+      "ingredient": "Sliced serrano peppers",
+      "optional": true
+    },
+    {
+      "raw": "Avocado slices (optional)",
+      "ingredient": "Avocado slices",
+      "optional": true
+    },
+    {
+      "raw": "Cilantro (optional)",
+      "ingredient": "Cilantro",
+      "optional": true
+    }
+  ],
+  "instructions": [
+    {
+      "step": 1,
+      "text": "Preheat the oven to 400°F."
+    },
+    {
+      "step": 2,
+      "text": "Place the cauliflower and cabbage on a large sheet pan. Drizzle with the olive oil and sprinkle with the cumin, coriander, and salt. Use your hands to mix everything together and spread it out into an even layer. Roast, stirring every 15 minutes, until the vegetables are softened and browned in spots, about 45 minutes. (I roasted my cabbage and cauliflower on two separate sheet pans. I cooked the cauliflower for 25 minutes and the cabbage for 10 minutes. Both ways work!)",
+      "duration": {
+        "minutes": 15,
+        "display": "15 minutes",
+        "iso8601": "PT15M"
+      },
+      "ingredients": [
+        "cauliflower outer leaves and core discarded",
+        "red cabbage thinly sliced about red cabbage or sliced",
+        "extra virgin olive oil",
+        "ground cumin",
+        "ground coriander",
+        "salt",
+        "recipe Avocado Sauce",
+        "corn tortillas warmed",
+        "Thinly sliced radishes",
+        "Sliced serrano peppers",
+        "Avocado",
+        "Cilantro"
+      ]
+    },
+    {
+      "step": 3,
+      "text": "Evenly divide the Avocado Sauce and roasted vegetables among the tortillas. Serve immediately with the radishes, serranos, avocado slices, and cilantro, if using.",
+      "ingredients": [
+        "ground coriander",
+        "recipe Avocado Sauce",
+        "Avocado",
+        "Cilantro"
+      ]
+    }
+  ],
+  "prepTime": "15 minutes",
+  "cookTime": "45 minutes",
+  "servings": "4",
+  "images": [
+    "https://cdn.loveandlemons.com/wp-content/uploads/2021/04/cauliflower-tacos-500x500.jpg",
+    "https://cdn.loveandlemons.com/wp-content/uploads/2021/04/cauliflower-tacos-500x375.jpg",
+    "https://cdn.loveandlemons.com/wp-content/uploads/2021/04/cauliflower-tacos-480x270.jpg",
+    "https://cdn.loveandlemons.com/wp-content/uploads/2021/04/cauliflower-tacos.jpg"
+  ],
+  "url": "https://www.loveandlemons.com/cauliflower-tacos/",
+  "domain": "www.loveandlemons.com",
+  "source": "json-ld",
+  "parseTime": 1
+}

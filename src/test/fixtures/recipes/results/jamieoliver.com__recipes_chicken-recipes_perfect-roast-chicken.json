@@ -1,0 +1,60 @@
+{
+  "title": "Easy roast chicken",
+  "description": "There's nothing better than a delicious Sunday roast. Follow this easy roast chicken recipe for beautifully succulent results. Just add spuds!",
+  "author": "Jamie Oliver",
+  "ingredients": [
+    {
+      "raw": "1 x 1.6kg whole free-range chicken",
+      "ingredient": "x 1.6kg whole free-range chicken",
+      "quantity": 1
+    },
+    {
+      "raw": "2 medium onions",
+      "ingredient": "onions",
+      "quantity": 2,
+      "unit": "medium"
+    },
+    {
+      "raw": "2 carrots",
+      "ingredient": "carrots",
+      "quantity": 2
+    },
+    {
+      "raw": "2 sticks of celery",
+      "ingredient": "sticks of celery",
+      "quantity": 2
+    },
+    {
+      "raw": "1 bulb of garlic",
+      "ingredient": "bulb of garlic",
+      "quantity": 1
+    },
+    {
+      "raw": "olive oil",
+      "ingredient": "olive oil"
+    },
+    {
+      "raw": "1 lemon",
+      "ingredient": "lemon",
+      "quantity": 1
+    },
+    {
+      "raw": "1 bunch of mixed fresh herbs such as thyme, rosemary, bay",
+      "ingredient": "of mixed fresh herbs such as thyme",
+      "quantity": 1,
+      "unit": "bunch",
+      "preparation": "rosemary, bay"
+    }
+  ],
+  "instructions": [],
+  "totalTime": "1 hour 25 minutes",
+  "cookTime": "1 hour 25 minutes",
+  "servings": "4",
+  "images": [
+    "https://asset.jamieoliver.com/images/cq7w2e71/production/2a409dd1676dc3b6324c21286a51a733d5731793-973x1300.jpg/2a409dd1676dc3b6324c21286a51a733d5731793-973x1300.jpg?rect=0,164,973,973&w=600&h=600&fm=webp&q=75&fit=crop&auto=format"
+  ],
+  "url": "https://www.jamieoliver.com/recipes/chicken-recipes/perfect-roast-chicken/",
+  "domain": "www.jamieoliver.com",
+  "source": "json-ld",
+  "parseTime": 0
+}

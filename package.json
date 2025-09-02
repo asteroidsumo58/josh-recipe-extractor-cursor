@@ -13,7 +13,11 @@
     "test:watch": "vitest",
     "test:unit": "vitest run src/test --exclude '**/e2e-*.test.ts'",
     "test:e2e": "vitest run src/test/e2e-*.test.ts",
-    "test:ci": "vitest run --reporter=verbose --coverage"
+    "test:ci": "vitest run --reporter=verbose --coverage",
+    "fetch:recipes": "node ./scripts/fetch-recipes.js",
+    "test:recipes": "vitest run src/test/e2e-batch-recipes.test.ts",
+    "audit:recipes": "vitest run src/test/e2e-audit.test.ts",
+    "pipeline:recipes": "node ./scripts/fetch-recipes.js && vitest run src/test/e2e-audit.test.ts"
   },
   "dependencies": {
     "cheerio": "^1.1.2",

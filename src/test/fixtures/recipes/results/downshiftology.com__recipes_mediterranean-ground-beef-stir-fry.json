@@ -1,0 +1,135 @@
+{
+  "title": "Mediterranean Ground Beef Stir Fry",
+  "description": "This easy and healthy ground beef stir fry recipe is loaded with the best of Mediterranean flavors. From blistered tomatoes to crumbled feta, an easy dinner doesn't get any better than this!",
+  "author": "Lisa Bryan",
+  "ingredients": [
+    {
+      "raw": "1 tablespoon olive oil",
+      "ingredient": "olive oil",
+      "quantity": 1,
+      "unit": "tablespoon"
+    },
+    {
+      "raw": "1 red bell pepper (deseeded and diced)",
+      "ingredient": "red bell pepper (deseeded and diced)",
+      "quantity": 1
+    },
+    {
+      "raw": "1 pint cherry tomatoes (sliced in half)",
+      "ingredient": "cherry tomatoes (sliced in half)",
+      "quantity": 1,
+      "unit": "pint"
+    },
+    {
+      "raw": "8 ounces baby spinach (small tub)",
+      "ingredient": "baby spinach (small tub)",
+      "quantity": 8,
+      "unit": "ounce"
+    },
+    {
+      "raw": "4 garlic cloves (minced)",
+      "ingredient": "garlic cloves (minced)",
+      "quantity": 4
+    },
+    {
+      "raw": "2 green onion (thinly sliced, white and green parts separated)",
+      "ingredient": "green onion (thinly sliced",
+      "quantity": 2,
+      "preparation": "white and green parts separated)"
+    },
+    {
+      "raw": "1 pound ground beef",
+      "ingredient": "ground beef",
+      "quantity": 1,
+      "unit": "pound"
+    },
+    {
+      "raw": "½ teaspoon dried oregano",
+      "ingredient": "½ teaspoon dried oregano"
+    },
+    {
+      "raw": "kosher salt and freshly ground black pepper (to taste)",
+      "ingredient": "kosher salt and freshly ground black pepper (to taste)"
+    },
+    {
+      "raw": "2 tablespoons crumbled feta ((optional))",
+      "ingredient": "crumbled feta ()",
+      "optional": true,
+      "quantity": 2,
+      "unit": "tablespoon"
+    }
+  ],
+  "instructions": [
+    {
+      "step": 1,
+      "text": "Cook the tomatoes and bell pepper. Heat the oil in a large pan on medium-high heat. Add the bell pepper and cherry tomatoes and saute for 4 to 5 minutes, until the tomatoes are blistered and saucy. Add the garlic and stir another minute.",
+      "duration": {
+        "minutes": 5,
+        "display": "5 minutes",
+        "iso8601": "PT5M"
+      },
+      "ingredients": [
+        "olive oil",
+        "red bell pepper deseeded and diced",
+        "cherry tomatoes sliced in",
+        "baby spinach tub",
+        "garlic minced",
+        "green onion thinly sliced",
+        "oregano",
+        "salt and ground pepper taste",
+        "crumbled feta"
+      ]
+    },
+    {
+      "step": 2,
+      "text": "Add the spinach. Add the spinach and white parts of the green onion. Note that the spinach will take up most of the pan, but it will wilt down. Stir for another 2 to 3 minutes, until the spinach has wilted. Remove these veggies to a plate.",
+      "duration": {
+        "minutes": 3,
+        "display": "3 minutes",
+        "iso8601": "PT3M"
+      },
+      "ingredients": [
+        "baby spinach tub",
+        "garlic minced",
+        "green onion thinly sliced",
+        "oregano",
+        "salt and ground pepper taste",
+        "crumbled feta"
+      ]
+    },
+    {
+      "step": 3,
+      "text": "Cook the beef. Add the ground beef, oregano, salt, and black pepper to the pan, and use a spatula to break up the meat. Cook the ground beef until it's browned, then drain off any excess grease.",
+      "ingredients": [
+        "baby spinach tub",
+        "garlic minced",
+        "ground beef",
+        "oregano",
+        "salt and ground pepper taste",
+        "crumbled feta"
+      ]
+    },
+    {
+      "step": 4,
+      "text": "Garnish and serve. Transfer the veggies back to the pan, add the green parts of the green onion, and stir until warmed through. Garnish with crumbled feta before serving.",
+      "ingredients": [
+        "green onion thinly sliced",
+        "crumbled feta"
+      ]
+    }
+  ],
+  "totalTime": "25 minutes",
+  "prepTime": "10 minutes",
+  "cookTime": "15 minutes",
+  "servings": "4",
+  "images": [
+    "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2021/08/Mediterranean-Ground-Beef-Stir-Fry-main.jpg",
+    "https://downshiftology.com/wp-content/uploads/2021/08/Mediterranean-Ground-Beef-Stir-Fry-main-500x500.jpg",
+    "https://downshiftology.com/wp-content/uploads/2021/08/Mediterranean-Ground-Beef-Stir-Fry-main-500x375.jpg",
+    "https://downshiftology.com/wp-content/uploads/2021/08/Mediterranean-Ground-Beef-Stir-Fry-main-480x270.jpg"
+  ],
+  "url": "https://downshiftology.com/recipes/mediterranean-ground-beef-stir-fry/",
+  "domain": "downshiftology.com",
+  "source": "json-ld",
+  "parseTime": 8
+}

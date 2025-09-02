@@ -234,15 +234,19 @@ function normalizeUnit(unitStr: string): string | undefined {
  * Extract ingredient names for fuzzy matching
  */
 export function extractIngredientNames(ingredients: ParsedIngredient[]): string[] {
-  // Build a regex for known unit variations
-  const unitPatterns = Array.from(UNIT_LOOKUP.keys())
+  // Build a regex for known unit variations, but exclude 'whole' so we preserve 'whole milk'
+  const unitKeys = Array.from(UNIT_LOOKUP.keys()).filter(k => UNIT_LOOKUP.get(k) !== 'whole');
+  const unitPatterns = unitKeys
     .sort((a, b) => b.length - a.length) // longer first to avoid partials
     .map(u => u.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
     .join('|');
-  const unitRegex = new RegExp(`\\b(${unitPatterns})\\b`, 'gi');
+  const unitRegex = unitPatterns ? new RegExp(`\\b(${unitPatterns})\\b`, 'gi') : /$a/; // never matches if empty
 
   // Unicode vulgar fraction characters (common ones)
   const vulgarFractions = /[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]/g;
+
+  // Hyphen-like characters
+  const HY = '[\u2010\u2011\u2012\u2013\u2014\-]';
 
   return ingredients.map(ing => {
     // Use the parsed ingredient name, or fall back to raw text
@@ -252,12 +256,16 @@ export function extractIngredientNames(ingredients: ParsedIngredient[]): string[
     name = name
       .replace(vulgarFractions, ' ') // replace with space to keep word boundaries
       .replace(/\b\d+[\d\s\/.\-]*\b/g, ' ') // numbers, ranges, ascii fractions
-      .replace(unitRegex, ' ') // units
+      .replace(unitRegex, ' ') // units (excluding 'whole')
       .replace(/\b(to|–|-)\b/gi, ' '); // range connectors
 
-    // Remove common descriptors and preparations
-    name = name.replace(/\b(fresh|freshly|dried|frozen|canned|organic|raw|cooked|ground|coarsely|coarse|finely|cracked)\b/gi, ' ');
-    name = name.replace(/\b(all-purpose|whole wheat|self-rising)\b/gi, ' ');
+    // Remove common descriptors and preparations; keep 'whole' unless part of 'whole wheat'
+    name = name.replace(/\b(fresh|freshly|dried|frozen|canned|organic|raw|cooked|coarsely|coarse|finely|cracked)\b/gi, ' ');
+    // Robustly remove 'all-purpose' and 'self-rising' regardless of hyphen type or spacing
+    name = name.replace(/\ball[\s\u2010\u2011\u2012\u2013\u2014-]?purpose\b/gi, ' ');
+    name = name.replace(/\bself[\s\u2010\u2011\u2012\u2013\u2014-]?rising\b/gi, ' ');
+    // Specifically collapse 'whole wheat' but leave other 'whole' phrases intact
+    name = name.replace(new RegExp(`\bwhole\s+wheat\b`, 'gi'), 'wheat');
 
     // Normalize special cases so step text like "salt, pepper" matches
     name = name.replace(/\b(kosher|sea|table|iodized)\s+salt\b/gi, 'salt');

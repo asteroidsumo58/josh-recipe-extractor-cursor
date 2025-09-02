@@ -1,0 +1,125 @@
+{
+  "title": "How to Make the Best Guacamole",
+  "description": "The best guacamole keeps it simple: just ripe avocados and a handful of flavorful mix-ins. Serve it as a dip at your next party or spoon it on top of tacos for an easy dinner upgrade.",
+  "author": "Elise Bauer",
+  "ingredients": [
+    {
+      "raw": "2 ripe avocados",
+      "ingredient": "ripe avocados",
+      "quantity": 2
+    },
+    {
+      "raw": "1/4 teaspoon salt, plus more to taste",
+      "ingredient": "salt",
+      "quantity": "1/4",
+      "unit": "teaspoon",
+      "preparation": "plus more to taste"
+    },
+    {
+      "raw": "1 tablespoon fresh lime or lemon juice",
+      "ingredient": "fresh lime or lemon juice",
+      "quantity": 1,
+      "unit": "tablespoon"
+    },
+    {
+      "raw": "2-4 tablespoons minced red onion or thinly sliced green onion",
+      "ingredient": "minced red onion or thinly sliced green onion",
+      "quantity": "2-4",
+      "unit": "tablespoon"
+    },
+    {
+      "raw": "1-2 serrano (or jalapeño) chiles, stems and seeds removed, minced",
+      "ingredient": "serrano (or jalapeño) chiles",
+      "quantity": "1-2",
+      "preparation": "stems and seeds removed"
+    },
+    {
+      "raw": "2 tablespoons cilantro (leaves and tender stems), finely chopped",
+      "ingredient": "cilantro (leaves and tender stems)",
+      "quantity": 2,
+      "unit": "tablespoon",
+      "preparation": "finely chopped"
+    },
+    {
+      "raw": "Pinch freshly ground black pepper",
+      "ingredient": "Pinch freshly ground black pepper"
+    },
+    {
+      "raw": "1/2 ripe tomato, chopped (optional)",
+      "ingredient": "ripe tomato",
+      "optional": true,
+      "quantity": "1/2",
+      "preparation": "chopped"
+    },
+    {
+      "raw": "Red radish or jicama slices for garnish (optional)",
+      "ingredient": "Red radish or jicama slices for garnish",
+      "optional": true
+    },
+    {
+      "raw": "Tortilla chips , to serve",
+      "ingredient": "Tortilla chips , to serve"
+    }
+  ],
+  "instructions": [
+    {
+      "step": 1,
+      "text": "Cut the avocados: Cut the avocados in half. Remove the pit. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon. (See How to Cut and Peel an Avocado .) Place in a bowl.",
+      "ingredients": [
+        "ripe avocados",
+        "salt",
+        "cilantro leaves and tender stems",
+        "ripe tomato",
+        "Red radish or jicama for garnish"
+      ]
+    },
+    {
+      "step": 2,
+      "text": "Mash the avocado flesh: Using a fork, roughly mash the avocado. Don't overdo it! The guacamole should be a little chunky.",
+      "ingredients": [
+        "ripe avocados",
+        "salt",
+        "cilantro leaves and tender stems",
+        "ripe tomato",
+        "Red radish or jicama for garnish"
+      ]
+    },
+    {
+      "step": 3,
+      "text": "Add the remaining ingredients to taste: Sprinkle with salt and lime (or lemon) juice. The acid in the lime juice will provide some balance to the richness of the avocado and will help delay the avocados from turning brown. Add the chopped onion, cilantro, black pepper, and chilis. Chili peppers vary individually in their spiciness. So, start with a half of one chili pepper and add more to the guacamole to your desired degree of heat. Remember that much of this is done to taste because of the variability in the fresh ingredients. Start with this recipe and adjust to your taste.",
+      "ingredients": [
+        "ripe avocados",
+        "salt",
+        "lime or lemon juice",
+        "minced red onion or thinly sliced green onion",
+        "cilantro leaves and tender stems",
+        "Pinch ground pepper",
+        "ripe tomato",
+        "Red radish or jicama for garnish"
+      ]
+    },
+    {
+      "step": 4,
+      "text": "Serve immediately: If making a few hours ahead, place plastic wrap on the surface of the guacamole and press down to cover it to prevent air reaching it. (The oxygen in the air causes oxidation which will turn the guacamole brown.) Garnish with slices of red radish or jicama strips. Serve with your choice of store-bought tortilla chips or make your own homemade tortilla chips . Refrigerate leftover guacamole up to 3 days. Note: Chilling tomatoes dulls their flavor. So, if you want to add chopped tomato to your guacamole, add just before serving. Did you love the recipe? Let us know with a rating and review!",
+      "ingredients": [
+        "ripe avocados",
+        "salt",
+        "minced red onion or thinly sliced green onion",
+        "cilantro leaves and tender stems",
+        "ripe tomato",
+        "Red radish or jicama for garnish",
+        "Tortilla chips serve"
+      ]
+    }
+  ],
+  "totalTime": "10 minutes",
+  "prepTime": "10 minutes",
+  "servings": "4",
+  "images": [
+    "https://www.simplyrecipes.com/thmb/J4kA2m6jKMgkQwZhG-RYpjZBeFQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Guacamole-LEAD-6-2-64cfcca253c8421dad4e3fad830219f6.jpg"
+  ],
+  "url": "https://www.simplyrecipes.com/recipes/perfect_guacamole/",
+  "domain": "www.simplyrecipes.com",
+  "source": "json-ld",
+  "parseTime": 8
+}

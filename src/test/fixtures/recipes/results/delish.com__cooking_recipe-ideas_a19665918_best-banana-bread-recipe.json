@@ -1,0 +1,106 @@
+{
+  "title": "Baked Tilapia",
+  "description": "Make this super buttery, lemony oven-baked tilapia in 30 minutes flat with just 8 ingredients—including salt and pepper!",
+  "author": "Makinze Gore",
+  "ingredients": [
+    {
+      "raw": "4 (6-oz.) tilapia fillets",
+      "ingredient": "(6-oz.) tilapia fillets",
+      "quantity": 4
+    },
+    {
+      "raw": "Kosher salt",
+      "ingredient": "Kosher salt"
+    },
+    {
+      "raw": "Freshly ground black pepper",
+      "ingredient": "Freshly ground black pepper"
+    },
+    {
+      "raw": "5 tbsp. unsalted butter, melted",
+      "ingredient": "unsalted butter",
+      "quantity": 5,
+      "unit": "tablespoon",
+      "preparation": "melted"
+    },
+    {
+      "raw": "2 cloves garlic, finely chopped",
+      "ingredient": "garlic",
+      "quantity": 2,
+      "unit": "clove",
+      "preparation": "finely chopped"
+    },
+    {
+      "raw": "1/4 tsp. crushed red pepper flakes",
+      "ingredient": "crushed red pepper flakes",
+      "quantity": "1/4",
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "Juice and zest from 1/2 lemon",
+      "ingredient": "Juice and zest from 1/2 lemon"
+    },
+    {
+      "raw": "1 lemon, sliced into rounds",
+      "ingredient": "lemon",
+      "quantity": 1,
+      "preparation": "sliced into rounds"
+    },
+    {
+      "raw": "Chopped fresh parsley, for serving",
+      "ingredient": "Chopped fresh parsley, for serving"
+    }
+  ],
+  "instructions": [
+    {
+      "step": 1,
+      "text": "Preheat oven to 400°. Season tilapia with salt and pepper and place in a small baking dish.",
+      "ingredients": [
+        "tilapia fillets",
+        "salt",
+        "ground pepper",
+        "unsalted butter",
+        "garlic",
+        "crushed red pepper flakes",
+        "Chopped parsley for serving"
+      ]
+    },
+    {
+      "step": 2,
+      "text": "Mix together butter, garlic, red pepper flakes, lemon juice, and zest then pour over tilapia. Place lemon rounds on top and around tilapia.",
+      "ingredients": [
+        "tilapia fillets",
+        "ground pepper",
+        "unsalted butter",
+        "garlic",
+        "crushed red pepper flakes",
+        "Juice and zest from lemon",
+        "lemon"
+      ]
+    },
+    {
+      "step": 3,
+      "text": "Bake tilapia until fork-tender, 15 to 20 minutes.",
+      "duration": {
+        "minutes": 20,
+        "display": "20 minutes",
+        "iso8601": "PT20M"
+      },
+      "ingredients": [
+        "tilapia fillets"
+      ]
+    }
+  ],
+  "totalTime": "35 minutes",
+  "prepTime": "5 minutes",
+  "servings": "4 serving(s)",
+  "images": [
+    "https://hips.hearstapps.com/hmg-prod/images/baked-tilapia-vertical-jpg-1533609029.jpg?crop=0.6666666666666666xw:1xh;center,top&resize=1200:*",
+    "https://hips.hearstapps.com/hmg-prod/images/baked-tilapia-vertical-jpg-1533609029.jpg?crop=0.8888888888888888xw:1xh;center,top&resize=1200:*",
+    "https://hips.hearstapps.com/hmg-prod/images/baked-tilapia-vertical-jpg-1533609029.jpg?crop=1xw:0.84375xh;center,top&resize=1200:*"
+  ],
+  "url": "https://www.delish.com/cooking/recipe-ideas/a19665918/best-banana-bread-recipe/",
+  "domain": "www.delish.com",
+  "source": "json-ld",
+  "parseTime": 0
+}

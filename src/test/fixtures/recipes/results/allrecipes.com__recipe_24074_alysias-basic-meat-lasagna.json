@@ -1,0 +1,188 @@
+{
+  "title": "Alysia's Basic Meat Lasagna",
+  "description": "A very meaty and cheesy lasagna with provolone, mozzarella, ricotta, and Parmesan layered with red sauce, browned beef, and herbs.",
+  "author": "ALYSIAB",
+  "ingredients": [
+    {
+      "raw": "1 tablespoon olive oil",
+      "ingredient": "olive oil",
+      "quantity": 1,
+      "unit": "tablespoon"
+    },
+    {
+      "raw": "1 small onion, diced",
+      "ingredient": "onion",
+      "quantity": 1,
+      "unit": "small",
+      "preparation": "diced"
+    },
+    {
+      "raw": "4 cloves garlic, minced",
+      "ingredient": "garlic",
+      "quantity": 4,
+      "unit": "clove",
+      "preparation": "minced"
+    },
+    {
+      "raw": "1.5 pounds ground beef",
+      "ingredient": "ground beef",
+      "quantity": 1.5,
+      "unit": "pound"
+    },
+    {
+      "raw": "1 teaspoon garlic powder",
+      "ingredient": "garlic powder",
+      "quantity": 1,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "1 (28 ounce) jar sausage flavored spaghetti sauce",
+      "ingredient": "(28 ounce) jar sausage flavored spaghetti sauce",
+      "quantity": 1
+    },
+    {
+      "raw": "1 (8 ounce) can tomato sauce",
+      "ingredient": "(8 ounce) can tomato sauce",
+      "quantity": 1
+    },
+    {
+      "raw": "1 teaspoon dried oregano",
+      "ingredient": "dried oregano",
+      "quantity": 1,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "1 (8 ounce) package shredded mozzarella cheese",
+      "ingredient": "(8 ounce) package shredded mozzarella cheese",
+      "quantity": 1
+    },
+    {
+      "raw": "1 (8 ounce) package shredded provolone cheese",
+      "ingredient": "(8 ounce) package shredded provolone cheese",
+      "quantity": 1
+    },
+    {
+      "raw": "1 (15 ounce) container ricotta cheese",
+      "ingredient": "(15 ounce) container ricotta cheese",
+      "quantity": 1
+    },
+    {
+      "raw": "0.25 cup milk",
+      "ingredient": "milk",
+      "quantity": 0.25,
+      "unit": "cup"
+    },
+    {
+      "raw": "2 large eggs",
+      "ingredient": "eggs",
+      "quantity": 2,
+      "unit": "large"
+    },
+    {
+      "raw": "0.5 teaspoon dried oregano",
+      "ingredient": "dried oregano",
+      "quantity": 0.5,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "9 no-boil lasagna noodles",
+      "ingredient": "no-boil lasagna noodles",
+      "quantity": 9
+    },
+    {
+      "raw": "0.25 cup grated Parmesan cheese",
+      "ingredient": "grated Parmesan cheese",
+      "quantity": 0.25,
+      "unit": "cup"
+    }
+  ],
+  "instructions": [
+    {
+      "step": 1,
+      "text": "Preheat the oven to 375 degrees F (190 degrees C).",
+      "ingredients": [
+        "ground beef",
+        "tomato sauce"
+      ]
+    },
+    {
+      "step": 2,
+      "text": "Make the sauce: Heat oil in a large saucepan over medium-high heat. Add onion and garlic; cook and stir until translucent, about 5 minutes. Add ground beef and garlic powder; cook and stir until browned and crumbly, 5 to 7 minutes. Drain and discard grease. Add spaghetti sauce, tomato sauce, and oregano; cover and simmer for 15 to 20 minutes.",
+      "duration": {
+        "minutes": 5,
+        "display": "5 minutes",
+        "iso8601": "PT5M"
+      },
+      "ingredients": [
+        "olive oil",
+        "onion",
+        "garlic",
+        "ground beef",
+        "garlic powder",
+        "sausage flavored spaghetti sauce",
+        "tomato sauce",
+        "oregano",
+        "container ricotta cheese",
+        "oregano",
+        "no boil lasagna noodles",
+        "grated Parmesan cheese"
+      ]
+    },
+    {
+      "step": 3,
+      "text": "Make the lasagna: Mix mozzarella and provolone together in a medium bowl. Mix ricotta, milk, eggs, and oregano together in another bowl.",
+      "ingredients": [
+        "garlic",
+        "garlic powder",
+        "sausage flavored spaghetti sauce",
+        "tomato sauce",
+        "oregano",
+        "container ricotta cheese",
+        "milk",
+        "eggs",
+        "oregano",
+        "grated Parmesan cheese"
+      ]
+    },
+    {
+      "step": 4,
+      "text": "Ladle sauce (just enough to cover) into the bottom of a 9x13-inch baking dish. Layer sauce with three lasagna noodles, more sauce, ricotta mixture, and mozzarella mixture; repeat once more using all of remaining cheese mixtures. Layer with remaining three lasagna noodles and remaining sauce, then sprinkle Parmesan over top.",
+      "ingredients": [
+        "garlic",
+        "garlic powder",
+        "sausage flavored spaghetti sauce",
+        "tomato sauce",
+        "oregano",
+        "shredded mozzarella cheese",
+        "container ricotta cheese",
+        "oregano",
+        "no boil lasagna noodles",
+        "grated Parmesan cheese"
+      ]
+    },
+    {
+      "step": 5,
+      "text": "Cover and bake in the preheated oven for 30 minutes. Uncover and continue to bake until cheese is melted and top is golden, about 15 minutes longer.",
+      "duration": {
+        "minutes": 30,
+        "display": "30 minutes",
+        "iso8601": "PT30M"
+      },
+      "ingredients": [
+        "tomato sauce",
+        "container ricotta cheese"
+      ]
+    }
+  ],
+  "totalTime": "1 hour 55 minutes",
+  "prepTime": "45 minutes",
+  "cookTime": "1 hour 10 minutes",
+  "servings": "10",
+  "images": [
+    "https://www.allrecipes.com/thmb/h6JyYS3LgCnQCoXnccjGULy3KOs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/748630-8a38ff27e31d44ecba18e2db2d843a76.jpg"
+  ],
+  "url": "https://www.allrecipes.com/recipe/24074/alysias-basic-meat-lasagna/",
+  "domain": "www.allrecipes.com",
+  "source": "json-ld",
+  "parseTime": 1
+}

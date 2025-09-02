@@ -1,0 +1,112 @@
+{
+  "title": "The Best Ever Grilled Cheese Sandwich",
+  "description": "Spreading a mixture of mayo and butter on the bread creates a delightfully crispy crust with the well-loved, wonderful flavor of butter one expects on a grilled cheese sandwich.&mdash;Josh Rink, <I>Taste of Home</I> Food Stylist",
+  "author": "Taste of Home Editorial Team",
+  "ingredients": [
+    {
+      "raw": "6 tablespoons butter, softened, divided",
+      "ingredient": "butter",
+      "quantity": 6,
+      "unit": "tablespoon",
+      "preparation": "softened, divided"
+    },
+    {
+      "raw": "8 slices sourdough bread",
+      "ingredient": "sourdough bread",
+      "quantity": 8,
+      "unit": "slice"
+    },
+    {
+      "raw": "3 tablespoons mayonnaise",
+      "ingredient": "mayonnaise",
+      "quantity": 3,
+      "unit": "tablespoon"
+    },
+    {
+      "raw": "3 tablespoons finely shredded Manchego or Parmesan cheese",
+      "ingredient": "finely shredded Manchego or Parmesan cheese",
+      "quantity": 3,
+      "unit": "tablespoon"
+    },
+    {
+      "raw": "1/8 teaspoon onion powder",
+      "ingredient": "onion powder",
+      "quantity": "1/8",
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "1/2 cup shredded sharp white cheddar cheese",
+      "ingredient": "shredded sharp white cheddar cheese",
+      "quantity": "1/2",
+      "unit": "cup"
+    },
+    {
+      "raw": "1/2 cup shredded Monterey Jack cheese",
+      "ingredient": "shredded Monterey Jack cheese",
+      "quantity": "1/2",
+      "unit": "cup"
+    },
+    {
+      "raw": "1/2 cup shredded Gruyere cheese",
+      "ingredient": "shredded Gruyere cheese",
+      "quantity": "1/2",
+      "unit": "cup"
+    },
+    {
+      "raw": "4 ounces Brie cheese, rind removed and sliced",
+      "ingredient": "Brie cheese",
+      "quantity": 4,
+      "unit": "ounce",
+      "preparation": "rind removed and sliced"
+    }
+  ],
+  "instructions": [
+    {
+      "step": 1,
+      "text": "Spread 3 tablespoons butter on 1 side of bread slices. Toast bread, butter side down, in a large skillet or electric griddle over medium-low heat until golden brown, 2-3 minutes; remove. In a small bowl, mix together mayonnaise, Manchego cheese, onion powder and remaining 3 tablespoons butter. In another bowl, combine cheddar, Monterey Jack and Gruyere.",
+      "duration": {
+        "minutes": 3,
+        "display": "3 minutes",
+        "iso8601": "PT3M"
+      },
+      "ingredients": [
+        "butter",
+        "sourdough bread",
+        "mayonnaise",
+        "shredded Manchego or Parmesan cheese",
+        "onion powder",
+        "shredded sharp white cheddar cheese",
+        "shredded Monterey Jack cheese",
+        "shredded Gruyere cheese",
+        "Brie cheese"
+      ]
+    },
+    {
+      "step": 2,
+      "text": "To assemble sandwiches, top toasted side of 4 bread slices with sliced Brie. Sprinkle cheddar cheese mixture evenly over Brie. Top with remaining bread slices, toasted side facing inward. Spread mayonnaise mixture on the outsides of each sandwich. Place in same skillet, and cook until bread is golden brown and cheese is melted, 5-6 minutes on each side. Serve immediately.",
+      "duration": {
+        "minutes": 6,
+        "display": "6 minutes",
+        "iso8601": "PT6M"
+      },
+      "ingredients": [
+        "sourdough bread",
+        "mayonnaise",
+        "onion powder",
+        "shredded Monterey Jack cheese",
+        "Brie cheese"
+      ]
+    }
+  ],
+  "totalTime": "25 minutes",
+  "prepTime": "10 minutes",
+  "cookTime": "15 minutes",
+  "servings": "4 servings",
+  "images": [
+    "https://www.tasteofhome.com/wp-content/uploads/2018/04/The-Best-Ever-Grilled-Cheese-Sandwich_EXPS_THSO18_222725_D03_06_2b.jpg"
+  ],
+  "url": "https://www.tasteofhome.com/recipes/the-best-ever-grilled-cheese-sandwich/",
+  "domain": "www.tasteofhome.com",
+  "source": "json-ld",
+  "parseTime": 1
+}

@@ -1,0 +1,123 @@
+{
+  "title": "How To Make Easy Brown Rice in the Oven",
+  "description": "",
+  "author": "Emma Christensen",
+  "ingredients": [
+    {
+      "raw": "1 1/2 cups medium-grain or long-grain brown rice",
+      "ingredient": "medium-grain or long-grain brown rice",
+      "quantity": "1 1/2",
+      "unit": "cup"
+    },
+    {
+      "raw": "1 tablespoon extra-virgin olive oil or melted butter",
+      "ingredient": "extra-virgin olive oil or melted butter",
+      "quantity": 1,
+      "unit": "tablespoon"
+    },
+    {
+      "raw": "1 teaspoon salt",
+      "ingredient": "salt",
+      "quantity": 1,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "2 1/2 cups water",
+      "ingredient": "water",
+      "quantity": "2 1/2",
+      "unit": "cup"
+    }
+  ],
+  "instructions": [
+    {
+      "step": 1,
+      "text": "Heat the oven to 375°F: Place a rack in the middle of the oven.",
+      "ingredients": [
+        "salt",
+        "water"
+      ]
+    },
+    {
+      "step": 2,
+      "text": "Prepare the rice: Pour the rice into the baking dish. Drizzle the olive oil or melted butter over top, and sprinkle with salt. Stir with a spatula until the rice is evenly coated with oil.",
+      "ingredients": [
+        "grain or long grain brown rice",
+        "extra virgin olive oil or melted butter",
+        "salt",
+        "water"
+      ]
+    },
+    {
+      "step": 3,
+      "text": "Boil the water: Bring the water to a boil in a small saucepan or tea kettle.",
+      "ingredients": [
+        "salt",
+        "water"
+      ]
+    },
+    {
+      "step": 4,
+      "text": "Pour the boiling water over the rice: Do this carefully to avoid splashing or burning yourself on the steam. Stir the rice once to mix, and then spread it into an even layer with a spatula.",
+      "ingredients": [
+        "grain or long grain brown rice",
+        "salt",
+        "water"
+      ]
+    },
+    {
+      "step": 5,
+      "text": "Cover tightly with foil: Make sure the foil forms a tight seal around the pan; use two overlapping sheets of foil if necessary. If your pan has a heavy lid, put that on top as well.",
+      "ingredients": [
+        "grain or long grain brown rice",
+        "salt",
+        "water"
+      ]
+    },
+    {
+      "step": 6,
+      "text": "Bake for 1 hour: Carefully transfer the dish to the oven and bake for 1 hour.",
+      "duration": {
+        "minutes": 60,
+        "display": "1 hour",
+        "iso8601": "PT60M"
+      }
+    },
+    {
+      "step": 7,
+      "text": "Fluff with a fork: Remove the foil (be careful of the escaping steam), and fluff the rice with a fork.",
+      "ingredients": [
+        "grain or long grain brown rice",
+        "salt",
+        "water"
+      ]
+    },
+    {
+      "step": 8,
+      "text": "Cover and steam the rice for 5 minutes: Cover the rice with a clean dishtowel and let stand for 5 minutes. This helps prevent the rice from being mushy.",
+      "duration": {
+        "minutes": 5,
+        "display": "5 minutes",
+        "iso8601": "PT5M"
+      },
+      "ingredients": [
+        "grain or long grain brown rice",
+        "salt",
+        "water"
+      ]
+    },
+    {
+      "step": 9,
+      "text": "Serve the rice: Serve the rice right away. Leftovers can be kept for up to 5 days, or frozen for up to 3 months."
+    }
+  ],
+  "servings": "about 4 cups",
+  "images": [
+    "https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_16:9/k%2Farchive%2F4d83c58454727d85297bbe5e67cf5197f1db4b77",
+    "https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_4:3/k%2Farchive%2F4d83c58454727d85297bbe5e67cf5197f1db4b77",
+    "https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2Farchive%2F4d83c58454727d85297bbe5e67cf5197f1db4b77"
+  ],
+  "url": "https://www.thekitchn.com/how-to-cook-perfect-rice-227490",
+  "domain": "www.thekitchn.com",
+  "source": "json-ld",
+  "parseTime": 0
+}

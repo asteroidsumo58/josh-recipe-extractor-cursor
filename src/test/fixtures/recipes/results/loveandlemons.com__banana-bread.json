@@ -1,0 +1,140 @@
+{
+  "title": "Banana Bread",
+  "description": "The BEST banana bread recipe! This easy loaf is moist, delicious, and packed with banana flavor. I love to add walnuts for crunch, but feel free to swap in pecans, chocolate chips, or raisins if you prefer.",
+  "author": "Jeanine Donofrio",
+  "ingredients": [
+    {
+      "raw": "2 cups mashed very ripe banana (about 4 large)",
+      "ingredient": "mashed very ripe banana (about 4 large)",
+      "quantity": 2,
+      "unit": "cup"
+    },
+    {
+      "raw": "½ cup cane sugar or brown sugar",
+      "ingredient": "½ cup cane sugar or brown sugar"
+    },
+    {
+      "raw": "½ cup melted butter or vegetable oil (plus more for the pan)",
+      "ingredient": "½ cup melted butter or vegetable oil (plus more for the pan)"
+    },
+    {
+      "raw": "2 large eggs",
+      "ingredient": "eggs",
+      "quantity": 2,
+      "unit": "large"
+    },
+    {
+      "raw": "1 teaspoon vanilla extract",
+      "ingredient": "vanilla extract",
+      "quantity": 1,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "1½ cups all-purpose flour (spooned and leveled)",
+      "ingredient": "1½ cups all-purpose flour (spooned and leveled)"
+    },
+    {
+      "raw": "1 teaspoon baking soda",
+      "ingredient": "baking soda",
+      "quantity": 1,
+      "unit": "teaspoon"
+    },
+    {
+      "raw": "½ teaspoon sea salt",
+      "ingredient": "½ teaspoon sea salt"
+    },
+    {
+      "raw": "½ teaspoon cinnamon",
+      "ingredient": "½ teaspoon cinnamon"
+    },
+    {
+      "raw": "¼ teaspoon nutmeg",
+      "ingredient": "¼ teaspoon nutmeg"
+    },
+    {
+      "raw": "½ cup chopped walnuts (plus 2 tablespoons for topping)",
+      "ingredient": "½ cup chopped walnuts (plus 2 tablespoons for topping)"
+    }
+  ],
+  "instructions": [
+    {
+      "step": 1,
+      "text": "Preheat the oven to 350°F and grease an 8x4 or 9x5-inch loaf pan.",
+      "ingredients": [
+        "vanilla extract"
+      ]
+    },
+    {
+      "step": 2,
+      "text": "In a large bowl, whisk together the mashed banana, sugar, butter, eggs, and vanilla.",
+      "ingredients": [
+        "mashed very ripe banana about",
+        "cane sugar or brown sugar",
+        "eggs",
+        "vanilla extract",
+        "baking soda",
+        "salt",
+        "cinnamon"
+      ]
+    },
+    {
+      "step": 3,
+      "text": "In a medium bowl, whisk together the flour, baking soda, salt, cinnamon, and nutmeg.",
+      "ingredients": [
+        "mashed very ripe banana about",
+        "cane sugar or brown sugar",
+        "vanilla extract",
+        "flour spooned and leveled",
+        "baking soda",
+        "salt",
+        "cinnamon",
+        "nutmeg"
+      ]
+    },
+    {
+      "step": 4,
+      "text": "Add the dry ingredients to the wet ingredients and stir until just combined. Don’t overmix. Fold in the ½ cup walnuts.",
+      "ingredients": [
+        "baking soda",
+        "cinnamon"
+      ]
+    },
+    {
+      "step": 5,
+      "text": "Pour the batter into the prepared pan and top with the remaining 2 tablespoons walnuts."
+    },
+    {
+      "step": 6,
+      "text": "Bake for 50 to 60 minutes, or until a toothpick inserted comes out clean and the top springs back to the touch. I like to check the loaf after 40 minutes. If the top is golden brown, I cover it with foil for the remaining bake time to prevent further browning.",
+      "duration": {
+        "minutes": 60,
+        "display": "1 hour",
+        "iso8601": "PT60M"
+      },
+      "ingredients": [
+        "mashed very ripe banana about",
+        "cane sugar or brown sugar",
+        "melted butter or vegetable oil plus more for the pan",
+        "vanilla extract",
+        "baking soda",
+        "salt",
+        "cinnamon",
+        "chopped walnuts plus for topping"
+      ]
+    }
+  ],
+  "totalTime": "1 hour 10 minutes",
+  "prepTime": "15 minutes",
+  "cookTime": "55 minutes",
+  "servings": "8",
+  "images": [
+    "https://cdn.loveandlemons.com/wp-content/uploads/2023/07/banana-bread-recipe-500x500.jpg",
+    "https://cdn.loveandlemons.com/wp-content/uploads/2023/07/banana-bread-recipe-500x375.jpg",
+    "https://cdn.loveandlemons.com/wp-content/uploads/2023/07/banana-bread-recipe-480x270.jpg",
+    "https://cdn.loveandlemons.com/wp-content/uploads/2023/07/banana-bread-recipe.jpg"
+  ],
+  "url": "https://www.loveandlemons.com/banana-bread/",
+  "domain": "www.loveandlemons.com",
+  "source": "json-ld",
+  "parseTime": 1
+}
