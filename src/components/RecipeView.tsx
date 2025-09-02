@@ -8,7 +8,7 @@ import { useRecipeScaling } from '@/hooks/useRecipeScaling';
 import TimerButton from './TimerButton';
 import TimerPanel from './TimerPanel';
 import ServingsControl from './ServingsControl';
-import ThemeToggle from './ThemeToggle';
+ 
 
 interface RecipeViewProps {
   recipe: Recipe;
@@ -133,9 +133,6 @@ function RecipeView({ recipe, onBack }: RecipeViewProps) {
             </svg>
             Back to Search
           </button>
-          
-          {/* Theme Toggle */}
-          <ThemeToggle />
         </div>
         
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-2">
