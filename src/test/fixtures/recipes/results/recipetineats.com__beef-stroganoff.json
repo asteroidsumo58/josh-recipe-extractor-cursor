@@ -105,8 +105,7 @@
         "beef broth",
         "Dijon mustard",
         "sour cream",
-        "Salt and pepper",
-        "Chopped chives for garnish"
+        "Salt and pepper"
       ]
     },
     {
@@ -126,7 +125,7 @@
         "iso8601": "PT1M"
       },
       "ingredients": [
-        "onion or onions",
+        "onion",
         "mushrooms",
         "butter"
       ]
@@ -148,7 +147,7 @@
         "iso8601": "PT1M"
       },
       "ingredients": [
-        "flour Note"
+        "flour"
       ]
     },
     {
@@ -188,7 +187,6 @@
         "iso8601": "PT1M"
       },
       "ingredients": [
-        "flour Note",
         "beef broth"
       ]
     },
@@ -196,7 +194,8 @@
       "step": 12,
       "text": "Serve over pasta or egg noodles, sprinkled with chives if desired.",
       "ingredients": [
-        "Chopped chives for garnish"
+        "pasta or egg noodles of choice",
+        "Chopped chives"
       ]
     }
   ],

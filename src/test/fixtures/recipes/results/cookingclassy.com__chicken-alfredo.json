@@ -70,7 +70,7 @@
       "ingredients": [
         "olive oil",
         "boneless skinless chicken breasts",
-        "Salt and pepper",
+        "Salt",
         "minced garlic",
         "heavy cream",
         "water",
@@ -83,7 +83,7 @@
       "ingredients": [
         "olive oil",
         "boneless skinless chicken breasts",
-        "Salt and pepper",
+        "Salt",
         "minced garlic",
         "heavy cream",
         "water",
@@ -109,7 +109,7 @@
       "text": "Transfer chicken to a plate.",
       "ingredients": [
         "boneless skinless chicken breasts",
-        "Salt and pepper",
+        "Salt",
         "minced garlic",
         "heavy cream",
         "water"
@@ -121,6 +121,7 @@
       "ingredients": [
         "olive oil",
         "boneless skinless chicken breasts",
+        "Salt",
         "minced garlic",
         "water",
         "dry fettuccine pasta",
@@ -144,7 +145,7 @@
       "step": 7,
       "text": "Stir butter into cream to melt. Remove from heat, toss in parmesan, pasta and 1/4 cup reserved pasta water. Toss while seasoning with salt and pepper to taste.",
       "ingredients": [
-        "Salt and pepper",
+        "Salt",
         "minced garlic",
         "heavy cream",
         "water",
@@ -180,5 +181,5 @@
   "url": "https://www.cookingclassy.com/chicken-alfredo/",
   "domain": "www.cookingclassy.com",
   "source": "json-ld",
-  "parseTime": 1
+  "parseTime": 0
 }

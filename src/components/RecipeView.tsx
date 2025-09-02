@@ -77,22 +77,50 @@ function RecipeView({ recipe, onBack }: RecipeViewProps) {
 
     // Find matching ingredients for this step (use scaled ingredients)
     instruction.ingredients.forEach(ingredientName => {
-      const ingredient = scaledRecipe.ingredients.find(ing => 
-        ing.ingredient.toLowerCase().includes(ingredientName.toLowerCase()) ||
-        ingredientName.toLowerCase().includes(ing.ingredient.toLowerCase())
-      );
+      const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const target = norm(ingredientName);
+      const ingredient = scaledRecipe.ingredients.find(ing => {
+        const ingName = norm(ing.ingredient);
+        // direct or contained either way
+        if (ingName.includes(target) || target.includes(ingName)) return true;
+        // handle common synonyms: remove 'lean' descriptor, singular/plural
+        const ingBase = ingName.replace(/\blean\b/g, '').replace(/\s+/g, ' ').trim();
+        const tgtBase = target.replace(/\blean\b/g, '').replace(/\s+/g, ' ').trim();
+        if (ingBase.includes(tgtBase) || tgtBase.includes(ingBase)) return true;
+        // plural/singular basic handling
+        if (ingBase.endsWith('s') && ingBase.slice(0, -1) === tgtBase) return true;
+        if (tgtBase.endsWith('s') && tgtBase.slice(0, -1) === ingBase) return true;
+        return false;
+      });
       if (ingredient) {
         ingredientMatches.push({ ingredient, name: ingredientName });
       }
     });
 
     // Replace ingredient mentions with inline components
-    ingredientMatches.forEach(({ ingredient, name }) => {
-      // Escape special regex characters to prevent invalid regex errors
-      const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`\\b${escapedName}\\b`, 'gi');
-      text = text.replace(regex, `__INGREDIENT_${ingredient.ingredient}__`);
-    });
+    // Sort by longer names first to avoid partial shadowing (e.g., "beef" before "ground beef")
+    ingredientMatches
+      .sort((a, b) => b.name.length - a.name.length)
+      .forEach(({ ingredient, name }) => {
+        const placeholder = `__INGREDIENT_${ingredient.ingredient}__`;
+        // Escape special regex characters to prevent invalid regex errors
+        const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+        // Try to replace full "qty + unit + name" sequences to avoid duplicate amounts in text
+        // Handles numbers, ranges, ASCII fractions, and common vulgar fractions
+        // Matches optional quantity/units words between qty and name (e.g., "2 pounds") and optional descriptors
+        const qtyUnitsPattern = String.raw`(?:\b\d[\d\s\/.¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞\-]*\s*(?:[a-zA-Z\.]+\s+)*)?`;
+        const extended = new RegExp(`${qtyUnitsPattern}\\b${escapedName}\\b`, 'gi');
+
+        const before = text;
+        text = text.replace(extended, placeholder);
+
+        if (text === before) {
+          // Fallback: replace just the ingredient name
+          const nameOnly = new RegExp(`\\b${escapedName}\\b`, 'gi');
+          text = text.replace(nameOnly, placeholder);
+        }
+      });
 
     // Split text and render with inline ingredients
     const parts = text.split(/__INGREDIENT_([^_]+)__/);

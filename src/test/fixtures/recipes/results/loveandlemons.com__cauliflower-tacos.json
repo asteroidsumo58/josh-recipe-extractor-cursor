@@ -72,7 +72,10 @@
   "instructions": [
     {
       "step": 1,
-      "text": "Preheat the oven to 400°F."
+      "text": "Preheat the oven to 400°F.",
+      "ingredients": [
+        "corn tortillas"
+      ]
     },
     {
       "step": 2,
@@ -84,13 +87,13 @@
       },
       "ingredients": [
         "cauliflower outer leaves and core discarded",
-        "red cabbage thinly sliced about red cabbage or sliced",
+        "red cabbage",
         "extra virgin olive oil",
         "ground cumin",
         "ground coriander",
         "salt",
         "recipe Avocado Sauce",
-        "corn tortillas warmed",
+        "corn tortillas",
         "Thinly sliced radishes",
         "Sliced serrano peppers",
         "Avocado",
@@ -103,6 +106,7 @@
       "ingredients": [
         "ground coriander",
         "recipe Avocado Sauce",
+        "corn tortillas",
         "Avocado",
         "Cilantro"
       ]
@@ -120,5 +124,5 @@
   "url": "https://www.loveandlemons.com/cauliflower-tacos/",
   "domain": "www.loveandlemons.com",
   "source": "json-ld",
-  "parseTime": 1
+  "parseTime": 7
 }

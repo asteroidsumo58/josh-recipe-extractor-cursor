@@ -136,6 +136,7 @@
         "green chilli deseeded and chopped",
         "thumb sized ginger grated",
         "garam masala",
+        "tomato puree",
         "chicken stock",
         "flaked almonds toasted",
         "basmati rice",
@@ -153,7 +154,7 @@
       },
       "ingredients": [
         "skinless boneless chicken thighs",
-        "lemon taste juiced",
+        "lemon juiced",
         "ground cumin",
         "paprika",
         "natural yogurt",
@@ -163,6 +164,7 @@
         "green chilli deseeded and chopped",
         "thumb sized ginger grated",
         "garam masala",
+        "tomato puree",
         "flaked almonds toasted",
         "basmati rice",
         "naan bread",
@@ -186,7 +188,7 @@
         "garlic crushed",
         "thumb sized ginger grated",
         "garam masala",
-        "tomato pur e",
+        "tomato puree",
         "chicken stock",
         "flaked almonds toasted",
         "basmati rice",
@@ -207,5 +209,5 @@
   "url": "https://www.bbcgoodfood.com/recipes/easy-butter-chicken",
   "domain": "www.bbcgoodfood.com",
   "source": "json-ld",
-  "parseTime": 18
+  "parseTime": 1
 }

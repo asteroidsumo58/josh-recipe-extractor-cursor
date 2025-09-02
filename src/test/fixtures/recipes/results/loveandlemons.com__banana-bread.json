@@ -68,27 +68,29 @@
       "step": 2,
       "text": "In a large bowl, whisk together the mashed banana, sugar, butter, eggs, and vanilla.",
       "ingredients": [
-        "mashed very ripe banana about",
+        "mashed very ripe banana",
         "cane sugar or brown sugar",
         "eggs",
         "vanilla extract",
         "baking soda",
         "salt",
-        "cinnamon"
+        "cinnamon",
+        "chopped walnuts"
       ]
     },
     {
       "step": 3,
       "text": "In a medium bowl, whisk together the flour, baking soda, salt, cinnamon, and nutmeg.",
       "ingredients": [
-        "mashed very ripe banana about",
+        "mashed very ripe banana",
         "cane sugar or brown sugar",
         "vanilla extract",
-        "flour spooned and leveled",
+        "flour",
         "baking soda",
         "salt",
         "cinnamon",
-        "nutmeg"
+        "nutmeg",
+        "chopped walnuts"
       ]
     },
     {
@@ -96,12 +98,16 @@
       "text": "Add the dry ingredients to the wet ingredients and stir until just combined. Don’t overmix. Fold in the ½ cup walnuts.",
       "ingredients": [
         "baking soda",
-        "cinnamon"
+        "cinnamon",
+        "chopped walnuts"
       ]
     },
     {
       "step": 5,
-      "text": "Pour the batter into the prepared pan and top with the remaining 2 tablespoons walnuts."
+      "text": "Pour the batter into the prepared pan and top with the remaining 2 tablespoons walnuts.",
+      "ingredients": [
+        "chopped walnuts"
+      ]
     },
     {
       "step": 6,
@@ -112,14 +118,13 @@
         "iso8601": "PT60M"
       },
       "ingredients": [
-        "mashed very ripe banana about",
+        "mashed very ripe banana",
         "cane sugar or brown sugar",
-        "melted butter or vegetable oil plus more for the pan",
         "vanilla extract",
         "baking soda",
         "salt",
         "cinnamon",
-        "chopped walnuts plus for topping"
+        "chopped walnuts"
       ]
     }
   ],

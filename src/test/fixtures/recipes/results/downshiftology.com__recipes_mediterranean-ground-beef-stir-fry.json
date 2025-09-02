@@ -70,13 +70,13 @@
       },
       "ingredients": [
         "olive oil",
-        "red bell pepper deseeded and diced",
-        "cherry tomatoes sliced in",
-        "baby spinach tub",
-        "garlic minced",
+        "red bell pepper",
+        "cherry tomatoes",
+        "baby spinach",
+        "garlic",
         "green onion thinly sliced",
         "oregano",
-        "salt and ground pepper taste",
+        "salt and ground pepper",
         "crumbled feta"
       ]
     },
@@ -89,11 +89,12 @@
         "iso8601": "PT3M"
       },
       "ingredients": [
-        "baby spinach tub",
-        "garlic minced",
+        "cherry tomatoes",
+        "baby spinach",
+        "garlic",
         "green onion thinly sliced",
         "oregano",
-        "salt and ground pepper taste",
+        "salt and ground pepper",
         "crumbled feta"
       ]
     },
@@ -101,11 +102,12 @@
       "step": 3,
       "text": "Cook the beef. Add the ground beef, oregano, salt, and black pepper to the pan, and use a spatula to break up the meat. Cook the ground beef until it's browned, then drain off any excess grease.",
       "ingredients": [
-        "baby spinach tub",
-        "garlic minced",
+        "cherry tomatoes",
+        "baby spinach",
+        "garlic",
         "ground beef",
         "oregano",
-        "salt and ground pepper taste",
+        "salt and ground pepper",
         "crumbled feta"
       ]
     },
@@ -113,6 +115,7 @@
       "step": 4,
       "text": "Garnish and serve. Transfer the veggies back to the pan, add the green parts of the green onion, and stir until warmed through. Garnish with crumbled feta before serving.",
       "ingredients": [
+        "cherry tomatoes",
         "green onion thinly sliced",
         "crumbled feta"
       ]
@@ -131,5 +134,5 @@
   "url": "https://downshiftology.com/recipes/mediterranean-ground-beef-stir-fry/",
   "domain": "downshiftology.com",
   "source": "json-ld",
-  "parseTime": 8
+  "parseTime": 23
 }

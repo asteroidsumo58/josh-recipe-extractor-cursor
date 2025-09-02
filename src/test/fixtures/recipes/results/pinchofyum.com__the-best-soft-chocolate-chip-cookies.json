@@ -67,6 +67,7 @@
         "iso8601": "PT1M"
       },
       "ingredients": [
+        "white sugar",
         "baking soda"
       ]
     },
@@ -80,24 +81,26 @@
       },
       "ingredients": [
         "of salted butter",
+        "white sugar",
         "packed light brown sugar",
         "vanilla",
         "egg",
         "baking soda",
-        "salt but I always add a little extra"
+        "salt",
+        "chocolate chips"
       ]
     },
     {
       "step": 3,
       "text": "Add the flour, baking soda, and salt. Mix until crumbles form. Use your hands to press the crumbles together into a dough. It should form one large ball that is easy to handle (right at the stage between “wet” dough and “dry” dough). Add the chocolate chips and incorporate with your hands.",
       "ingredients": [
-        "white sugar I like use cane sugar with a coarser texture",
+        "white sugar",
         "packed light brown sugar",
         "vanilla",
         "flour",
         "baking soda",
-        "salt but I always add a little extra",
-        "chocolate chips I use a combination of chocolate chips and chocolate chunks"
+        "salt",
+        "chocolate chips"
       ]
     },
     {
@@ -110,10 +113,12 @@
       },
       "ingredients": [
         "of salted butter",
+        "white sugar",
         "packed light brown sugar",
         "vanilla",
         "baking soda",
-        "salt but I always add a little extra"
+        "salt",
+        "chocolate chips"
       ]
     },
     {
@@ -126,12 +131,12 @@
       },
       "ingredients": [
         "of salted butter",
-        "white sugar I like use cane sugar with a coarser texture",
+        "white sugar",
         "packed light brown sugar",
         "vanilla",
         "baking soda",
-        "salt but I always add a little extra",
-        "chocolate chips I use a combination of chocolate chips and chocolate chunks"
+        "salt",
+        "chocolate chips"
       ]
     }
   ],

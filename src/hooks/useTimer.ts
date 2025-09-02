@@ -32,29 +32,45 @@ export function useTimer(): UseTimerReturn {
 
   // Initialize audio for timer completion
   useEffect(() => {
-    // Create a simple beep sound using Web Audio API
+    // Create a pulsing beep sound (~10 seconds) using Web Audio API
     const createBeepSound = () => {
       type WebkitAudioContext = {
         webkitAudioContext: typeof AudioContext;
       };
       const AudioContextConstructor =
-        window.AudioContext || (window as unknown as WebkitAudioContext).webkitAudioContext;
+        (window as unknown as { AudioContext?: typeof AudioContext }).AudioContext ||
+        (window as unknown as WebkitAudioContext).webkitAudioContext;
+      if (!AudioContextConstructor) return;
+
       const audioContext = new AudioContextConstructor();
       const oscillator = audioContext.createOscillator();
       const gainNode = audioContext.createGain();
-      
+
       oscillator.connect(gainNode);
       gainNode.connect(audioContext.destination);
-      
-      oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+
+      oscillator.frequency.setValueAtTime(880, audioContext.currentTime); // A5 tone
       oscillator.type = 'sine';
-      
-      gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.01);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-      
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.5);
+
+      const now = audioContext.currentTime;
+      const total = 10; // seconds of alert
+
+      // Schedule a series of short pulses for audibility over ~10s
+      // Each second: 0.4s on, 0.6s off
+      gainNode.gain.setValueAtTime(0, now);
+      for (let t = 0; t < total; t++) {
+        const start = now + t;
+        const onA = start + 0.01; // fade in quickly
+        const onB = start + 0.4;  // stay on
+        const off = start + 0.5;  // fade out
+        gainNode.gain.setValueAtTime(0, start);
+        gainNode.gain.linearRampToValueAtTime(0.35, onA);
+        gainNode.gain.linearRampToValueAtTime(0.35, onB);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, off);
+      }
+
+      oscillator.start(now);
+      oscillator.stop(now + total + 0.6);
     };
 
     audioRef.current = { play: createBeepSound };
@@ -215,7 +231,7 @@ export function formatTime(seconds: number): string {
 
   if (hours > 0) {
     return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  }
+    }
   return `${minutes}:${secs.toString().padStart(2, '0')}`;
 }
 

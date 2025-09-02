@@ -127,5 +127,5 @@
   "url": "https://www.tasty.co/recipe/the-best-fudgy-brownies",
   "domain": "www.tasty.co",
   "source": "json-ld",
-  "parseTime": 0
+  "parseTime": 1
 }

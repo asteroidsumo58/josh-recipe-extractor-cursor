@@ -252,6 +252,9 @@ export function extractIngredientNames(ingredients: ParsedIngredient[]): string[
     // Use the parsed ingredient name, or fall back to raw text
     let name = ing.ingredient || ing.raw;
 
+    // Strip parenthetical notes e.g., (divided, or to taste)
+    name = name.replace(/\([^)]*\)/g, ' ');
+
     // Drop leading quantities (numbers, ranges, ascii fractions) and vulgar fractions
     name = name
       .replace(vulgarFractions, ' ') // replace with space to keep word boundaries
@@ -260,7 +263,9 @@ export function extractIngredientNames(ingredients: ParsedIngredient[]): string[
       .replace(/\b(to|–|-)\b/gi, ' '); // range connectors
 
     // Remove common descriptors and preparations; keep 'whole' unless part of 'whole wheat'
-    name = name.replace(/\b(fresh|freshly|dried|frozen|canned|organic|raw|cooked|coarsely|coarse|finely|cracked)\b/gi, ' ');
+    name = name.replace(/\b(fresh|freshly|dried|frozen|canned|organic|raw|cooked|coarsely|coarse|finely|cracked|divided|lean)\b/gi, ' ');
+    // Remove common seasoning phrases
+    name = name.replace(/\b(to\s+taste|or\s+to\s+taste)\b/gi, ' ');
     // Robustly remove 'all-purpose' and 'self-rising' regardless of hyphen type or spacing
     name = name.replace(/\ball[\s\u2010\u2011\u2012\u2013\u2014-]?purpose\b/gi, ' ');
     name = name.replace(/\bself[\s\u2010\u2011\u2012\u2013\u2014-]?rising\b/gi, ' ');
@@ -270,6 +275,9 @@ export function extractIngredientNames(ingredients: ParsedIngredient[]): string[
     // Normalize special cases so step text like "salt, pepper" matches
     name = name.replace(/\b(kosher|sea|table|iodized)\s+salt\b/gi, 'salt');
     name = name.replace(/\bblack\s+pepper\b/gi, 'pepper');
+
+    // Remove diacritics to match words like jalapeño -> jalapeno
+    name = name.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
     // Clean punctuation and spaces
     name = name.replace(/[^a-zA-Z\s]/g, ' ');

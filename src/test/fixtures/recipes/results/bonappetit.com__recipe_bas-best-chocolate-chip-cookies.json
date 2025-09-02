@@ -60,13 +60,14 @@
       "step": 1,
       "text": "Place racks in upper and lower thirds of oven; preheat to 375°. Whisk 1½ cups plus 1 Tbsp. (200 g) all-purpose flour, 1¼ tsp. (4 g) Diamond Crystal or ¾ tsp. (4 g) Morton kosher salt, and ¾ tsp. (4 g) baking soda in a small bowl; set flour mixture aside.",
       "ingredients": [
-        "plus flour spooning into measuring then leveling",
+        "plus flour",
         "Diamond Crystal or Morton salt",
         "baking soda",
-        "packed dark brown sugar",
+        "unsalted butter",
+        "dark brown sugar",
         "granulated sugar",
         "vanilla extract",
-        "bittersweet chocolate cacao"
+        "bittersweet chocolate"
       ]
     },
     {
@@ -78,14 +79,13 @@
         "iso8601": "PT4M"
       },
       "ingredients": [
-        "plus flour spooning into measuring then leveling",
         "Diamond Crystal or Morton salt",
         "baking soda",
-        "sticks unsalted butter divided",
-        "packed dark brown sugar",
+        "unsalted butter",
+        "dark brown sugar",
         "granulated sugar",
         "vanilla extract",
-        "bittersweet chocolate cacao"
+        "bittersweet chocolate"
       ]
     },
     {
@@ -97,14 +97,15 @@
         "iso8601": "PT11M"
       },
       "ingredients": [
-        "plus flour spooning into measuring then leveling",
+        "plus flour",
         "baking soda",
-        "packed dark brown sugar",
+        "unsalted butter",
+        "dark brown sugar",
         "granulated sugar",
         "egg",
         "egg yolks",
         "vanilla extract",
-        "bittersweet chocolate cacao"
+        "bittersweet chocolate"
       ]
     },
     {
@@ -116,14 +117,14 @@
         "iso8601": "PT10M"
       },
       "ingredients": [
-        "plus flour spooning into measuring then leveling",
+        "plus flour",
         "Diamond Crystal or Morton salt",
         "baking soda",
-        "sticks unsalted butter divided",
-        "packed dark brown sugar",
+        "unsalted butter",
+        "dark brown sugar",
         "granulated sugar",
         "vanilla extract",
-        "bittersweet chocolate cacao"
+        "bittersweet chocolate"
       ]
     }
   ],
@@ -138,5 +139,5 @@
   "url": "https://www.bonappetit.com/recipe/bas-best-chocolate-chip-cookies",
   "domain": "www.bonappetit.com",
   "source": "json-ld",
-  "parseTime": 7
+  "parseTime": 2
 }

@@ -68,7 +68,8 @@
       "ingredients": [
         "ripe avocados",
         "salt",
-        "cilantro leaves and tender stems",
+        "serrano chiles",
+        "cilantro",
         "ripe tomato",
         "Red radish or jicama for garnish"
       ]
@@ -79,7 +80,8 @@
       "ingredients": [
         "ripe avocados",
         "salt",
-        "cilantro leaves and tender stems",
+        "serrano chiles",
+        "cilantro",
         "ripe tomato",
         "Red radish or jicama for garnish"
       ]
@@ -92,7 +94,8 @@
         "salt",
         "lime or lemon juice",
         "minced red onion or thinly sliced green onion",
-        "cilantro leaves and tender stems",
+        "serrano chiles",
+        "cilantro",
         "Pinch ground pepper",
         "ripe tomato",
         "Red radish or jicama for garnish"
@@ -105,7 +108,8 @@
         "ripe avocados",
         "salt",
         "minced red onion or thinly sliced green onion",
-        "cilantro leaves and tender stems",
+        "serrano chiles",
+        "cilantro",
         "ripe tomato",
         "Red radish or jicama for garnish",
         "Tortilla chips serve"
@@ -121,5 +125,5 @@
   "url": "https://www.simplyrecipes.com/recipes/perfect_guacamole/",
   "domain": "www.simplyrecipes.com",
   "source": "json-ld",
-  "parseTime": 8
+  "parseTime": 0
 }

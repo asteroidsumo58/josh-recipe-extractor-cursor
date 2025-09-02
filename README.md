@@ -16,6 +16,8 @@ A modern, intelligent recipe extraction and management application built with Ne
 - **Auto-detection**: Automatically finds cooking times in recipe instructions
 - **Multiple Timers**: Run multiple timers simultaneously for complex recipes
 - **Inline Step Timers**: iOS-style circular countdown rendered directly within each recipe step
+- **Custom Timers**: Use the “Custom…” button to set Hours/Minutes/Seconds for any step
+- **Audible Alert**: Pulsing completion sound plays for ~10 seconds; browser notification (if permitted)
 - **Visual Indicators**: Clear status indicators and notifications
 - **Persistent State**: Timers continue running across page refreshes
 
@@ -134,6 +136,12 @@ The project maintains comprehensive test coverage with:
   - Per-recipe JSON outputs to `src/test/fixtures/recipes/results/*.json`
   - Aggregate `report.json` and `report.md` to `src/test/fixtures/recipes/`
 - Anti-bot/placeholder pages may parse as failures; use the audit to focus parser improvements on real gaps.
+
+### Timers – Usage Tips
+- Click “Start …” to use the parsed duration for a step.
+- Click “Custom…” to pick Hours/Minutes/Seconds, preview the HH:MM:SS, then “Create & Start”.
+- When a timer completes, a ~10s pulsing alert plays and (if permitted) a notification appears.
+- Timers are grouped by step; custom timers for the same step render inline with controls.
 
 ## 🏗️ Architecture
 

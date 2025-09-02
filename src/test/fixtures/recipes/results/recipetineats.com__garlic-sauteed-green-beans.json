@@ -50,7 +50,7 @@
       "ingredients": [
         "g oz green beans",
         "salt",
-        "extra virgin olive oil or butter",
+        "extra virgin olive oil",
         "garlic",
         "salt",
         "pinch pepper"
@@ -67,7 +67,7 @@
       "ingredients": [
         "g oz green beans",
         "salt",
-        "extra virgin olive oil or butter",
+        "extra virgin olive oil",
         "garlic",
         "salt",
         "pinch pepper"
@@ -98,5 +98,5 @@
   "url": "https://www.recipetineats.com/garlic-sauteed-green-beans/",
   "domain": "www.recipetineats.com",
   "source": "json-ld",
-  "parseTime": 1
+  "parseTime": 0
 }

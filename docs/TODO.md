@@ -16,6 +16,7 @@
 - [x] **Step 13**: Add 50+ recipe snapshots and batch E2E tests
 - [x] **Step 14**: Add automated audit (JSON/Markdown) and one-command pipeline
 - [x] **Step 15**: Improve ingredient name extraction and inline reference matching
+- [x] **Step 16**: Adjustable custom timers (HH:MM:SS) and ~10s completion alert
 
 ## Top Priority 🔥
 1. **Fix remaining runtime issues** - Address any remaining edge cases in recipe parsing
@@ -24,6 +25,7 @@
 4. **Add loading states** - Better UX for slow recipe parsing operations
 5. **Optimize image handling** - Loading states and fallback for broken images
 6. **HTML heuristics** - Improve fallback selectors for sites without structured data
+7. **Timer UX** - Optional presets (45/50/60) and per-timer mute
 
 ## Future Enhancements 💡
 - [ ] Manual recipe entry for sites without structured data
