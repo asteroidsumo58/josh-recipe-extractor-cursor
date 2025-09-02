@@ -1,4 +1,4 @@
-import type { ParsedRecipe } from '@/types/api';
+import type { Recipe } from '@/types/recipe';
 
 /**
  * LRU Cache with TTL (Time To Live) support
@@ -144,4 +144,4 @@ export class LRUCache<T> {
 }
 
 // Global cache instance for recipe parsing
-export const recipeCache = new LRUCache<ParsedRecipe>(100, 24 * 60 * 60 * 1000); // 100 entries, 24h TTL
+export const recipeCache = new LRUCache<Recipe>(100, 24 * 60 * 60 * 1000); // 100 entries, 24h TTL
