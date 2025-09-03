@@ -40,7 +40,7 @@ export default function RecipeForm({ onSubmit, loading }: RecipeFormProps) {
   ];
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-2xl mx-auto fade-in">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="recipe-url" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -82,10 +82,10 @@ export default function RecipeForm({ onSubmit, loading }: RecipeFormProps) {
           disabled={loading || !url.trim()}
           className={`
             w-full px-6 py-3 text-lg font-medium rounded-lg
-            transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2
+            transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2
             ${loading || !url.trim()
               ? 'bg-blue-700 text-white opacity-60 cursor-not-allowed'
-              : 'bg-blue-700 hover:bg-blue-800 text-white focus:ring-blue-500'
+              : 'bg-blue-700 hover:bg-blue-800 text-white focus:ring-blue-500 hover:-translate-y-0.5 active:translate-y-0'
             }
           `}
         >
@@ -109,10 +109,10 @@ export default function RecipeForm({ onSubmit, loading }: RecipeFormProps) {
               key={index}
               onClick={() => !loading && setUrl(exampleUrl)}
               disabled={loading}
-              className="block w-full text-left px-3 py-2 text-sm text-blue-600 dark:text-blue-400 
-                         hover:bg-blue-50 dark:hover:bg-gray-800 rounded border border-blue-200 
+              className="block w-full text-left px-3 py-2 text-sm text-blue-600 dark:text-blue-400
+                         hover:bg-blue-50 dark:hover:bg-gray-800 rounded border border-blue-200
                          dark:border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed
-                         transition-colors duration-200"
+                         transition-all duration-200 hover:-translate-y-0.5"
             >
               {new URL(exampleUrl).hostname}
             </button>

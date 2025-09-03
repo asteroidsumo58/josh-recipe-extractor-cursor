@@ -87,27 +87,29 @@ html.dark {
 body {
   background: var(--background) !important;
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.18) 1px, transparent 0),
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.18) 1px, transparent 0) !important;
-  background-size: 18px 18px, 18px 18px !important;
-  background-position: 0 0, 9px 9px !important;
+    radial-gradient(at 25% 25%, rgba(59, 130, 246, 0.12), transparent 60%),
+    radial-gradient(at 75% 75%, rgba(59, 130, 246, 0.06), transparent 60%) !important;
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, background-image 0.2s ease-in-out;
+  transition: background-color 0.3s ease, color 0.3s ease, background-image 0.3s ease;
 }
 
 /* Ensure the body background changes with theme */
 .dark body {
   background: var(--background) !important;
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.18) 1px, transparent 0),
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.18) 1px, transparent 0) !important;
-  background-size: 18px 18px, 18px 18px !important;
-  background-position: 0 0, 9px 9px !important;
+    radial-gradient(at 25% 25%, rgba(59, 130, 246, 0.15), transparent 60%),
+    radial-gradient(at 75% 75%, rgba(59, 130, 246, 0.08), transparent 60%) !important;
+  background-attachment: fixed;
 }
 
 .light body {
   background: #ffffff;
+  background-image:
+    radial-gradient(at 25% 25%, rgba(59, 130, 246, 0.12), transparent 60%),
+    radial-gradient(at 75% 75%, rgba(59, 130, 246, 0.06), transparent 60%) !important;
+  background-attachment: fixed;
 }
 
 /* Force light mode to be very light */
@@ -137,10 +139,9 @@ body {
 .light body {
   background: #ffffff !important;
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.12) 1px, transparent 0),
-    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.12) 1px, transparent 0) !important;
-  background-size: 18px 18px, 18px 18px !important;
-  background-position: 0 0, 9px 9px !important;
+    radial-gradient(at 25% 25%, rgba(59, 130, 246, 0.12), transparent 60%),
+    radial-gradient(at 75% 75%, rgba(59, 130, 246, 0.06), transparent 60%) !important;
+  background-attachment: fixed;
   color: #171717 !important;
 }
 
@@ -171,4 +172,19 @@ body {
 
 .light .dark\:text-gray-400 {
   color: #6b7280 !important;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility fade-in {
+  animation: fade-in 0.4s ease-out both;
 }

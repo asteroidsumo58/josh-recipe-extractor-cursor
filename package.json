@@ -20,6 +20,7 @@
     "pipeline:recipes": "node ./scripts/fetch-recipes.js && vitest run src/test/e2e-audit.test.ts"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
     "cheerio": "^1.1.2",
     "lru-cache": "^11.1.0",
     "next": "15.5.2",
