@@ -1,5 +1,42 @@
 import { describe, it, expect } from 'vitest';
-import { parseHtmlHeuristics } from '@/lib/parsers/html-heuristics';
+import { parseHtmlHeuristics, extractInstructionsLoose } from '@/lib/parsers/html-heuristics';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+describe('HTML Heuristics - Langbein style pages', () => {
+  it('extracts STEP-based instructions under Method and ingredient lines under Ingredients', () => {
+    const html = `
+      <article>
+        <h1>Huntsman’s Chicken Pie</h1>
+        <h3>Ingredients</h3>
+        <p>2 tbsp butter</p>
+        <p>4 rashers bacon, chopped</p>
+        <p>2 onions, finely diced</p>
+        <h3>Method</h3>
+        <p>STEP 1 Preheat oven to 180°C fanbake. Melt butter and cook bacon and onions.</p>
+        <p>STEP 2 Add mushrooms and herbs and cook. Mix cornflour and add to pan with wine.</p>
+      </article>`;
+
+    const result = parseHtmlHeuristics(html, 'https://www.langbein.com/recipes/huntsman-chicken-pie');
+    expect(result).not.toBeNull();
+    if (!result) return;
+    expect(result.ingredients.length).toBeGreaterThanOrEqual(2);
+    expect(result.instructions.length).toBeGreaterThanOrEqual(2);
+    expect(result.instructions[0].text.toLowerCase()).toContain('preheat oven');
+  });
+
+  it('extractInstructionsLoose picks up STEP paragraphs when ingredient parsing fails', () => {
+    const html = `
+      <div>
+        <h2>Method</h2>
+        <p>STEP 1 Heat the pan.</p>
+        <p>STEP 2 Add chicken and cook 10 minutes.</p>
+      </div>`;
+    const steps = extractInstructionsLoose(html);
+    expect(steps.length).toBe(2);
+    expect(steps[1].text.toLowerCase()).toContain('add chicken');
+  });
+});
 
 const testHtml = `
 <!DOCTYPE html>

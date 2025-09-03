@@ -17,7 +17,10 @@
     "fetch:recipes": "node ./scripts/fetch-recipes.js",
     "test:recipes": "vitest run src/test/e2e-batch-recipes.test.ts",
     "audit:recipes": "vitest run src/test/e2e-audit.test.ts",
-    "pipeline:recipes": "node ./scripts/fetch-recipes.js && vitest run src/test/e2e-audit.test.ts"
+    "pipeline:recipes": "node ./scripts/fetch-recipes.js && vitest run src/test/e2e-audit.test.ts",
+    "selftest:fetch": "node ./scripts/fetch-recipes.js ./scripts/selftest-urls.json",
+    "selftest:run": "vitest run src/test/e2e-selftest.test.tsx",
+    "selftest:pipeline": "node ./scripts/fetch-recipes.js ./scripts/selftest-urls.json && vitest run src/test/e2e-selftest.test.ts"
   },
   "dependencies": {
     "cheerio": "^1.1.2",

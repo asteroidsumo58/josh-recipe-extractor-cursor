@@ -17,14 +17,18 @@
 - [x] **Step 14**: Add automated audit (JSON/Markdown) and one-command pipeline
 - [x] **Step 15**: Improve ingredient name extraction and inline reference matching
 - [x] **Step 16**: Adjustable custom timers (HH:MM:SS) and ~10s completion alert
+ - [x] **Step 17**: Add self-test pipeline (fixtures + parse+UI smoke) and reports
+ - [x] **Step 18**: Add parser instrumentation headers (X-Parser-Source, X-Parser-Steps)
+ - [x] **Step 19**: Augment JSON-LD missing instructions via loose HTML heuristics
+ - [x] **Step 20**: Heuristics: support Langbein-style "Method" with "STEP N" paragraphs
 
 ## Top Priority 🔥
-1. **Fix remaining runtime issues** - Address any remaining edge cases in recipe parsing
+1. **Fix remaining runtime issues** - Address edge cases on index/home pages (non-recipes)
 2. **Add ingredient parser fallback** - Handle cases where library parsing fails
 3. **Improve timer audio compatibility** - Cross-browser audio notification support
 4. **Add loading states** - Better UX for slow recipe parsing operations
 5. **Optimize image handling** - Loading states and fallback for broken images
-6. **HTML heuristics** - Improve fallback selectors for sites without structured data
+6. **HTML heuristics** - Continue improving selectors for sites without structured data
 7. **Timer UX** - Optional presets (45/50/60) and per-timer mute
 
 ## Future Enhancements 💡
@@ -92,6 +96,12 @@
 - [x] Inline step timers with circular countdown; widened left pane and fixed overflow
 - [x] Consolidated theme toggle to global header (removed duplicate in RecipeView)
 - [x] Improved inline ingredient matching (salt/pepper normalization, vulgar fractions support)
+
+## Recent Parser Improvements (Apr 2025) ✅
+- [x] Self-test harness over curated URLs with JSON/Markdown reporting
+- [x] Response headers: `X-Parser-Source`, `X-Parser-Steps` for observability
+- [x] JSON-LD instruction augmentation: Microdata → Loose heuristics → Full heuristics
+- [x] Langbein pattern: capture "Method" sections with "STEP N" paragraphs
 
 ## Production Ready ✅
 **Recipe Extractor v1.2** - Fully functional and deployed with comprehensive features:

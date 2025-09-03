@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { parseJsonLd, parseMicrodata } from '@/lib/parsers/structured-data';
-import { parseHtmlHeuristics } from '@/lib/parsers/html-heuristics';
+import { parseHtmlHeuristics, extractInstructionsLoose } from '@/lib/parsers/html-heuristics';
 import { Recipe } from '@/types/recipe';
 import { ParseError, ParsedRecipe } from '@/types/api';
 import { recipeCache } from '@/lib/cache';
@@ -219,6 +219,15 @@ export async function GET(request: NextRequest) {
       const response = NextResponse.json(cachedRecipe);
       response.headers.set('X-Cache', 'HIT');
       response.headers.set('X-RateLimit-Remaining', rateLimit.remaining.toString());
+      // Instrumentation headers
+      try {
+        // @ts-ignore - be defensive in case of partial shapes
+        const src = (cachedRecipe as any)?.source ?? '';
+        // @ts-ignore
+        const steps = Array.isArray((cachedRecipe as any)?.instructions) ? (cachedRecipe as any).instructions.length : 0;
+        if (src) response.headers.set('X-Parser-Source', String(src));
+        response.headers.set('X-Parser-Steps', String(steps));
+      } catch {}
       return response;
     }
     
@@ -234,6 +243,32 @@ export async function GET(request: NextRequest) {
     
     // 1. Try JSON-LD first (most reliable)
     recipe = parseJsonLd(html, url);
+    
+    // If JSON-LD is present but missing instructions, try to augment from other sources
+    if (recipe && (!recipe.instructions || recipe.instructions.length === 0)) {
+      console.log(`ℹ️ JSON-LD found for ${domain} but instructions missing. Attempting to augment...`);
+      // Try microdata for instructions
+      const micro = parseMicrodata(html, url);
+      if (micro && micro.instructions && micro.instructions.length > 0) {
+        recipe = { ...recipe, instructions: micro.instructions };
+        console.log(`✅ Augmented instructions from microdata for ${domain}`);
+      } else {
+        // Fall back to HTML heuristics for instructions
+        // Use a loose extractor that doesn't require ingredient parsing
+        const heuristicSteps = extractInstructionsLoose(html);
+        if (heuristicSteps && heuristicSteps.length > 0) {
+          recipe = { ...recipe, instructions: heuristicSteps };
+          console.log(`✅ Augmented instructions from HTML heuristics (loose) for ${domain}`);
+        } else {
+          // As a last try, run full heuristics in case it can parse both
+          const heuristic = parseHtmlHeuristics(html, url);
+          if (heuristic && heuristic.instructions && heuristic.instructions.length > 0) {
+            recipe = { ...recipe, instructions: heuristic.instructions };
+            console.log(`✅ Augmented instructions from full HTML heuristics for ${domain}`);
+          }
+        }
+      }
+    }
     
     // 2. Fall back to microdata if JSON-LD fails
     if (!recipe) {
@@ -270,6 +305,15 @@ export async function GET(request: NextRequest) {
     const response = NextResponse.json(recipe);
     response.headers.set('X-Cache', 'MISS');
     response.headers.set('X-RateLimit-Remaining', rateLimit.remaining.toString());
+    // Instrumentation headers
+    try {
+      // @ts-ignore - defensive access
+      const src = (recipe as any)?.source ?? '';
+      // @ts-ignore
+      const steps = Array.isArray((recipe as any)?.instructions) ? (recipe as any).instructions.length : 0;
+      if (src) response.headers.set('X-Parser-Source', String(src));
+      response.headers.set('X-Parser-Steps', String(steps));
+    } catch {}
     
     return response;
     

@@ -183,7 +183,53 @@ function extractIngredients($: cheerio.CheerioAPI): ParsedIngredient[] {
       }
     }
   }
-  
+  // Fallback: Look for an "Ingredients" header and parse following paragraphs/list items
+  if (ingredients.length === 0) {
+    const headerSelectors = 'h2, h3, h4, h5';
+    const headers = $(headerSelectors).filter((_, el) => {
+      const text = cleanText($(el).text());
+      return /^ingredients$/i.test(text);
+    });
+
+    headers.each((_, header) => {
+      let current = $(header).next();
+      while (current.length && current[0].tagName && !/^h[2-5]$/i.test(current[0].tagName)) {
+        // Collect explicit list items
+        current.find('li').each((_, li) => {
+          const text = cleanText($(li).text());
+          if (isLikelyIngredient(text)) {
+            ingredients.push(parseIngredient(text));
+          }
+        });
+
+        // Collect paragraph-based lines
+        if (current.is('p') || current.find('p').length) {
+          const paragraphs = current.is('p') ? current : current.find('p');
+          paragraphs.each((_, p) => {
+            const text = cleanText($(p).text());
+            if (isLikelyIngredient(text)) {
+              ingredients.push(parseIngredient(text));
+            }
+          });
+        }
+
+        // Collect <br>-separated lines
+        const html = current.html() || '';
+        if (html.includes('<br')) {
+          const parts = cleanText(current.text()).split(/\s*\n+\s*/);
+          parts.forEach(line => {
+            const text = cleanText(line);
+            if (isLikelyIngredient(text)) {
+              ingredients.push(parseIngredient(text));
+            }
+          });
+        }
+
+        current = current.next();
+      }
+    });
+  }
+
   return ingredients;
 }
 
@@ -234,6 +280,12 @@ function extractInstructions($: cheerio.CheerioAPI, ingredients: ParsedIngredien
     '[class*="instruction"] li',
     'ol[class*="instruction"] li',
     '.instruction-list li',
+    // Paragraph-based instructions (common on some blogs)
+    '.instructions p',
+    '.method p',
+    '[class*="instruction"] p',
+    '[class*="method"] p',
+    '[itemprop="recipeInstructions"] p',
     // Fallback: look for ordered lists
     'ol li',
   ];
@@ -264,7 +316,89 @@ function extractInstructions($: cheerio.CheerioAPI, ingredients: ParsedIngredien
     }
   }
   
+  // Fallback strategy #2: Look for Method/Instructions headers followed by paragraphs
+  if (instructions.length === 0) {
+    const headerSelectors = 'h2, h3, h4, h5';
+    const headers = $(headerSelectors).filter((_, el) => {
+      const text = cleanText($(el).text());
+      return /^(method|methods|instructions|direction|directions)$/i.test(text);
+    });
+
+    headers.each((_, header) => {
+      // Traverse siblings until the next header, collecting paragraphs and list items
+      let current = $(header).next();
+      while (current.length && current[0].tagName && !/^h[2-5]$/i.test(current[0].tagName)) {
+        // Collect list items inside this block if present
+        current.find('li').each((index, li) => {
+          const text = cleanText($(li).text());
+          if (isLikelyInstruction(text)) {
+            const duration = parseDuration(text);
+            const stepIngredients = findIngredientsInStep(text, ingredientNames);
+            instructions.push({
+              step: instructions.length + 1,
+              text,
+              duration: duration || undefined,
+              ingredients: stepIngredients.length > 0 ? stepIngredients : undefined,
+            });
+          }
+        });
+
+        // Collect paragraphs in this block (common on some sites)
+        if (current.is('p') || current.find('p').length) {
+          const paragraphs = current.is('p') ? current : current.find('p');
+          paragraphs.each((_, p) => {
+            const text = cleanText($(p).text());
+            // Prioritize paragraphs starting with STEP n or that look instructional
+            if (/^step\s*\d+/i.test(text) || isLikelyInstruction(text)) {
+              const duration = parseDuration(text);
+              const stepIngredients = findIngredientsInStep(text, ingredientNames);
+              instructions.push({
+                step: instructions.length + 1,
+                text,
+                duration: duration || undefined,
+                ingredients: stepIngredients.length > 0 ? stepIngredients : undefined,
+              });
+            }
+          });
+        }
+
+        current = current.next();
+      }
+    });
+  }
+
+  // As a last resort, scan all STEP paragraphs on the page
+  if (instructions.length === 0) {
+    const stepParas = $('p').filter((_, el) => {
+      const text = cleanText($(el).text());
+      return /^step\s*\d+/i.test(text);
+    });
+
+    if (stepParas.length > 1) {
+      stepParas.each((_, p) => {
+        const text = cleanText($(p).text());
+        const duration = parseDuration(text);
+        const stepIngredients = findIngredientsInStep(text, ingredientNames);
+        instructions.push({
+          step: instructions.length + 1,
+          text,
+          duration: duration || undefined,
+          ingredients: stepIngredients.length > 0 ? stepIngredients : undefined,
+        });
+      });
+    }
+  }
+
   return instructions;
+}
+
+/**
+ * Exported helper to extract instructions from raw HTML without requiring ingredient parsing.
+ * This helps when sites label sections as "Method" with "STEP n" paragraphs.
+ */
+export function extractInstructionsLoose(html: string): RecipeInstruction[] {
+  const $ = cheerio.load(html);
+  return extractInstructions($, []);
 }
 
 /**

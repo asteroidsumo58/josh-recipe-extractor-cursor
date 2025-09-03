@@ -1,0 +1,289 @@
+{
+  "generatedAt": "2025-09-03T05:38:10.675Z",
+  "results": [
+    {
+      "url": "https://www.simplyrecipes.com/one-ingredient-upgrade-more-flavorful-banana-bread-11800212",
+      "file": "simplyrecipes.com__one-ingredient-upgrade-more-flavorful-banana-bread-11800212.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.seriouseats.com/our-10-best-dessert-recipes-according-to-readers-11801193",
+      "file": "seriouseats.com__our-10-best-dessert-recipes-according-to-readers-11801193.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.eatingwell.com/most-popular-recipes-2025-11798829",
+      "file": "eatingwell.com__most-popular-recipes-2025-11798829.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.southernliving.com/sunday-dinner-ideas-ground-beef-11799368",
+      "file": "southernliving.com__sunday-dinner-ideas-ground-beef-11799368.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.bbcgoodfood.com/recipes",
+      "file": "bbcgoodfood.com__recipes.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://pinchofyum.com/lemon-rosemary-chicken-soup",
+      "file": "pinchofyum.com__lemon-rosemary-chicken-soup.html",
+      "status": 200,
+      "ok": true,
+      "parserSource": "json-ld",
+      "parserSteps": 4,
+      "title": "Lemon Rosemary Chicken Soup",
+      "uiRendered": true
+    },
+    {
+      "url": "https://www.allrecipes.com/recipes/1947/everyday-cooking/quick-and-easy/",
+      "file": "allrecipes.com__recipes_1947_everyday-cooking_quick-and-easy.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://pinchofyum.com/thai-peanut-chicken-bowls",
+      "file": "pinchofyum.com__thai-peanut-chicken-bowls.html",
+      "status": 200,
+      "ok": true,
+      "parserSource": "json-ld",
+      "parserSteps": 5,
+      "title": "Thai Peanut Chicken Bowls",
+      "uiRendered": true
+    },
+    {
+      "url": "https://pinchofyum.com/boursin-appetizer-with-pistachios-and-honey",
+      "file": "pinchofyum.com__boursin-appetizer-with-pistachios-and-honey.html",
+      "status": 200,
+      "ok": true,
+      "parserSource": "json-ld",
+      "parserSteps": 4,
+      "title": "Boursin Appetizer with Pistachios and Honey",
+      "uiRendered": true
+    },
+    {
+      "url": "https://www.justtherecipe.com/",
+      "file": "justtherecipe.com__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://pinchofyum.com/15-minute-meal-prep-egg-roll-in-a-bowl",
+      "file": "pinchofyum.com__15-minute-meal-prep-egg-roll-in-a-bowl.html",
+      "status": 200,
+      "ok": true,
+      "parserSource": "json-ld",
+      "parserSteps": 4,
+      "title": "15-Minute Egg Roll in a Bowl",
+      "uiRendered": true
+    },
+    {
+      "url": "https://www.recipetineats.com/",
+      "file": "recipetineats.com__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.budgetbytes.com/",
+      "file": "budgetbytes.com__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://damndelicious.net/",
+      "file": "damndelicious.net__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.smittenkitchen.com/",
+      "file": "smittenkitchen.com__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://minimalistbaker.com/",
+      "file": "minimalistbaker.com__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.foodiecrush.com/",
+      "file": "foodiecrush.com__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.kingarthurbaking.com/",
+      "file": "kingarthurbaking.com__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://joythebaker.com/",
+      "file": "joythebaker.com__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.myfridgefood.com/",
+      "file": "myfridgefood.com__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.thekitchn.com/",
+      "file": "thekitchn.com__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://food52.com/recipes",
+      "file": "food52.com__recipes.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.tasteofhome.com/collection/our-100-highest-rated-recipes-ever/",
+      "file": "tasteofhome.com__collection_our-100-highest-rated-recipes-ever.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.thepioneerwoman.com/recipes/",
+      "file": "thepioneerwoman.com__recipes.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.halfbakedharvest.com/",
+      "file": "halfbakedharvest.com__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.chefgpt.com/",
+      "file": "chefgpt.com__root.html",
+      "status": 500,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "HTTP 404: "
+    },
+    {
+      "url": "https://www.langbein.com/recipes/huntsman%27s-chicken-pie",
+      "file": "langbein.com__recipes_huntsman-27s-chicken-pie.html",
+      "status": 200,
+      "ok": true,
+      "parserSource": "json-ld",
+      "parserSteps": 16,
+      "title": "Huntsman’s Chicken Pie",
+      "uiRendered": true
+    },
+    {
+      "url": "https://www.bigoven.com/",
+      "file": "bigoven.com__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.supercook.com/",
+      "file": "supercook.com__root.html",
+      "status": 404,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "No recipe data found on this page"
+    },
+    {
+      "url": "https://www.supercook.com/recipes",
+      "file": "supercook.com__recipes.html",
+      "status": 500,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "HTTP 404: "
+    },
+    {
+      "url": "https://www.yummly.com/",
+      "file": "yummly.com__root.html",
+      "status": 500,
+      "ok": false,
+      "parserSource": null,
+      "parserSteps": null,
+      "message": "HTTP 404: "
+    }
+  ]
+}

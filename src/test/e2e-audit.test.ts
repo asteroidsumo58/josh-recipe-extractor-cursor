@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import type { NextRequest } from 'next/server';
 import type { ParsedRecipe } from '@/types/api';
-import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join } from 'path';
 
 const fixturesDir = join(__dirname, 'fixtures', 'recipes');
@@ -30,8 +30,12 @@ describe('Automated audit for recipe parsing across snapshots', () => {
       const urlString = url.toString();
       const entry = index.entries.find(e => e.url === urlString);
       if (entry) {
-        const html = readFileSync(join(fixturesDir, entry.file), 'utf8');
-        return new Response(html, { status: 200, headers: { 'content-type': 'text/html' } });
+        const path = join(fixturesDir, entry.file);
+        if (entry.ok && existsSync(path)) {
+          const html = readFileSync(path, 'utf8');
+          return new Response(html, { status: 200, headers: { 'content-type': 'text/html' } });
+        }
+        return new Response('Not Found', { status: 404 });
       }
       return new Response('Not Found', { status: 404 });
     };

@@ -8,7 +8,8 @@ const fsp = require('fs/promises');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const URLS_PATH = path.resolve(__dirname, 'recipes-urls.json');
+const URLS_ARG = process.argv[2];
+const URLS_PATH = URLS_ARG ? path.resolve(process.cwd(), URLS_ARG) : path.resolve(__dirname, 'recipes-urls.json');
 const OUT_DIR = path.resolve(ROOT, 'src', 'test', 'fixtures', 'recipes');
 const INDEX_PATH = path.join(OUT_DIR, 'index.json');
 

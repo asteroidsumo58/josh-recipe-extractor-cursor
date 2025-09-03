@@ -57,6 +57,28 @@
 - [x] Test coverage for parsing, scaling, and ingredient logic
 - [x] GitHub Actions CI/CD with multi-Node.js version testing
 - [x] Coverage thresholds set to 70% across all metrics
+ - [x] Self-test workflow: batch fetch real pages to fixtures and run parse+UI smoke tests over curated URL sets; generate JSON/Markdown reports under `src/test/fixtures/recipes/results/`
+
+### Parser Instrumentation (Apr 2025)
+- Response headers added for observability on `GET /api/parse`:
+  - `X-Parser-Source`: which parser produced the result (`json-ld`, `microdata`, `html-heuristics`)
+  - `X-Parser-Steps`: number of instructions detected
+- Used by self-tests to aggregate success/failure and feature coverage per domain/source.
+
+### JSON-LD Instruction Augmentation (Apr 2025)
+- Some sites include JSON-LD without `recipeInstructions` (e.g., editorial pages or simplified schemas).
+- Decision: If JSON-LD yields a recipe but instructions are empty, augment in this order:
+  1) Pull instructions from microdata if present
+  2) Use loose HTML heuristics to extract "Method" / STEP paragraphs without requiring ingredients
+  3) Fallback to full HTML heuristics parser
+- Impact: Fixes Langbein “Huntsman’s Chicken Pie” where JSON-LD exists but instructions are only in the page body.
+
+### Self-Test URLs & Pipeline (Apr 2025)
+- `scripts/selftest-urls.json` holds curated external URLs (30 sites mix).
+- `npm run selftest:pipeline` will:
+  1) snapshot those pages to `src/test/fixtures/recipes/` using `scripts/fetch-recipes.js`, and
+  2) run `src/test/e2e-selftest.test.ts` to validate parse success and UI render.
+- Outputs `selftest-report.json` and `selftest-report.md` for quick review.
 
 ## Accessibility & UX
 - [x] WCAG 2.1 AA compliance with full ARIA support
