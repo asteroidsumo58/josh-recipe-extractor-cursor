@@ -28,6 +28,13 @@ A modern, intelligent recipe extraction and management application built with Ne
 - **In-text Scaling**: Updates quantities mentioned within instruction text
 - **Serving Suggestions**: Quick-select common serving sizes
 
+### 🧩 **Inline Ingredients (Apr 2025)**
+- **Prep-word normalization**: Strips words like "chopped", "shredded", "crushed" from ingredient names for matching in steps
+- **Pluralization awareness**: Matches singular/plural variants (e.g., tomato ↔ tomatoes, olive ↔ olives)
+- **Safer regex replacement**: Proper escaping with multi-variant fallback to avoid missed matches
+- **More permissive fuzzy match**: Threshold tuned for real-world phrasing differences
+- Example: AllRecipes step 4–5 now shows inline amounts for beans, chips, sour cream, olives, green onion, tomatoes, and cheese
+
 ### 🎯 **Kitchen-Friendly Interface**
 - **Progress Tracking**: Check off ingredients and steps as you cook
 - **Mobile Optimized**: Large tap targets and responsive design

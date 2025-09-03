@@ -69,6 +69,12 @@
 - **Theme toggle component with sun/moon icons**
 - **Hydration-safe theme application**
 
+### Inline Ingredient Detection (Apr 2025)
+- The ingredient matcher strips preparation tokens from ingredient names before building the fuzzy index
+- Fuzzy threshold is 0.5 by default for step detection
+- Replacement in steps prioritizes full "qty + unit + name" sequences, then falls back to name-only, then noun-tail plural variants
+- Singular/plural heuristics cover common English endings (s/es/ies, o→oes)
+
 ## Technical Requirements
 
 ### Performance

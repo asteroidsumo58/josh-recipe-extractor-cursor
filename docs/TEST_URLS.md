@@ -9,8 +9,8 @@ These URLs are used for development, testing, and acceptance criteria validation
 - **Expected Parsing**: JSON-LD structured data
 - **Servings**: 6 servings
 - **Key Features**: Ground beef, salsa, cheese layers
-- **Test Focus**: Basic parsing, ingredient scaling, timer detection
-- **Status**: ✅ Working (JSON-LD extraction successful)
+- **Test Focus**: Basic parsing, ingredient scaling, timer detection, inline ingredient tags in steps 4–5
+- **Status**: ✅ Working (JSON-LD extraction successful; inline chips/beans/sour cream/olives/green onion/tomatoes/cheese)
 
 ### 2. Food Network - Cacio e Uova
 **URL**: https://www.foodnetwork.com/recipes/food-network-kitchen/extra-creamy-cacio-e-uova-with-grated-egg-12646498

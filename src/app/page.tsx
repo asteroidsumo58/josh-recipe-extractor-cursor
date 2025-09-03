@@ -123,7 +123,6 @@ export default function Home() {
           <div className="absolute top-0 right-0">
             <ThemeToggle />
           </div>
-          
           <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 to-red-500 bg-clip-text text-transparent">
             Recipe Extractor
           </h1>

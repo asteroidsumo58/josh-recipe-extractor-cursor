@@ -116,9 +116,37 @@ function RecipeView({ recipe, onBack }: RecipeViewProps) {
         text = text.replace(extended, placeholder);
 
         if (text === before) {
-          // Fallback: replace just the ingredient name
+          // Fallback 1: replace just the ingredient name
           const nameOnly = new RegExp(`\\b${escapedName}\\b`, 'gi');
           text = text.replace(nameOnly, placeholder);
+        }
+
+        if (text === before) {
+          // Fallback 2: replace a salient token such as the trailing noun (e.g., "beans", "tomatoes")
+          const tokens = name.split(/\s+/).filter(Boolean);
+          const tail = tokens[tokens.length - 1] || '';
+          const mkVariants = (base: string): string[] => {
+            const v: string[] = [];
+            const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            if (!base) return v;
+            const lower = base.toLowerCase();
+            // singular/plural variants
+            v.push(esc(lower));
+            if (lower.endsWith('ies')) v.push(esc(lower.replace(/ies$/, 'y')));
+            if (lower.endsWith('es')) v.push(esc(lower.replace(/es$/, '')), esc(lower.replace(/es$/, 's')));
+            if (lower.endsWith('s')) v.push(esc(lower.slice(0, -1)));
+            // also pluralize simple endings
+            if (!lower.endsWith('s')) v.push(esc(`${lower}s`));
+            if (lower.endsWith('o')) v.push(esc(`${lower}es`));
+            return Array.from(new Set(v));
+          };
+          const variants = [tail, name].flatMap(mkVariants).filter(Boolean);
+          for (const variant of variants) {
+            const re = new RegExp(`\\b${variant}\\b`, 'gi');
+            const beforeToken = text;
+            text = text.replace(re, placeholder);
+            if (text !== beforeToken) break;
+          }
         }
       });
 

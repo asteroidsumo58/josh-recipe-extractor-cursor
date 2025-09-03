@@ -103,6 +103,12 @@
 - Normalize ingredient names for inline matching: handle unit/quantity stripping and vulgar fractions
 - Map common variants ("black pepper" → "pepper", "kosher sea salt" → "salt") for step detection
 
+## Inline Ingredient Reliability (Apr 2025)
+- Strip preparation words from ingredient names during matching (e.g., chopped/diced/shredded) to improve step detection
+- Support basic pluralization/inflection matching for common nouns (tomato ↔ tomatoes, olive ↔ olives, chip ↔ chips)
+- Reduce fuzzy match threshold to catch natural language phrasing differences
+- Replace in step text using escaped regex with multi-variant fallback to avoid misses
+
 ## Deployment & Production
 - [x] **Vercel platform deployment - SUCCESSFULLY COMPLETED**
 - [x] **Production build optimization** - ESLint disabled during builds for stability

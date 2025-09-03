@@ -264,6 +264,8 @@ export function extractIngredientNames(ingredients: ParsedIngredient[]): string[
 
     // Remove common descriptors and preparations; keep 'whole' unless part of 'whole wheat'
     name = name.replace(/\b(fresh|freshly|dried|frozen|canned|organic|raw|cooked|coarsely|coarse|finely|cracked|divided|lean)\b/gi, ' ');
+    // Also strip frequent preparation words so step nouns match (e.g., "chopped tomato" -> "tomato")
+    name = name.replace(/\b(chopped|diced|minced|sliced|grated|shredded|crushed|peeled|seeded|deveined|trimmed|cleaned|washed)\b/gi, ' ');
     // Remove common seasoning phrases
     name = name.replace(/\b(to\s+taste|or\s+to\s+taste)\b/gi, ' ');
     // Robustly remove 'all-purpose' and 'self-rising' regardless of hyphen type or spacing
@@ -293,7 +295,7 @@ export function extractIngredientNames(ingredients: ParsedIngredient[]): string[
 export function findIngredientsInStep(
   stepText: string, 
   ingredientNames: string[], 
-  threshold = 0.6
+  threshold = 0.5
 ): string[] {
   const foundIngredients: string[] = [];
   const stepWords = stepText.toLowerCase().split(/\s+/);
@@ -310,9 +312,12 @@ export function findIngredientsInStep(
     // Check for partial matches (at least half the ingredient words)
     let matchedWords = 0;
     for (const ingredientWord of ingredientWords) {
-      if (ingredientWord.length > 2 && stepWords.some(stepWord => 
-        stepWord.includes(ingredientWord) || ingredientWord.includes(stepWord)
-      )) {
+      if (ingredientWord.length > 2 && stepWords.some(stepWord => {
+        // basic plural/singular handling (tomato <-> tomatoes)
+        const base = ingredientWord.endsWith('s') ? ingredientWord.slice(0, -1) : ingredientWord;
+        const variants = [ingredientWord, base, `${base}s`];
+        return variants.some(v => stepWord.includes(v) || v.includes(stepWord));
+      })) {
         matchedWords++;
       }
     }

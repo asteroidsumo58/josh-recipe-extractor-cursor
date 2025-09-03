@@ -11,6 +11,7 @@ Given a recipe URL, the app extracts structured recipe data (title, ingredients,
 **🚀 PRODUCTION READY & DEPLOYED** - Successfully deployed to Vercel with comprehensive error handling and runtime safety. The application is live and fully functional for recipe extraction.
 
 - Mar 2025: Inline step timers with circular countdown, improved inline ingredient matching (salt/pepper normalization, vulgar fractions), robust HTML entity decoding, and consolidated theme toggle.
+- Apr 2025: Inline ingredient reliability upgrade — strips prep words for matching, handles pluralization (tomato/tomatoes), lowers fuzzy threshold, and adds safe multi-variant step replacement.
 
 ## Key Features
 
@@ -22,7 +23,7 @@ Given a recipe URL, the app extracts structured recipe data (title, ingredients,
 
 **Timer System**: Auto-detected cooking timers from recipe steps with inline circular countdowns, plus configurable manual timers with audio alerts and browser notifications.
 
-**Inline Ingredients**: Ingredient quantities appear contextually within cooking instructions (e.g., "Add 2 cups flour" shows as "Add **2 cups flour**") with automatic scaling.
+**Inline Ingredients**: Ingredient quantities appear contextually within cooking instructions (e.g., "Add 2 cups flour" shows as "Add 2 cups flour") with automatic scaling and enhanced detection (prep-word stripping + pluralization handling).
 
 **Production Stability**: Comprehensive error handling, runtime safety, and edge case management for reliable operation in production.
 

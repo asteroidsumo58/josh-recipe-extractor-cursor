@@ -6,7 +6,7 @@
 ## Deployment Status
 - ✅ **Platform**: Vercel
 - ✅ **Status**: Production Ready
-- ✅ **Last Updated**: December 2024
+- ✅ **Last Updated**: April 2025 (inline ingredient improvements)
 - ✅ **Repository**: https://github.com/asteroidsumo58/josh-recipe-extractor-cursor
 
 ## Testing
