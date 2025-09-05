@@ -40,6 +40,7 @@ A modern, intelligent recipe extraction and management application built with Ne
 - **Mobile Optimized**: Large tap targets and responsive design
 - **Dark Mode**: Easy on the eyes during late-night cooking sessions
 - **Accessibility**: Full keyboard navigation and screen reader support
+ - **Media Gallery**: Collapsible hero section using shadcn/ui `Accordion` with an image `Carousel` (up to 5 images)
 
 ### ⚡ **Performance & Reliability**
 - **LRU Caching**: 24-hour recipe caching for faster repeated access
@@ -156,6 +157,7 @@ The project maintains comprehensive test coverage with:
 - **Framework**: Next.js 15 with App Router
 - **Language**: TypeScript for type safety
 - **Styling**: Tailwind CSS v4 with dark mode support
+- **UI Primitives**: shadcn/ui (`Accordion`, `Carousel`, etc.)
 - **Testing**: Vitest + Testing Library + Playwright (optional)
 - **Parsing**: Cheerio for HTML manipulation
 - **Validation**: Zod for runtime type checking

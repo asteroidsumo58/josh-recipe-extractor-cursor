@@ -121,6 +121,14 @@
 - Single source of truth for theme switching: only global header `ThemeToggle` is rendered
 - Removed duplicated toggle inside `RecipeView` to avoid confusion
 
+### shadcn/ui Adoption & Media Gallery (Sep 2025)
+- Adopt `shadcn/ui` components for consistent, accessible UI primitives
+- Integrate `Accordion` around the hero media section to conserve vertical space
+- Add `Carousel` (Embla) inside the accordion to display up to 5 recipe images
+- Provide keyboard controls and visible previous/next buttons; announce slides for screen readers
+- Remove visible trigger label; use sr-only text for accessibility and a cleaner UI
+- Update `utils.ts` to expose a simple `cn` helper used by shadcn components
+
 ## Parsing & Matching Improvements (Mar 2025)
 - Normalize ingredient names for inline matching: handle unit/quantity stripping and vulgar fractions
 - Map common variants ("black pepper" → "pepper", "kosher sea salt" → "salt") for step detection

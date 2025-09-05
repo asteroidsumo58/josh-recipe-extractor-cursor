@@ -2,6 +2,8 @@
 
 import { useState, useCallback, memo } from 'react';
 import Image from 'next/image';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Recipe, ParsedIngredient, RecipeInstruction } from '@/types/recipe';
 import { formatIngredientForStep } from '@/lib/parsers/ingredient-parser';
 import { useRecipeScaling } from '@/hooks/useRecipeScaling';
@@ -255,17 +257,38 @@ function RecipeView({ recipe, onBack }: RecipeViewProps) {
           </div>
         </div>
 
-        {/* Hero Image */}
+        {/* Hero Images (Accordion + Carousel) */}
         {scaledRecipe.images.length > 0 && (
-          <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden mb-6">
-            <Image
-              src={scaledRecipe.images[0]}
-              alt={scaledRecipe.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-          </div>
+          <Accordion type="single" collapsible defaultValue="image">
+            <AccordionItem value="image" className="border rounded-lg mb-6">
+              <AccordionTrigger className="px-3 md:px-4">
+                <span className="sr-only">Recipe images</span>
+              </AccordionTrigger>
+              <AccordionContent className="px-0">
+                <div className="relative w-full rounded-b-lg overflow-hidden">
+                  <Carousel className="w-full">
+                    <CarouselContent>
+                      {scaledRecipe.images.slice(0, 5).map((imgSrc, idx) => (
+                        <CarouselItem key={idx}>
+                          <div className="relative w-full h-64 md:h-80">
+                            <Image
+                              src={imgSrc}
+                              alt={`${scaledRecipe.title} image ${idx + 1}`}
+                              fill
+                              className="object-cover"
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            />
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="left-3 md:-left-12 bg-white/70 dark:bg-gray-800/70" />
+                    <CarouselNext className="right-3 md:-right-12 bg-white/70 dark:bg-gray-800/70" />
+                  </Carousel>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         )}
       </div>
 

@@ -28,6 +28,7 @@
 3. **Improve timer audio compatibility** - Cross-browser audio notification support
 4. **Add loading states** - Better UX for slow recipe parsing operations
 5. **Optimize image handling** - Loading states and fallback for broken images
+6. **shadcn/ui polish** - Consider pagination dots and autoplay options for carousel
 6. **HTML heuristics** - Continue improving selectors for sites without structured data
 7. **Timer UX** - Optional presets (45/50/60) and per-timer mute
 
@@ -115,5 +116,6 @@
 - ✅ Comprehensive test suite (62+ tests, 70% coverage)
 - ✅ Performance optimizations (caching, memoization)
 - ✅ Professional documentation and deployment guides
+- ✅ UI enhancement: shadcn/ui `Accordion` for hero media and `Carousel` for up to 5 images
 - ✅ **LIVE DEPLOYMENT** - Successfully deployed to Vercel
 - ✅ Production error handling and runtime safety

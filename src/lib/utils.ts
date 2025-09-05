@@ -1,6 +1,15 @@
 import { Duration } from '@/types/recipe';
 
 /**
+ * Concatenate class names (compatible with shadcn/ui components)
+ */
+export function cn(
+  ...classes: Array<string | false | null | undefined>
+): string {
+  return classes.filter(Boolean).join(' ');
+}
+
+/**
  * Parse duration strings into standardized Duration objects
  * Handles various formats: "20 minutes", "1 hour", "1h 30m", "PT20M" (ISO 8601)
  */
@@ -186,7 +195,7 @@ export function findBestIngredientMatch(
   threshold = 0.6
 ): { ingredient: string; score: number } | null {
   const normalizedTarget = normalizeIngredientName(target);
-  let bestMatch = null;
+  let bestMatch = null as string | null;
   let bestScore = 0;
   
   for (const ingredient of ingredients) {
