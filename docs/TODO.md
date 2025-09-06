@@ -98,6 +98,9 @@
 - [x] Consolidated theme toggle to global header (removed duplicate in RecipeView)
 - [x] Improved inline ingredient matching (salt/pepper normalization, vulgar fractions support)
 
+## Recent UI Polish (Sep 2025) ✅
+- [x] Header hover effect: brighter gradient with solid base fill and larger spotlight for readability
+
 ## Recent Parser Improvements (Apr 2025) ✅
 - [x] Self-test harness over curated URLs with JSON/Markdown reporting
 - [x] Response headers: `X-Parser-Source`, `X-Parser-Steps` for observability

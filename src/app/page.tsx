@@ -10,6 +10,7 @@ import { ParseError } from '@/types/api';
 import { TimerProvider } from '@/contexts/TimerContext';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import ThemeToggle from '@/components/ThemeToggle';
+import { TextHoverEffect } from '@/components/ui/text-hover-effect';
  
 
 type AppState = 'form' | 'loading' | 'recipe' | 'error';
@@ -123,8 +124,11 @@ export default function Home() {
           <div className="absolute top-0 right-0">
             <ThemeToggle />
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 to-red-500 bg-clip-text text-transparent">
-            Recipe Extractor
+          <h1 className="mb-4">
+            <span className="sr-only">Recipe Extractor</span>
+            <div className="mx-auto w-full max-w-3xl h-24 md:h-28 lg:h-32">
+              <TextHoverEffect text="Recipe Extractor" duration={0.15} />
+            </div>
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
             Extract and display recipes from any URL with smart parsing and kitchen-friendly features

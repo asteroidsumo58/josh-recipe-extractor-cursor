@@ -121,6 +121,12 @@
 - Single source of truth for theme switching: only global header `ThemeToggle` is rendered
 - Removed duplicated toggle inside `RecipeView` to avoid confusion
 
+### Header Hover Effect (Sep 2025)
+- Adopt an SVG-based, cursor-following spotlight text effect for the site title
+- Use an always-on vivid horizontal gradient plus a solid base fill for legibility
+- Increase mask radius for a larger, more visible highlight on hover
+- Preserve accessibility with a screen-reader-only header text fallback
+
 ### shadcn/ui Adoption & Media Gallery (Sep 2025)
 - Adopt `shadcn/ui` components for consistent, accessible UI primitives
 - Integrate `Accordion` around the hero media section to conserve vertical space
