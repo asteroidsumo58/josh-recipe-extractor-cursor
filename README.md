@@ -125,6 +125,9 @@ npm run audit:recipes
 
 # One-command refresh + audit pipeline
 npm run pipeline:recipes
+
+# Launch the shadcn MCP server
+npm run mcp
 ```
 
 ### Test Coverage
@@ -277,6 +280,9 @@ CACHE_TTL_MS=86400000
 1. Create a new parser in `src/lib/parsers/`
 2. Add the parser to the parsing chain in `src/app/api/parse/route.ts`
 3. Add corresponding tests in `src/test/`
+
+#### Using shadcn MCP
+- Follow `docs/MCP.md` for running the shadcn MCP server and configuring Codex to install UI components directly from registries.
 
 #### Modifying Rate Limits
 Update the configuration in `src/lib/rate-limiter.ts`:
