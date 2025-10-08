@@ -1,7 +1,7 @@
 import { Duration } from '@/types/recipe';
 
 /**
- * Concatenate class names (compatible with shadcn/ui components)
+ * Concatenate class names for utility-tailwind components
  */
 export function cn(
   ...classes: Array<string | false | null | undefined>

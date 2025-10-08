@@ -229,8 +229,6 @@ describe('Recipe Scaling Math', () => {
 
   describe('Fraction Formatting', () => {
     it('should format common fractions correctly', () => {
-      const { result } = renderHook(() => useRecipeScaling(mockRecipe));
-      
       // Test various fraction conversions
       const testCases = [
         { input: '1/4', multiplier: 2, expected: '1/2' },
@@ -255,11 +253,11 @@ describe('Recipe Scaling Math', () => {
         const { result: testResult } = renderHook(() => useRecipeScaling(testRecipe));
         
         act(() => {
-          testResult.current.setServings(Math.round(multiplier));
+          testResult.current.setServings(multiplier);
         });
-        
-        // Note: This is a simplified test - actual scaling might vary based on implementation
-        expect(testResult.current.scaledRecipe.ingredients[0].quantity).toBeDefined();
+
+        const scaledQuantity = testResult.current.scaledRecipe.ingredients[0].quantity;
+        expect(String(scaledQuantity)).toContain(expected);
       });
     });
   });

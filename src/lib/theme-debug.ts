@@ -11,14 +11,14 @@ export class ThemeDebugger {
     return ThemeDebugger.instance;
   }
 
-  log(message: string, data?: any) {
+  log(message: string, data?: unknown) {
     if (!this.isEnabled) return;
     
     const timestamp = new Date().toISOString();
     const logEntry = `[${timestamp}] ${message}`;
     
     this.logs.push(logEntry);
-    console.log(`🔍 THEME DEBUG: ${message}`, data || '');
+    console.log(`🔍 THEME DEBUG: ${message}`, data ?? '');
     
     // Keep only last 50 logs
     if (this.logs.length > 50) {
@@ -26,14 +26,14 @@ export class ThemeDebugger {
     }
   }
 
-  error(message: string, error?: any) {
+  error(message: string, error?: unknown) {
     if (!this.isEnabled) return;
     
     const timestamp = new Date().toISOString();
     const logEntry = `[${timestamp}] ERROR: ${message}`;
     
     this.logs.push(logEntry);
-    console.error(`❌ THEME ERROR: ${message}`, error || '');
+    console.error(`❌ THEME ERROR: ${message}`, error ?? '');
   }
 
   inspectDOM() {
@@ -126,10 +126,16 @@ export class ThemeDebugger {
   }
 }
 
+declare global {
+  interface Window {
+    themeDebugger?: ThemeDebugger;
+  }
+}
+
 // Global debugger instance
 export const themeDebugger = ThemeDebugger.getInstance();
 
 // Make it available globally for console access
 if (typeof window !== 'undefined') {
-  (window as any).themeDebugger = themeDebugger;
+  window.themeDebugger = themeDebugger;
 }

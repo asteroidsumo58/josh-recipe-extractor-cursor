@@ -24,17 +24,16 @@ export default function LoadingSpinner({
   return (
     <div className={`flex flex-col items-center justify-center ${containerSizeClasses[size]}`}>
       <div className="relative">
-        {/* Main spinner */}
-        <div className={`animate-spin rounded-full border-4 border-gray-200 dark:border-gray-700 
-                       border-t-blue-600 ${sizeClasses[size]}`}></div>
-        
-        {/* Inner pulse */}
-        <div className={`absolute inset-0 animate-pulse rounded-full bg-blue-100 dark:bg-blue-900/20 
-                       opacity-75 ${sizeClasses[size]}`}></div>
+        <div
+          className={`animate-spin rounded-full border-4 border-border/50 border-t-primary ${sizeClasses[size]}`}
+        />
+        <div
+          className={`absolute inset-0 animate-ping rounded-full bg-primary/20 ${sizeClasses[size]}`}
+        />
       </div>
       
       {message && (
-        <p className="mt-4 text-gray-600 dark:text-gray-400 text-center animate-pulse">
+        <p className="mt-4 text-sm text-muted-foreground">
           {message}
         </p>
       )}
@@ -52,9 +51,9 @@ export function RecipeLoadingState() {
   ];
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-        <div className="text-center mb-6">
+    <div className="mx-auto w-full max-w-2xl">
+      <div className="rounded-2xl border border-border/60 bg-background/80 p-8 shadow-sm">
+        <div className="mb-6 text-center">
           <LoadingSpinner size="lg" />
         </div>
         
@@ -62,18 +61,17 @@ export function RecipeLoadingState() {
           {steps.map((step, index) => (
             <div key={index} className="flex items-center space-x-3">
               <div className="flex-shrink-0">
-                <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 
-                             flex items-center justify-center">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></div>
+                <div className="flex size-6 items-center justify-center rounded-full bg-primary/10">
+                  <div className="size-2 rounded-full bg-primary" />
                 </div>
               </div>
-              <span className="text-gray-600 dark:text-gray-400">{step}</span>
+              <span className="text-sm text-muted-foreground">{step}</span>
             </div>
           ))}
         </div>
         
         <div className="mt-6 text-center">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-xs uppercase tracking-wide text-muted-foreground">
             This usually takes 2-5 seconds
           </p>
         </div>

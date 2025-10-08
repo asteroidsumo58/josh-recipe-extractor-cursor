@@ -131,90 +131,18 @@ html.dark {
 }
 
 body {
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.18) 1px, transparent 0),
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.18) 1px, transparent 0) !important;
-  background-size: 18px 18px, 18px 18px !important;
-  background-position: 0 0, 9px 9px !important;
+  min-height: 100vh;
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, background-image 0.2s ease-in-out;
+  background-image: radial-gradient(circle at 0% 0%, rgba(148, 163, 184, 0.12) 0, transparent 45%),
+    radial-gradient(circle at 100% 0%, rgba(79, 70, 229, 0.12) 0, transparent 55%);
+  background-size: 420px 420px;
+  background-repeat: no-repeat;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, background-image 0.4s ease-in-out;
 }
 
-/* Ensure the body background changes with theme */
 .dark body {
-  background: var(--background) !important;
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.18) 1px, transparent 0),
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.18) 1px, transparent 0) !important;
-  background-size: 18px 18px, 18px 18px !important;
-  background-position: 0 0, 9px 9px !important;
-}
-
-.light body {
-  background: #ffffff;
-}
-
-/* Force light mode to be very light */
-.light {
-  --background: #ffffff !important;
-  --foreground: #171717 !important;
-  --card: #ffffff !important;
-  --card-foreground: #171717 !important;
-  --popover: #ffffff !important;
-  --popover-foreground: #171717 !important;
-  --primary: #3b82f6 !important;
-  --primary-foreground: #ffffff !important;
-  --secondary: #f8fafc !important;
-  --secondary-foreground: #0f172a !important;
-  --muted: #f8fafc !important;
-  --muted-foreground: #64748b !important;
-  --accent: #f8fafc !important;
-  --accent-foreground: #0f172a !important;
-  --destructive: #ef4444 !important;
-  --destructive-foreground: #ffffff !important;
-  --border: #e2e8f0 !important;
-  --input: #ffffff !important;
-  --ring: #3b82f6 !important;
-}
-
-/* Force light mode body styles */
-.light body {
-  background: #ffffff !important;
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.12) 1px, transparent 0),
-    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.12) 1px, transparent 0) !important;
-  background-size: 18px 18px, 18px 18px !important;
-  background-position: 0 0, 9px 9px !important;
-  color: #171717 !important;
-}
-
-/* Additional light mode overrides */
-.light .bg-gray-50 {
-  background-color: #ffffff !important;
-}
-
-.light .bg-gray-900 {
-  background-color: #ffffff !important;
-}
-
-.light .dark\:bg-gray-900 {
-  background-color: #ffffff !important;
-}
-
-.light .dark\:bg-gray-800 {
-  background-color: #f8fafc !important;
-}
-
-.light .dark\:text-gray-100 {
-  color: #171717 !important;
-}
-
-.light .dark\:text-gray-300 {
-  color: #374151 !important;
-}
-
-.light .dark\:text-gray-400 {
-  color: #6b7280 !important;
+  background-image: radial-gradient(circle at 0% 0%, rgba(148, 163, 184, 0.15) 0, transparent 40%),
+    radial-gradient(circle at 120% -10%, rgba(56, 189, 248, 0.18) 0, transparent 55%);
 }
 
 @layer base {

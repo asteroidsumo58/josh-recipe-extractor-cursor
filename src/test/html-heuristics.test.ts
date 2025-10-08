@@ -1,7 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import { parseHtmlHeuristics, extractInstructionsLoose } from '@/lib/parsers/html-heuristics';
-import { readFileSync } from 'fs';
-import { join } from 'path';
 
 describe('HTML Heuristics - Langbein style pages', () => {
   it('extracts STEP-based instructions under Method and ingredient lines under Ingredients', () => {

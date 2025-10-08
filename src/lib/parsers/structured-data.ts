@@ -103,8 +103,8 @@ function normalizeJsonLdRecipe(jsonLd: JsonLdRecipe, url: string, domain: string
       author = jsonLd.author;
     } else if (Array.isArray(jsonLd.author)) {
       author = jsonLd.author[0]?.name || '';
-    } else if ((jsonLd.author as any).name) {
-      author = (jsonLd.author as any).name;
+    } else if (typeof jsonLd.author === 'object' && 'name' in jsonLd.author && typeof jsonLd.author.name === 'string') {
+      author = jsonLd.author.name;
     }
   }
   
@@ -208,7 +208,11 @@ function extractInstructions(
           continue;
         }
       }
-      out.push(item as any);
+      if (typeof item === 'string') {
+        out.push(item);
+      } else if (item && typeof item === 'object') {
+        out.push(item as Record<string, unknown>);
+      }
     }
     return out;
   };

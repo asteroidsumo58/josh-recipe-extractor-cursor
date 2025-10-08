@@ -2,17 +2,22 @@ import { describe, it, expect, beforeAll, afterAll, beforeEach, vi } from 'vites
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join } from 'path';
 import type { NextRequest } from 'next/server';
+import type { ImageProps } from 'next/image';
+import type { Recipe } from '@/types/recipe';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 // Mock Next/Image to a plain img for jsdom
 vi.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => {
-    // Drop 'fill' boolean to avoid invalid DOM attribute warning in jsdom
-    // Also ignore 'sizes' which is safe to pass through
-    const { src, alt, fill: _fill, ...rest } = props || {};
-    return React.createElement('img', { src, alt, ...rest });
+  default: (props: (Partial<ImageProps> & React.ImgHTMLAttributes<HTMLImageElement>) | undefined) => {
+    const safeProps = props ?? {};
+    const { src, alt, ...rest } = safeProps;
+    if ('fill' in rest) {
+      delete (rest as Record<string, unknown>).fill;
+    }
+    const resolvedSrc = typeof src === 'string' ? src : '';
+    return React.createElement('img', { src: resolvedSrc, alt, ...rest });
   },
 }));
 
@@ -91,12 +96,11 @@ describe('Self-test over provided URL set: parse API + UI render', () => {
       const parserSteps = parserStepsHeader ? Number(parserStepsHeader) : null;
 
       if (res.status === 200) {
-        const data = await res.json();
+        const data = (await res.json()) as Recipe;
         // Basic UI render smoke test
         const { unmount } = render(
           <TimerProvider>
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            <RecipeView recipe={data as any} onBack={() => {}} />
+            <RecipeView recipe={data} onBack={() => {}} />
           </TimerProvider>
         );
 
@@ -155,5 +159,3 @@ describe('Self-test over provided URL set: parse API + UI render', () => {
     expect(successes).toBeGreaterThanOrEqual(1);
   });
 });
-
-

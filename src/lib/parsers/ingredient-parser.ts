@@ -184,11 +184,6 @@ function parseQuantity(quantityStr: string): number | string {
   // Handle fractions (e.g., "1/2", "2 1/4")
   const fractionMatch = clean.match(/^(?:(\d+)\s+)?(\d+)\/(\d+)$/);
   if (fractionMatch) {
-    const whole = parseInt(fractionMatch[1] || '0');
-    const numerator = parseInt(fractionMatch[2]);
-    const denominator = parseInt(fractionMatch[3]);
-    const decimal = whole + (numerator / denominator);
-    
     // Return as string to preserve original formatting for display
     return fractionMatch[1] ? `${fractionMatch[1]} ${fractionMatch[2]}/${fractionMatch[3]}` : `${fractionMatch[2]}/${fractionMatch[3]}`;
   }
@@ -244,9 +239,6 @@ export function extractIngredientNames(ingredients: ParsedIngredient[]): string[
 
   // Unicode vulgar fraction characters (common ones)
   const vulgarFractions = /[¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]/g;
-
-  // Hyphen-like characters
-  const HY = '[\u2010\u2011\u2012\u2013\u2014\-]';
 
   return ingredients.map(ing => {
     // Use the parsed ingredient name, or fall back to raw text

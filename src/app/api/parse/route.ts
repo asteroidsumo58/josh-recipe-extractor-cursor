@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { parseJsonLd, parseMicrodata } from '@/lib/parsers/structured-data';
 import { parseHtmlHeuristics, extractInstructionsLoose } from '@/lib/parsers/html-heuristics';
 import { Recipe } from '@/types/recipe';
-import { ParseError, ParsedRecipe } from '@/types/api';
+import { ParseError } from '@/types/api';
 import { recipeCache } from '@/lib/cache';
 import { rateLimiter } from '@/lib/rate-limiter';
 
@@ -80,7 +80,7 @@ function validateUrl(url: string): { isValid: boolean; error?: string } {
     }
     
     return { isValid: true };
-  } catch (error) {
+  } catch {
     return { isValid: false, error: 'Invalid URL format' };
   }
 }
@@ -123,8 +123,9 @@ async function fetchWebpage(url: string): Promise<{ html: string; domain: string
     
     return { html, domain, fetchTime };
   } catch (error) {
-    const fetchTime = Date.now() - startTime;
-    
+    const elapsed = Date.now() - startTime;
+    console.warn(`⚠️ Fetch failed after ${elapsed}ms for ${url}:`, error);
+
     if (error instanceof Error) {
       if (error.name === 'TimeoutError') {
         throw new Error('Request timeout - the website took too long to respond');
@@ -209,25 +210,22 @@ export async function GET(request: NextRequest) {
     // Check cache first
     const cacheKey = getCacheKey(url);
     const cachedRecipe = recipeCache.get(cacheKey);
-    
+
     if (cachedRecipe) {
       const totalTime = Date.now() - startTime;
       const domain = new URL(url).hostname;
       console.log(`💾 Cache HIT for ${domain} - served in ${totalTime}ms (${rateLimit.remaining} requests remaining)`);
-      
+
       // Add cache headers
       const response = NextResponse.json(cachedRecipe);
       response.headers.set('X-Cache', 'HIT');
       response.headers.set('X-RateLimit-Remaining', rateLimit.remaining.toString());
       // Instrumentation headers
-      try {
-        // @ts-ignore - be defensive in case of partial shapes
-        const src = (cachedRecipe as any)?.source ?? '';
-        // @ts-ignore
-        const steps = Array.isArray((cachedRecipe as any)?.instructions) ? (cachedRecipe as any).instructions.length : 0;
-        if (src) response.headers.set('X-Parser-Source', String(src));
-        response.headers.set('X-Parser-Steps', String(steps));
-      } catch {}
+      const { source, instructions } = cachedRecipe;
+      if (source) {
+        response.headers.set('X-Parser-Source', source);
+      }
+      response.headers.set('X-Parser-Steps', instructions.length.toString());
       return response;
     }
     
@@ -306,21 +304,17 @@ export async function GET(request: NextRequest) {
     response.headers.set('X-Cache', 'MISS');
     response.headers.set('X-RateLimit-Remaining', rateLimit.remaining.toString());
     // Instrumentation headers
-    try {
-      // @ts-ignore - defensive access
-      const src = (recipe as any)?.source ?? '';
-      // @ts-ignore
-      const steps = Array.isArray((recipe as any)?.instructions) ? (recipe as any).instructions.length : 0;
-      if (src) response.headers.set('X-Parser-Source', String(src));
-      response.headers.set('X-Parser-Steps', String(steps));
-    } catch {}
-    
+    if (recipe.source) {
+      response.headers.set('X-Parser-Source', recipe.source);
+    }
+    response.headers.set('X-Parser-Steps', recipe.instructions.length.toString());
+
     return response;
-    
+
   } catch (error) {
     const totalTime = Date.now() - startTime;
-    
-    console.error('❌ Parse error:', error);
+
+    console.error(`❌ Parse error after ${totalTime}ms:`, error);
     
     if (error instanceof Error) {
       return NextResponse.json(

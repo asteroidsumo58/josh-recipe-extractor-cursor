@@ -1,222 +1,292 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import RecipeForm from '@/components/RecipeForm';
-import RecipeView from '@/components/RecipeView';
-import ErrorDisplay from '@/components/ErrorDisplay';
-import { RecipeLoadingState } from '@/components/LoadingSpinner';
-import { Recipe } from '@/types/recipe';
-import { ParseError } from '@/types/api';
-import { TimerProvider } from '@/contexts/TimerContext';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
-import ThemeToggle from '@/components/ThemeToggle';
-import { TextHoverEffect } from '@/components/ui/text-hover-effect';
- 
+import { useMemo, useState, type ReactNode } from 'react'
+import { Clock3, Home, Info, Menu, Sparkles, UtensilsCrossed } from 'lucide-react'
 
-type AppState = 'form' | 'loading' | 'recipe' | 'error';
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import ThemeToggle from '@/components/ThemeToggle'
+import RecipeForm from '@/components/RecipeForm'
+import RecipeView from '@/components/RecipeView'
+import ErrorDisplay from '@/components/ErrorDisplay'
+import { RecipeLoadingState } from '@/components/LoadingSpinner'
+import { Recipe } from '@/types/recipe'
+import { ParseError } from '@/types/api'
+import { TimerProvider } from '@/contexts/TimerContext'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
+
+type AppState = 'form' | 'loading' | 'recipe' | 'error'
 
 export default function Home() {
-  const [state, setState] = useState<AppState>('form');
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
-  const [error, setError] = useState<ParseError | null>(null);
-  const [currentUrl, setCurrentUrl] = useState<string>('');
+  const [state, setState] = useState<AppState>('form')
+  const [recipe, setRecipe] = useState<Recipe | null>(null)
+  const [error, setError] = useState<ParseError | null>(null)
+  const [currentUrl, setCurrentUrl] = useState<string>('')
 
   const handleSubmit = async (url: string) => {
-    setState('loading');
-    setCurrentUrl(url);
-    setError(null);
-    setRecipe(null);
+    setState('loading')
+    setCurrentUrl(url)
+    setError(null)
+    setRecipe(null)
 
     try {
-      const response = await fetch(`/api/parse?url=${encodeURIComponent(url)}`);
-      const data = await response.json();
+      const response = await fetch(`/api/parse?url=${encodeURIComponent(url)}`)
+      const data = await response.json()
 
       if (!response.ok) {
-        setError(data);
-        setState('error');
-        return;
+        setError(data)
+        setState('error')
+        return
       }
 
-      setRecipe(data);
-      setState('recipe');
+      setRecipe(data)
+      setState('recipe')
     } catch (err) {
+      console.error(err)
       setError({
         error: 'fetch_failed',
-        message: 'Failed to connect to the server. Please check your internet connection and try again.',
-        suggestion: 'Make sure you have a stable internet connection and the URL is accessible.'
-      });
-      setState('error');
+        message:
+          'Failed to connect to the server. Please check your internet connection and try again.',
+        suggestion: 'Make sure you have a stable internet connection and the URL is accessible.',
+      })
+      setState('error')
     }
-  };
+  }
 
   const handleRetry = () => {
     if (currentUrl) {
-      handleSubmit(currentUrl);
+      handleSubmit(currentUrl)
     }
-  };
+  }
 
   const handleReset = () => {
-    setState('form');
-    setRecipe(null);
-    setError(null);
-    setCurrentUrl('');
-  };
+    setState('form')
+    setRecipe(null)
+    setError(null)
+    setCurrentUrl('')
+  }
 
   const handleBack = () => {
-    setState('form');
-    setRecipe(null);
-  };
+    setState('form')
+    setRecipe(null)
+  }
 
-  // Debug logging for CSS troubleshooting
-  useEffect(() => {
-    console.log('🎨 CSS Debug - Page loaded');
-    console.log('📱 Window dimensions:', window.innerWidth, 'x', window.innerHeight);
-    console.log('🌙 Current theme class:', document.documentElement.className);
-    console.log('🎯 Body computed styles:', getComputedStyle(document.body));
-
-    // Check if our CSS is being applied
-    const bodyStyles = getComputedStyle(document.body);
-    console.log('🎨 Body background-image:', bodyStyles.backgroundImage);
-    console.log('🎨 Body background-size:', bodyStyles.backgroundSize);
-    console.log('🎨 Body background-color:', bodyStyles.backgroundColor);
-
-    // Check specific button styles
-    const testButton = document.querySelector('button');
-    if (testButton) {
-      const buttonStyles = getComputedStyle(testButton);
-      console.log('🔵 Button background-color:', buttonStyles.backgroundColor);
-      console.log('🔵 Button color:', buttonStyles.color);
+  const headerTitle = useMemo(() => {
+    if (state === 'recipe' && recipe) {
+      return recipe.title
     }
+    if (state === 'error') {
+      return 'Something went wrong'
+    }
+    if (state === 'loading') {
+      return 'Extracting recipe'
+    }
+    return 'Recipe Extractor'
+  }, [recipe, state])
 
-    // Test CSS variables
-    const rootStyles = getComputedStyle(document.documentElement);
-    console.log('🎨 CSS Variables:');
-    console.log('--background:', rootStyles.getPropertyValue('--background'));
-    console.log('--primary:', rootStyles.getPropertyValue('--primary'));
-    console.log('--foreground:', rootStyles.getPropertyValue('--foreground'));
-
-    // Add a mutation observer to watch for theme changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          console.log('🎨 Theme changed to:', document.documentElement.className);
-          console.log('🎨 New body background:', getComputedStyle(document.body).backgroundImage);
-        }
-      });
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  const headerSubtitle = useMemo(() => {
+    if (state === 'recipe' && recipe) {
+      return `From ${recipe.domain} — parsed via ${recipe.source}`
+    }
+    if (state === 'error' && error) {
+      return error.message
+    }
+    if (state === 'loading') {
+      return 'Collecting ingredients, steps, timers, and basic metadata'
+    }
+    return 'Paste any recipe URL to pull a clean, readable version with timers and scaling'
+  }, [error, recipe, state])
 
   return (
     <ErrorBoundary>
       <TimerProvider>
-        <div className="min-h-screen py-8 px-4">
-        <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <header className="text-center mb-8 relative">
-          {/* Theme Toggle */}
-          <div className="absolute top-0 right-0">
-            <ThemeToggle />
-          </div>
-          <h1 className="mb-4">
-            <span className="sr-only">Recipe Extractor</span>
-            <div className="mx-auto w-full max-w-3xl h-24 md:h-28 lg:h-32">
-              <TextHoverEffect text="Recipe Extractor" duration={0.15} />
-            </div>
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300">
-            Extract and display recipes from any URL with smart parsing and kitchen-friendly features
-          </p>
-        </header>
-
-        
-
-        {/* Main Content */}
-        <main role="main">
-          {state === 'form' && (
-            <section aria-label="Recipe URL input form">
-              <RecipeForm 
-                onSubmit={handleSubmit} 
-                loading={false}
-              />
-            </section>
-          )}
-
-          {state === 'loading' && (
-            <section aria-label="Loading recipe" aria-live="polite">
-              <RecipeLoadingState />
-            </section>
-          )}
-
-          {state === 'recipe' && recipe && (
-            <section aria-label="Recipe display">
-              <RecipeView 
-                recipe={recipe} 
-                onBack={handleBack}
-              />
-            </section>
-          )}
-
-          {state === 'error' && error && (
-            <section aria-label="Error message" role="alert">
-              <ErrorDisplay 
-                error={error} 
-                onRetry={handleRetry}
-                onReset={handleReset}
-              />
-            </section>
-          )}
-        </main>
-
-        {/* Features Preview (only show on form state) */}
-        {state === 'form' && (
-          <div className="mt-12 max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
-                <div className="text-3xl mb-3">✨</div>
-                <h3 className="font-semibold mb-2">Smart Parsing</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Automatically extracts ingredients, quantities, and instructions from any recipe website
-                </p>
+        <div className="mx-auto flex min-h-screen w-full max-w-4xl flex-col">
+          <header className="sticky top-0 z-30 border-b border-border/80 bg-background/95 backdrop-blur">
+            <div className="flex flex-col gap-4 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+              <div>
+                <h1 className="text-xl font-semibold leading-tight text-foreground sm:text-2xl">{headerTitle}</h1>
+                <p className="text-sm text-muted-foreground">{headerSubtitle}</p>
+                {state === 'recipe' && recipe && (
+                  <div className="mt-2 flex flex-wrap gap-2 text-xs text-muted-foreground">
+                    <Badge variant="outline">{recipe.domain}</Badge>
+                    <Badge variant="outline">{recipe.source}</Badge>
+                    {recipe.servings && <Badge variant="outline">{recipe.servings} servings</Badge>}
+                  </div>
+                )}
               </div>
-              
-              <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
-                <div className="text-3xl mb-3">⏱️</div>
-                <h3 className="font-semibold mb-2">Auto Timers</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Detects cooking times in instructions and provides built-in timers
-                </p>
-              </div>
-              
-              <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
-                <div className="text-3xl mb-3">📏</div>
-                <h3 className="font-semibold mb-2">Recipe Scaling</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Easily adjust serving sizes with automatic quantity recalculation
-                </p>
-              </div>
-              
-              <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
-                <div className="text-3xl mb-3">📱</div>
-                <h3 className="font-semibold mb-2">Kitchen Ready</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Mobile-friendly design with checkboxes and large tap targets
-                </p>
+              <div className="flex items-center gap-2">
+                {recipe && (
+                  <Badge variant="outline" className="hidden sm:inline-flex">
+                    Parsed in {recipe.parseTime}ms
+                  </Badge>
+                )}
+                <ThemeToggle />
               </div>
             </div>
-          </div>
-        )}
+          </header>
+
+          <main className="flex-1 space-y-6 px-4 py-6 sm:px-6 sm:py-10">
+            {state === 'form' && (
+              <div className="space-y-6">
+                <Card className="border-border/70 bg-background/95 shadow-sm">
+                  <CardHeader>
+                    <CardTitle className="text-xl">Paste a recipe URL</CardTitle>
+                    <CardDescription>
+                      The parser grabs structured data when available and falls back to heuristics for ingredients and
+                      instructions.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <RecipeForm onSubmit={handleSubmit} loading={state === 'loading'} />
+                  </CardContent>
+                </Card>
+
+                <Card className="border-border/70 bg-card/80 shadow-sm">
+                  <CardHeader>
+                    <CardTitle>Sample recipes</CardTitle>
+                    <CardDescription>Use one of these if you just need a quick demo.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {sampleLinks.map((item) => (
+                        <Card key={item.url} className="border-dashed border-border/60 bg-card">
+                          <CardContent className="space-y-3 p-4">
+                            <p className="text-sm font-medium text-foreground">{item.label}</p>
+                            <p className="text-xs text-muted-foreground">{item.description}</p>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="w-full"
+                              onClick={() => handleSubmit(item.url)}
+                            >
+                              Use this recipe
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+
+            {state === 'loading' && (
+              <Card className="border-border/70 bg-background/95">
+                <CardHeader className="flex items-center gap-3 pb-3">
+                  <LoaderIndicator />
+                  <div>
+                    <CardTitle className="text-base font-semibold">Extracting recipe</CardTitle>
+                    <CardDescription>Fetching structured data and snapshots from the target page.</CardDescription>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <RecipeLoadingState />
+                </CardContent>
+              </Card>
+            )}
+
+            {state === 'error' && error && (
+              <Card className="border-destructive/40 bg-destructive/5">
+                <CardHeader>
+                  <CardTitle className="text-base text-destructive">Unable to parse recipe</CardTitle>
+                  <CardDescription className="text-sm text-destructive/80">
+                    Something went wrong while fetching {currentUrl}.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ErrorDisplay error={error} />
+                </CardContent>
+                <CardFooter className="flex flex-wrap gap-2">
+                  <Button variant="destructive" onClick={handleRetry}>
+                    Retry URL
+                  </Button>
+                  <Button variant="outline" onClick={handleReset}>
+                    Try another recipe
+                  </Button>
+                </CardFooter>
+              </Card>
+            )}
+
+            {state === 'recipe' && recipe && (
+              <div className="space-y-6">
+                <RecipeView recipe={recipe} onBack={handleBack} />
+
+                <Card className="border-border/70 bg-background/90">
+                  <CardHeader>
+                    <CardTitle className="text-base">Recipe metrics</CardTitle>
+                    <CardDescription>Quick stats surfaced from the parsed data.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <MetricCard label="Source" value={recipe.source} icon={<UtensilsCrossed className="size-4" />} />
+                      <MetricCard label="Domain" value={recipe.domain} icon={<Home className="size-4" />} />
+                      <MetricCard label="Parse time" value={`${recipe.parseTime} ms`} icon={<Clock3 className="size-4" />} />
+                      {recipe.instructions && (
+                        <MetricCard label="Instruction steps" value={recipe.instructions.length} icon={<Sparkles className="size-4" />} />
+                      )}
+                      {recipe.ingredients && (
+                        <MetricCard label="Ingredients" value={recipe.ingredients.length} icon={<Info className="size-4" />} />
+                      )}
+                      {recipe.servings && (
+                        <MetricCard label="Servings" value={recipe.servings} icon={<Menu className="size-4" />} />
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </main>
         </div>
-      </div>
-        </TimerProvider>
-        
-        
-      </ErrorBoundary>
-    );
-  }
+      </TimerProvider>
+    </ErrorBoundary>
+  )
+}
+
+const sampleLinks = [
+  {
+    label: 'Quick & Cozy',
+    description: 'AllRecipes taco casserole with timers already embedded',
+    url: 'https://www.allrecipes.com/recipe/20680/easy-mexican-casserole/',
+  },
+  {
+    label: 'Weeknight Stir Fry',
+    description: 'Downshiftology Mediterranean beef stir fry snapshot',
+    url: 'https://downshiftology.com/recipes/mediterranean-ground-beef-stir-fry/',
+  },
+  {
+    label: 'Pasta Classic',
+    description: 'Food Network cacio e uova reference recipe',
+    url: 'https://www.foodnetwork.com/recipes/food-network-kitchen/extra-creamy-cacio-e-uova-with-grated-egg-12646498',
+  },
+]
+
+function MetricCard({
+  label,
+  value,
+  icon,
+}: {
+  label: string
+  value: string | number
+  icon: ReactNode
+}) {
+  return (
+    <Card className="border-border/70 bg-card">
+      <CardContent className="flex items-start gap-3 p-4">
+        <div className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">{icon}</div>
+        <div className="space-y-1">
+          <p className="text-xs uppercase tracking-wide text-muted-foreground">{label}</p>
+          <p className="text-base font-semibold text-foreground">{value}</p>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+function LoaderIndicator() {
+  return (
+    <div className="flex size-8 items-center justify-center rounded-full border border-border/60">
+      <div className="size-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+    </div>
+  )
+}

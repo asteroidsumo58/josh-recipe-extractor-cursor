@@ -1,17 +1,22 @@
-'use client';
+'use client'
 
-import { useState, useCallback, memo } from 'react';
-import { getSuggestedServings } from '@/hooks/useRecipeScaling';
+import { memo, useCallback, useState } from 'react'
+import { Minus, Plus, Sparkles } from 'lucide-react'
+
+import { getSuggestedServings } from '@/hooks/useRecipeScaling'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
 
 interface ServingsControlProps {
-  originalServings: number;
-  currentServings: number;
-  scalingMultiplier: number;
-  onServingsChange: (servings: number) => void;
-  onReset: () => void;
-  canScaleDown: boolean;
-  canScaleUp: boolean;
-  className?: string;
+  originalServings: number
+  currentServings: number
+  scalingMultiplier: number
+  onServingsChange: (servings: number) => void
+  onReset: () => void
+  canScaleDown: boolean
+  canScaleUp: boolean
+  className?: string
 }
 
 function ServingsControl({
@@ -22,212 +27,149 @@ function ServingsControl({
   onReset,
   canScaleDown,
   canScaleUp,
-  className = ''
+  className,
 }: ServingsControlProps) {
-  const [customInput, setCustomInput] = useState('');
-  const [showCustomInput, setShowCustomInput] = useState(false);
+  const [customInput, setCustomInput] = useState('')
+  const [customOpen, setCustomOpen] = useState(false)
 
-  const suggestedServings = getSuggestedServings(originalServings);
-
-  const handleCustomSubmit = useCallback(() => {
-    const customServings = parseInt(customInput);
-    if (customServings > 0 && customServings <= 50) {
-      onServingsChange(customServings);
-      setCustomInput('');
-      setShowCustomInput(false);
-    }
-  }, [customInput, onServingsChange]);
+  const suggestedServings = getSuggestedServings(originalServings)
 
   const handleIncrement = useCallback(() => {
-    if (canScaleUp) {
-      onServingsChange(currentServings + 1);
-    }
-  }, [canScaleUp, currentServings, onServingsChange]);
+    if (canScaleUp) onServingsChange(currentServings + 1)
+  }, [canScaleUp, currentServings, onServingsChange])
 
   const handleDecrement = useCallback(() => {
-    if (canScaleDown) {
-      onServingsChange(currentServings - 1);
-    }
-  }, [canScaleDown, currentServings, onServingsChange]);
+    if (canScaleDown) onServingsChange(currentServings - 1)
+  }, [canScaleDown, currentServings, onServingsChange])
 
-  const getScaleDescription = () => {
-    if (scalingMultiplier === 1) return 'Original recipe';
-    if (scalingMultiplier === 0.5) return 'Half recipe';
-    if (scalingMultiplier === 2) return 'Double recipe';
-    if (scalingMultiplier < 1) return `${Math.round(scalingMultiplier * 100)}% of original`;
-    return `${scalingMultiplier.toFixed(1)}× original`;
-  };
+  const handleCustomSubmit = () => {
+    const parsed = parseInt(customInput, 10)
+    if (!Number.isNaN(parsed) && parsed > 0 && parsed <= 50) {
+      onServingsChange(parsed)
+      setCustomInput('')
+      setCustomOpen(false)
+    }
+  }
+
+  const scaleHint = (() => {
+    if (scalingMultiplier === 1) return 'Original recipe'
+    if (scalingMultiplier === 0.5) return 'Half recipe'
+    if (scalingMultiplier === 2) return 'Double recipe'
+    if (scalingMultiplier < 1) return `${Math.round(scalingMultiplier * 100)}% of original`
+    return `${scalingMultiplier.toFixed(2)}× original`
+  })()
 
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 ${className}`}>
-      <div className="flex items-center justify-between mb-3">
-        <h3 id="servings-heading" className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-          Servings
-        </h3>
+    <div className={className}>
+      <div className="flex items-center justify-between">
+        <div className="space-y-1">
+          <p className="text-sm font-semibold text-foreground">Servings</p>
+          <p className="text-xs text-muted-foreground">Adjust quantities and inline mentions in one tap.</p>
+        </div>
         {scalingMultiplier !== 1 && (
-          <button
-            onClick={onReset}
-            className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 
-                     transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
-            aria-label="Reset to original servings"
-          >
-            Reset to original
-          </button>
+          <Button type="button" variant="ghost" size="sm" onClick={onReset}>
+            Reset
+          </Button>
         )}
       </div>
 
-      {/* Current Servings Display */}
-      <div className="text-center mb-4">
-        <div className="flex items-center justify-center gap-3" role="group" aria-labelledby="servings-heading">
-          <button
-            onClick={handleDecrement}
-            disabled={!canScaleDown}
-            className={`w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold
-              transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2
-              ${canScaleDown 
-                ? 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500 focus:ring-gray-500' 
-                : 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-600 cursor-not-allowed'
-              }`}
-            aria-label={`Decrease servings to ${currentServings - 1}`}
-            aria-describedby="current-servings"
-          >
-            −
-          </button>
-          
-          <div className="text-center">
-            <div id="current-servings" className="text-3xl font-bold text-gray-900 dark:text-gray-100" aria-live="polite">
-              {currentServings}
-            </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
-              {currentServings === 1 ? 'serving' : 'servings'}
-            </div>
+      <div className="mt-4 flex items-center justify-center gap-3">
+        <Button
+          type="button"
+          size="icon"
+          variant="outline"
+          onClick={handleDecrement}
+          disabled={!canScaleDown}
+          className="rounded-full"
+        >
+          <Minus className="size-4" />
+        </Button>
+        <div className="text-center">
+          <div className="text-3xl font-semibold text-foreground" aria-live="polite">
+            {currentServings}
           </div>
-          
-          <button
-            onClick={handleIncrement}
-            disabled={!canScaleUp}
-            className={`w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold
-              transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2
-              ${canScaleUp 
-                ? 'bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500 focus:ring-gray-500' 
-                : 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-600 cursor-not-allowed'
-              }`}
-            aria-label={`Increase servings to ${currentServings + 1}`}
-            aria-describedby="current-servings"
-          >
-            +
-          </button>
+          <p className="text-xs text-muted-foreground">
+            {currentServings === 1 ? 'serving' : 'servings'} · {scaleHint}
+          </p>
         </div>
-        
-        <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          {getScaleDescription()}
-        </div>
+        <Button
+          type="button"
+          size="icon"
+          variant="outline"
+          onClick={handleIncrement}
+          disabled={!canScaleUp}
+          className="rounded-full"
+        >
+          <Plus className="size-4" />
+        </Button>
       </div>
 
-      {/* Quick Scale Buttons */}
-      <div className="grid grid-cols-3 gap-2 mb-4">
+      <div className="mt-4 grid grid-cols-3 gap-2">
         {suggestedServings.map((servings) => (
-          <button
+          <Button
             key={servings}
+            type="button"
+            size="sm"
+            variant={currentServings === servings ? 'default' : 'outline'}
+            className="justify-center"
             onClick={() => onServingsChange(servings)}
-            className={`px-3 py-2 text-sm rounded-lg border transition-colors duration-200
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
-              ${currentServings === servings
-                ? 'bg-blue-600 text-white border-blue-600'
-                : 'bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600'
-              }`}
           >
             {servings}
-          </button>
+          </Button>
         ))}
       </div>
 
-      {/* Custom Input */}
-      {showCustomInput ? (
-        <div className="space-y-2">
+      <div className="mt-4 space-y-3 rounded-xl border border-dashed border-border/70 bg-background/70 p-3">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <Sparkles className="size-3" />
+          <span>Custom range (1–50 servings)</span>
+        </div>
+        {customOpen ? (
           <div className="flex gap-2">
-            <input
+            <Input
               type="number"
-              min="1"
-              max="50"
+              min={1}
+              max={50}
               value={customInput}
-              onChange={(e) => setCustomInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleCustomSubmit()}
+              onChange={(event) => setCustomInput(event.target.value)}
+              onKeyDown={(event) => event.key === 'Enter' && handleCustomSubmit()}
               placeholder="Enter servings"
-              className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg
-                       bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100
-                       focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="flex-1"
               autoFocus
             />
-            <button
-              onClick={handleCustomSubmit}
-              disabled={!customInput || parseInt(customInput) <= 0 || parseInt(customInput) > 50}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700
-                       disabled:bg-gray-400 disabled:cursor-not-allowed
-                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-                       transition-colors duration-200"
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => {
+                setCustomOpen(false)
+                setCustomInput('')
+              }}
             >
+              Cancel
+            </Button>
+            <Button type="button" onClick={handleCustomSubmit} disabled={!customInput.trim()}>
               Set
-            </button>
+            </Button>
           </div>
-          <button
-            onClick={() => {
-              setShowCustomInput(false);
-              setCustomInput('');
-            }}
-            className="w-full text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
-          >
-            Cancel
-          </button>
-        </div>
-      ) : (
-        <button
-          onClick={() => setShowCustomInput(true)}
-          className="w-full px-3 py-2 text-sm text-blue-600 dark:text-blue-400 
-                   border border-blue-200 dark:border-blue-600 rounded-lg
-                   hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200
-                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        >
-          Custom amount
-        </button>
-      )}
-
-      {/* Scaling Info */}
-      <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-        <div className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
-          <div className="flex justify-between">
-            <span>Original:</span>
-            <span>{originalServings} servings</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Current:</span>
-            <span>{currentServings} servings</span>
-          </div>
-          <div className="flex justify-between font-medium">
-            <span>Scale factor:</span>
-            <span>{scalingMultiplier.toFixed(2)}×</span>
-          </div>
-        </div>
+        ) : (
+          <Button type="button" variant="ghost" size="sm" onClick={() => setCustomOpen(true)}>
+            Enter custom amount
+          </Button>
+        )}
       </div>
 
-      {/* Scaling Tips */}
-      {scalingMultiplier !== 1 && (
-        <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-          <div className="text-xs text-blue-800 dark:text-blue-200">
-            <div className="font-medium mb-1">💡 Scaling Tips:</div>
-            <ul className="space-y-1">
-              <li>• Ingredient quantities are automatically adjusted</li>
-              <li>• Cooking times may need adjustment for large changes</li>
-              <li>• Baking recipes are more sensitive to scaling</li>
-              {scalingMultiplier > 2 && (
-                <li>• Large increases may require bigger cookware</li>
-              )}
-            </ul>
-          </div>
+      <div className="mt-4 grid gap-2 rounded-xl border border-border/70 bg-background/60 p-3 text-xs text-muted-foreground">
+        <div className="flex items-center justify-between">
+          <span>Original recipe</span>
+          <Badge variant="outline">{originalServings} servings</Badge>
         </div>
-      )}
+        <div className="flex items-center justify-between">
+          <span>Current yield</span>
+          <Badge variant="outline">{currentServings} servings</Badge>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
-export default memo(ServingsControl);
+export default memo(ServingsControl)

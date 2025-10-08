@@ -1,0 +1,114 @@
+#!/usr/bin/env node
+
+// Lightweight fixture fetcher for recipe pages
+// Saves HTML snapshots for offline, deterministic tests
+
+import { writeFile, readFile, mkdir } from 'node:fs/promises'
+import path from 'node:path'
+import process from 'node:process'
+import { fileURLToPath } from 'node:url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const ROOT = path.resolve(__dirname, '..')
+const URLS_ARG = process.argv[2]
+const URLS_PATH = URLS_ARG ? path.resolve(process.cwd(), URLS_ARG) : path.resolve(__dirname, 'recipes-urls.json')
+const OUT_DIR = path.resolve(ROOT, 'src', 'test', 'fixtures', 'recipes')
+const INDEX_PATH = path.join(OUT_DIR, 'index.json')
+
+/** @param {string} input */
+function sanitizeFilename(input) {
+  try {
+    const u = new URL(input)
+    const domain = u.hostname.replace(/^www\./, '')
+    const slug = (u.pathname || '/').replace(/\/+$/, '').replace(/^\/+/, '').replace(/\//g, '_')
+    const base = [domain, slug || 'root'].join('__')
+    return `${base.replace(/[^a-zA-Z0-9._-]/g, '-').slice(0, 180)}.html`
+  } catch {
+    return `${input.replace(/[^a-zA-Z0-9._-]/g, '-').slice(0, 180)}.html`
+  }
+}
+
+async function ensureDir(dir) {
+  await mkdir(dir, { recursive: true })
+}
+
+async function readJson(p) {
+  const raw = await readFile(p, 'utf8')
+  return JSON.parse(raw)
+}
+
+async function writeJson(p, data) {
+  await writeFile(p, `${JSON.stringify(data, null, 2)}\n`, 'utf8')
+}
+
+async function fetchHtml(url) {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 30000)
+  try {
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'User-Agent': 'Recipe-Extractor/1.0 (+https://github.com/recipe-extractor) Mozilla/5.0',
+        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        DNT: '1',
+        Connection: 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+      },
+      signal: controller.signal,
+    })
+    const contentType = res.headers.get('content-type') ?? ''
+    const html = await res.text()
+    return { status: res.status, ok: res.ok, contentType, html }
+  } finally {
+    clearTimeout(timeout)
+  }
+}
+
+async function main() {
+  await ensureDir(OUT_DIR)
+  const urls = await readJson(URLS_PATH)
+
+  /** @type {Array<{url:string, file:string, status:number, ok:boolean, contentType:string, bytes:number}>} */
+  const indexEntries = []
+
+  const concurrency = 5
+  let cursor = 0
+
+  async function worker() {
+    while (true) {
+      const myIndex = cursor++
+      if (myIndex >= urls.length) break
+      const url = urls[myIndex]
+      const filename = sanitizeFilename(url)
+      const outPath = path.join(OUT_DIR, filename)
+      try {
+        const { status, ok, contentType, html } = await fetchHtml(url)
+        await writeFile(outPath, html, 'utf8')
+        indexEntries.push({ url, file: filename, status, ok, contentType, bytes: Buffer.byteLength(html) })
+        console.log(`${ok ? '✅' : '⚠️'} [${status}] ${url} -> ${filename} (${html.length} chars)`)
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err)
+        indexEntries.push({ url, file: filename, status: 0, ok: false, contentType: '', bytes: 0 })
+        console.warn(`❌ [ERR] ${url} -> ${filename}: ${message}`)
+      }
+    }
+  }
+
+  await Promise.all(Array.from({ length: concurrency }, () => worker()))
+
+  await writeJson(INDEX_PATH, {
+    generatedAt: new Date().toISOString(),
+    count: indexEntries.length,
+    entries: indexEntries,
+  })
+  console.log(`\nWrote index: ${INDEX_PATH} (${indexEntries.length} entries)`)
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch((err) => {
+    console.error(err)
+    process.exit(1)
+  })
+}

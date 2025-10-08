@@ -1,35 +1,65 @@
-'use client';
+'use client'
 
-import { useState, useCallback, memo } from 'react';
-import Image from 'next/image';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { Recipe, ParsedIngredient, RecipeInstruction } from '@/types/recipe';
-import { formatIngredientForStep } from '@/lib/parsers/ingredient-parser';
-import { useRecipeScaling } from '@/hooks/useRecipeScaling';
-import TimerButton from './TimerButton';
-import TimerPanel from './TimerPanel';
-import ServingsControl from './ServingsControl';
- 
+import { memo, useCallback, useMemo, useState } from 'react'
+import Image from 'next/image'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button, buttonVariants } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Separator } from '@/components/ui/separator'
+import { cn } from '@/lib/utils'
+import { Recipe, ParsedIngredient, RecipeInstruction } from '@/types/recipe'
+import { formatIngredientForStep } from '@/lib/parsers/ingredient-parser'
+import { useRecipeScaling } from '@/hooks/useRecipeScaling'
+import TimerButton from './TimerButton'
+import TimerPanel from './TimerPanel'
+import ServingsControl from './ServingsControl'
+import {
+  ArrowLeft,
+  Check,
+  Clock3,
+  ChefHat,
+  Sparkles,
+  Utensils,
+} from 'lucide-react'
 
 interface RecipeViewProps {
-  recipe: Recipe;
-  onBack: () => void;
+  recipe: Recipe
+  onBack: () => void
 }
 
 interface IngredientCheckState {
-  [key: number]: boolean;
+  [key: number]: boolean
 }
 
 interface StepCheckState {
-  [key: number]: boolean;
+  [key: number]: boolean
 }
 
 function RecipeView({ recipe, onBack }: RecipeViewProps) {
-  const [checkedIngredients, setCheckedIngredients] = useState<IngredientCheckState>({});
-  const [checkedSteps, setCheckedSteps] = useState<StepCheckState>({});
-  
-  // Use recipe scaling hook
+  const [checkedIngredients, setCheckedIngredients] = useState<IngredientCheckState>({})
+  const [checkedSteps, setCheckedSteps] = useState<StepCheckState>({})
+
   const {
     scaledRecipe,
     currentServings,
@@ -39,269 +69,210 @@ function RecipeView({ recipe, onBack }: RecipeViewProps) {
     resetToOriginal,
     canScaleDown,
     canScaleUp,
-  } = useRecipeScaling(recipe);
+  } = useRecipeScaling(recipe)
 
   const toggleIngredient = useCallback((index: number) => {
-    setCheckedIngredients(prev => ({
+    setCheckedIngredients((prev) => ({
       ...prev,
-      [index]: !prev[index]
-    }));
-  }, []);
+      [index]: !prev[index],
+    }))
+  }, [])
 
   const toggleStep = useCallback((index: number) => {
-    setCheckedSteps(prev => ({
+    setCheckedSteps((prev) => ({
       ...prev,
-      [index]: !prev[index]
-    }));
-  }, []);
+      [index]: !prev[index],
+    }))
+  }, [])
 
-  const formatTime = (time?: string) => {
-    if (!time) return null;
-    return time;
-  };
+  const meta = useMemo(
+    () => [
+      {
+        label: 'Total time',
+        value: scaledRecipe.totalTime,
+        icon: <Clock3 className="size-4" />,
+      },
+      {
+        label: 'Prep',
+        value: scaledRecipe.prepTime,
+        icon: <ChefHat className="size-4" />,
+      },
+      {
+        label: 'Cook',
+        value: scaledRecipe.cookTime,
+        icon: <Utensils className="size-4" />,
+      },
+      {
+        label: 'Servings',
+        value: `${currentServings}${scalingMultiplier !== 1 ? ` · scaled ×${scalingMultiplier.toFixed(2)}` : ''}`,
+        icon: <Sparkles className="size-4" />,
+      },
+    ],
+    [currentServings, scaledRecipe, scalingMultiplier]
+  )
 
-  const renderIngredientInline = (ingredient: ParsedIngredient) => {
+  const renderIngredientInline = useCallback((ingredient: ParsedIngredient) => {
     return (
-      <span className="inline-flex items-center px-2 py-1 bg-blue-100 dark:bg-blue-900/30 
-                     text-blue-800 dark:text-blue-200 rounded text-sm font-medium mx-1">
+      <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
         {formatIngredientForStep(ingredient)}
       </span>
-    );
-  };
+    )
+  }, [])
 
-  const renderStepWithIngredients = (instruction: RecipeInstruction) => {
-    if (!instruction.ingredients || instruction.ingredients.length === 0) {
-      return instruction.text;
-    }
-
-    let text = instruction.text;
-    const ingredientMatches: { ingredient: ParsedIngredient; name: string }[] = [];
-
-    // Find matching ingredients for this step (use scaled ingredients)
-    instruction.ingredients.forEach(ingredientName => {
-      const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      const target = norm(ingredientName);
-      const ingredient = scaledRecipe.ingredients.find(ing => {
-        const ingName = norm(ing.ingredient);
-        // direct or contained either way
-        if (ingName.includes(target) || target.includes(ingName)) return true;
-        // handle common synonyms: remove 'lean' descriptor, singular/plural
-        const ingBase = ingName.replace(/\blean\b/g, '').replace(/\s+/g, ' ').trim();
-        const tgtBase = target.replace(/\blean\b/g, '').replace(/\s+/g, ' ').trim();
-        if (ingBase.includes(tgtBase) || tgtBase.includes(ingBase)) return true;
-        // plural/singular basic handling
-        if (ingBase.endsWith('s') && ingBase.slice(0, -1) === tgtBase) return true;
-        if (tgtBase.endsWith('s') && tgtBase.slice(0, -1) === ingBase) return true;
-        return false;
-      });
-      if (ingredient) {
-        ingredientMatches.push({ ingredient, name: ingredientName });
+  const renderStepWithIngredients = useCallback(
+    (instruction: RecipeInstruction) => {
+      if (!instruction.ingredients || instruction.ingredients.length === 0) {
+        return instruction.text
       }
-    });
 
-    // Replace ingredient mentions with inline components
-    // Sort by longer names first to avoid partial shadowing (e.g., "beef" before "ground beef")
-    ingredientMatches
-      .sort((a, b) => b.name.length - a.name.length)
-      .forEach(({ ingredient, name }) => {
-        const placeholder = `__INGREDIENT_${ingredient.ingredient}__`;
-        // Escape special regex characters to prevent invalid regex errors
-        const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      let text = instruction.text
+      const ingredientMatches: { ingredient: ParsedIngredient; name: string }[] = []
 
-        // Try to replace full "qty + unit + name" sequences to avoid duplicate amounts in text
-        // Handles numbers, ranges, ASCII fractions, and common vulgar fractions
-        // Matches optional quantity/units words between qty and name (e.g., "2 pounds") and optional descriptors
-        const qtyUnitsPattern = String.raw`(?:\b\d[\d\s\/.¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞\-]*\s*(?:[a-zA-Z\.]+\s+)*)?`;
-        const extended = new RegExp(`${qtyUnitsPattern}\\b${escapedName}\\b`, 'gi');
-
-        const before = text;
-        text = text.replace(extended, placeholder);
-
-        if (text === before) {
-          // Fallback 1: replace just the ingredient name
-          const nameOnly = new RegExp(`\\b${escapedName}\\b`, 'gi');
-          text = text.replace(nameOnly, placeholder);
+      instruction.ingredients.forEach((ingredientName) => {
+        const norm = (value: string) =>
+          value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        const target = norm(ingredientName)
+        const ingredient = scaledRecipe.ingredients.find((ing) => {
+          const ingName = norm(ing.ingredient)
+          if (ingName.includes(target) || target.includes(ingName)) return true
+          const ingBase = ingName.replace(/\blean\b/g, '').replace(/\s+/g, ' ').trim()
+          const tgtBase = target.replace(/\blean\b/g, '').replace(/\s+/g, ' ').trim()
+          if (ingBase.includes(tgtBase) || tgtBase.includes(ingBase)) return true
+          if (ingBase.endsWith('s') && ingBase.slice(0, -1) === tgtBase) return true
+          if (tgtBase.endsWith('s') && tgtBase.slice(0, -1) === ingBase) return true
+          return false
+        })
+        if (ingredient) {
+          ingredientMatches.push({ ingredient, name: ingredientName })
         }
+      })
 
-        if (text === before) {
-          // Fallback 2: replace a salient token such as the trailing noun (e.g., "beans", "tomatoes")
-          const tokens = name.split(/\s+/).filter(Boolean);
-          const tail = tokens[tokens.length - 1] || '';
-          const mkVariants = (base: string): string[] => {
-            const v: string[] = [];
-            const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            if (!base) return v;
-            const lower = base.toLowerCase();
-            // singular/plural variants
-            v.push(esc(lower));
-            if (lower.endsWith('ies')) v.push(esc(lower.replace(/ies$/, 'y')));
-            if (lower.endsWith('es')) v.push(esc(lower.replace(/es$/, '')), esc(lower.replace(/es$/, 's')));
-            if (lower.endsWith('s')) v.push(esc(lower.slice(0, -1)));
-            // also pluralize simple endings
-            if (!lower.endsWith('s')) v.push(esc(`${lower}s`));
-            if (lower.endsWith('o')) v.push(esc(`${lower}es`));
-            return Array.from(new Set(v));
-          };
-          const variants = [tail, name].flatMap(mkVariants).filter(Boolean);
-          for (const variant of variants) {
-            const re = new RegExp(`\\b${variant}\\b`, 'gi');
-            const beforeToken = text;
-            text = text.replace(re, placeholder);
-            if (text !== beforeToken) break;
-          }
-        }
-      });
+      ingredientMatches
+        .sort((a, b) => b.name.length - a.name.length)
+        .forEach(({ ingredient, name }) => {
+          const placeholder = `__INGREDIENT_${ingredient.ingredient}__`
+          const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+          const qtyUnitsPattern = String.raw`(?:\b\d[\d\s\/.¼½¾⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞\-]*\s*(?:[a-zA-Z\.]+\s+)*)?`
+          const extended = new RegExp(`${qtyUnitsPattern}\\b${escapedName}\\b`, 'gi')
 
-    // Split text and render with inline ingredients
-    const parts = text.split(/__INGREDIENT_([^_]+)__/);
-    
-    return (
-      <span>
-        {parts.map((part, index) => {
-          if (index % 2 === 0) {
-            return <span key={index}>{part}</span>; // Regular text with key
-          } else {
-            // Find the scaled ingredient for this part
-            const ingredient = scaledRecipe.ingredients.find(ing => 
-              ing.ingredient === part
-            );
-            return ingredient ? (
-              <span key={index}>{renderIngredientInline(ingredient)}</span>
-            ) : (
-              <span key={index}>{part}</span>
-            );
+          const before = text
+          text = text.replace(extended, placeholder)
+
+          if (text === before) {
+            const nameOnly = new RegExp(`\\b${escapedName}\\b`, 'gi')
+            text = text.replace(nameOnly, placeholder)
           }
-        })}
-      </span>
-    );
-  };
+
+          if (text === before) {
+            const tokens = name.split(/\s+/).filter(Boolean)
+            const tail = tokens[tokens.length - 1] || ''
+            const mkVariants = (base: string): string[] => {
+              const variants: string[] = []
+              const esc = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+              if (!base) return variants
+              const lower = base.toLowerCase()
+              variants.push(esc(lower))
+              if (lower.endsWith('ies')) variants.push(esc(lower.replace(/ies$/, 'y')))
+              if (lower.endsWith('es')) variants.push(esc(lower.replace(/es$/, '')))
+              if (lower.endsWith('s')) variants.push(esc(lower.slice(0, -1)))
+              if (!lower.endsWith('s')) variants.push(esc(`${lower}s`))
+              if (lower.endsWith('o')) variants.push(esc(`${lower}es`))
+              return Array.from(new Set(variants))
+            }
+            const variants = [tail, name].flatMap(mkVariants).filter(Boolean)
+            for (const variant of variants) {
+              const re = new RegExp(`\\b${variant}\\b`, 'gi')
+              const beforeToken = text
+              text = text.replace(re, placeholder)
+              if (text !== beforeToken) break
+            }
+          }
+        })
+
+      const parts = text.split(/__INGREDIENT_([^_]+)__/)
+
+      return (
+        <span>
+          {parts.map((part, index) => {
+            if (index % 2 === 0) {
+              return <span key={index}>{part}</span>
+            } else {
+              const ingredient = scaledRecipe.ingredients.find((ing) => ing.ingredient === part)
+              return ingredient ? <span key={index}>{renderIngredientInline(ingredient)}</span> : <span key={index}>{part}</span>
+            }
+          })}
+        </span>
+      )
+    },
+    [renderIngredientInline, scaledRecipe.ingredients]
+  )
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      {/* Header */}
-      <div className="mb-6 relative">
-        <div className="flex justify-between items-start">
-          <button
-            onClick={onBack}
-            className="inline-flex items-center text-blue-600 dark:text-blue-400 
-                     hover:text-blue-800 dark:hover:text-blue-200 transition-colors"
-          >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Back to Search
-          </button>
-        </div>
-        
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-2">
-          <span>From {scaledRecipe.domain}</span>
-          <span>•</span>
-          <span>Parsed via {scaledRecipe.source}</span>
-          <span>•</span>
-          <span>{scaledRecipe.parseTime}ms</span>
-          {scalingMultiplier !== 1 && (
-            <>
-              <span>•</span>
-              <span className="text-blue-600 dark:text-blue-400 font-medium">
-                Scaled {scalingMultiplier}×
-              </span>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/* Recipe Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-          {scaledRecipe.title}
-        </h1>
-        
-        {scaledRecipe.description && (
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-            {scaledRecipe.description}
-          </p>
-        )}
-
-        {/* Recipe Meta */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          {scaledRecipe.totalTime && (
-            <div className="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <div className="text-2xl mb-1">⏱️</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Total Time</div>
-              <div className="font-medium">{formatTime(scaledRecipe.totalTime)}</div>
+    <div className="space-y-6">
+      <Card className="border-border/70 bg-background/90 shadow-sm">
+        <CardHeader className="space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onBack}
+              className="group gap-2 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
+              Back to workspace
+            </Button>
+            <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+              <Badge variant="outline">{scaledRecipe.domain}</Badge>
+              <Badge variant="outline">Parsed via {scaledRecipe.source}</Badge>
+              <Badge variant="outline">{scaledRecipe.parseTime} ms</Badge>
+              {scalingMultiplier !== 1 && (
+                <Badge variant="outline">Scaled ×{scalingMultiplier.toFixed(2)}</Badge>
+              )}
             </div>
-          )}
-          {scaledRecipe.prepTime && (
-            <div className="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <div className="text-2xl mb-1">🥄</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Prep Time</div>
-              <div className="font-medium">{formatTime(scaledRecipe.prepTime)}</div>
-            </div>
-          )}
-          {scaledRecipe.cookTime && (
-            <div className="text-center p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <div className="text-2xl mb-1">🔥</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Cook Time</div>
-              <div className="font-medium">{formatTime(scaledRecipe.cookTime)}</div>
-            </div>
-          )}
-          <div className="text-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-            <div className="text-2xl mb-1">👥</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Servings</div>
-            <div className="font-medium text-blue-600 dark:text-blue-400">{currentServings}</div>
-            {scalingMultiplier !== 1 && (
-              <div className="text-xs text-blue-500 dark:text-blue-300">
-                (was {originalServings})
-              </div>
+          </div>
+          <div className="space-y-2">
+            <CardTitle className="text-2xl font-semibold leading-tight text-foreground">
+              {scaledRecipe.title}
+            </CardTitle>
+            {scaledRecipe.description && (
+              <CardDescription className="text-base leading-relaxed text-muted-foreground">
+                {scaledRecipe.description}
+              </CardDescription>
             )}
           </div>
-        </div>
-
-        {/* Hero Images (Accordion + Carousel) */}
-        {scaledRecipe.images.length > 0 && (
-          <Accordion type="single" collapsible defaultValue="image">
-            <AccordionItem value="image" className="border rounded-lg mb-6">
-              <AccordionTrigger className="px-3 md:px-4">
-                <span className="sr-only">Recipe images</span>
-              </AccordionTrigger>
-              <AccordionContent className="px-0">
-                <div className="relative w-full rounded-b-lg overflow-hidden">
-                  <Carousel className="w-full">
-                    <CarouselContent>
-                      {scaledRecipe.images.slice(0, 5).map((imgSrc, idx) => (
-                        <CarouselItem key={idx}>
-                          <div className="relative w-full h-64 md:h-80">
-                            <Image
-                              src={imgSrc}
-                              alt={`${scaledRecipe.title} image ${idx + 1}`}
-                              fill
-                              className="object-cover"
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            />
-                          </div>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    <CarouselPrevious className="left-3 md:-left-12 bg-white/70 dark:bg-gray-800/70" />
-                    <CarouselNext className="right-3 md:-right-12 bg-white/70 dark:bg-gray-800/70" />
-                  </Carousel>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {meta
+              .filter((item) => item.value)
+              .map((item) => (
+                <div
+                  key={item.label}
+                  className="flex items-center gap-3 rounded-lg border border-border/60 bg-card/80 px-4 py-3"
+                >
+                  <div className="flex size-9 items-center justify-center rounded-md bg-primary/10 text-primary">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">{item.label}</p>
+                    <p className="text-sm font-medium text-foreground">{item.value}</p>
+                  </div>
                 </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        )}
-      </div>
+              ))}
+          </div>
+        </CardContent>
+      </Card>
 
-      <div className="grid lg:grid-cols-5 md:grid-cols-4 gap-8">
-        {/* Ingredients */}
-        <div className="lg:col-span-2 md:col-span-2">
-          <div className="sticky top-6 space-y-6 min-w-0">
-            <div>
-              <h2 id="ingredients-heading" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                Ingredients
-              </h2>
-              
-              {/* Servings Control */}
+      <div className="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
+        <div className="space-y-6">
+          <Card className="border-border/70 bg-card">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-base font-semibold">Ingredients</CardTitle>
+              <CardDescription>
+                Check items off as you prep. Scaling updates both the list and inline mentions.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
               <ServingsControl
                 originalServings={originalServings}
                 currentServings={currentServings}
@@ -310,128 +281,168 @@ function RecipeView({ recipe, onBack }: RecipeViewProps) {
                 onReset={resetToOriginal}
                 canScaleDown={canScaleDown}
                 canScaleUp={canScaleUp}
-                className="mb-4"
               />
-
-              <div className="space-y-3" role="list" aria-labelledby="ingredients-heading">
-                {scaledRecipe.ingredients.map((ingredient, index) => (
-                  <label
-                    key={index}
-                    className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors
-                      ${checkedIngredients[index] 
-                        ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200' 
-                        : 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
-                      }`}
-                    role="listitem"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={checkedIngredients[index] || false}
-                      onChange={() => toggleIngredient(index)}
-                      className="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-                      aria-label={`Mark ${ingredient.ingredient} as completed`}
-                    />
-                    <div className="flex-1">
-                      <div className={`${checkedIngredients[index] ? 'line-through' : ''}`}>
+              <Separator />
+              <ScrollArea className="h-[420px] pr-2">
+                <div className="space-y-3" role="list" aria-label="Ingredients">
+                  {scaledRecipe.ingredients.map((ingredient, index) => (
+                    <label
+                      key={`ingredient-${index}`}
+                      className={cn(
+                        'flex w-full items-start gap-3 rounded-xl border border-border/70 bg-background/70 p-3 transition-colors',
+                        checkedIngredients[index] && 'border-primary/40 bg-primary/5'
+                      )}
+                      role="listitem"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={checkedIngredients[index] || false}
+                        onChange={() => toggleIngredient(index)}
+                        className="mt-1 size-4 rounded border-border/70 text-primary focus:ring-primary"
+                        aria-label={`Mark ${ingredient.ingredient} as completed`}
+                      />
+                      <div className={cn('text-sm leading-relaxed text-foreground', checkedIngredients[index] && 'opacity-70 line-through')}>
                         {ingredient.quantity && (
-                          <span className="font-medium">
-                            {ingredient.quantity} {ingredient.unit && `${ingredient.unit} `}
-                          </span>
+                          <span className="font-medium text-foreground">{ingredient.quantity} </span>
+                        )}
+                        {ingredient.unit && (
+                          <span className="font-medium text-foreground">{ingredient.unit} </span>
                         )}
                         <span>{ingredient.ingredient}</span>
                         {ingredient.preparation && (
-                          <span className="text-gray-600 dark:text-gray-400">
-                            , {ingredient.preparation}
-                          </span>
+                          <span className="text-muted-foreground"> — {ingredient.preparation}</span>
                         )}
                         {ingredient.optional && (
-                          <span className="text-gray-500 dark:text-gray-400 text-sm ml-1">
-                            (optional)
+                          <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-xs uppercase tracking-wide text-muted-foreground">
+                            Optional
                           </span>
                         )}
                       </div>
-                    </div>
-                  </label>
-                ))}
-              </div>
-            </div>
+                    </label>
+                  ))}
+                </div>
+              </ScrollArea>
+            </CardContent>
+          </Card>
 
-            {/* Timer Panel */}
-            <TimerPanel />
-          </div>
+          <Card className="border-border/70 bg-card">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base">Timers</CardTitle>
+              <CardDescription>Manage kitchen countdowns without leaving the recipe.</CardDescription>
+            </CardHeader>
+            <CardContent className="p-0">
+              <TimerPanel />
+            </CardContent>
+          </Card>
         </div>
 
-        {/* Instructions */}
-        <div className="lg:col-span-3 md:col-span-2">
-          <h2 id="instructions-heading" className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-            Instructions
-          </h2>
-          
-          <ol className="space-y-6" role="list" aria-labelledby="instructions-heading">
-            {scaledRecipe.instructions.map((instruction, index) => (
-              <li
-                key={index}
-                className={`p-4 rounded-lg border-2 transition-colors
-                  ${checkedSteps[index] 
-                    ? 'border-green-300 bg-green-50 dark:bg-green-900/20' 
-                    : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800'
-                  }`}
-                role="listitem"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <button
-                      onClick={() => toggleStep(index)}
-                      className={`w-8 h-8 rounded-full border-2 flex items-center justify-center font-bold
-                        focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
-                        ${checkedSteps[index]
-                          ? 'border-green-500 bg-green-500 text-white'
-                          : 'border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-green-500'
-                        }`}
-                      aria-label={`Mark step ${instruction.step} as ${checkedSteps[index] ? 'incomplete' : 'complete'}`}
-                    >
-                      {checkedSteps[index] ? '✓' : instruction.step}
-                    </button>
-                  </div>
-                  
-                  <div className="flex-1">
-                    <div className={`text-gray-900 dark:text-gray-100 leading-relaxed
-                      ${checkedSteps[index] ? 'line-through opacity-75' : ''}`}>
-                      {renderStepWithIngredients(instruction)}
-                    </div>
-                    
-                    {/* Timer Button */}
-                    {instruction.duration && (
-                      <div className="mt-3">
-                        <TimerButton 
-                          duration={instruction.duration} 
-                          stepNumber={instruction.step}
-                        />
+        <div className="space-y-6">
+          {scaledRecipe.images.length > 0 && (
+            <Card className="border-border/70 bg-card">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base">Gallery</CardTitle>
+                <CardDescription>Swipe through hero imagery pulled from the source.</CardDescription>
+              </CardHeader>
+              <CardContent className="p-0">
+                <Accordion type="single" collapsible defaultValue="image">
+                  <AccordionItem value="image" className="border-none">
+                    <AccordionTrigger className="px-5 text-sm font-medium text-muted-foreground hover:no-underline">
+                      {scaledRecipe.images.length} image{scaledRecipe.images.length > 1 ? 's' : ''}
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="relative">
+                        <Carousel className="w-full">
+                          <CarouselContent>
+                            {scaledRecipe.images.slice(0, 5).map((image, index) => (
+                              <CarouselItem key={image + index}>
+                                <div className="relative h-64 w-full overflow-hidden rounded-b-xl">
+                                  <Image
+                                    src={image}
+                                    alt={`${scaledRecipe.title} image ${index + 1}`}
+                                    fill
+                                    className="object-cover"
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 40vw"
+                                  />
+                                </div>
+                              </CarouselItem>
+                            ))}
+                          </CarouselContent>
+                          <CarouselPrevious className="left-4 bg-background/80" />
+                          <CarouselNext className="right-4 bg-background/80" />
+                        </Carousel>
                       </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </CardContent>
+            </Card>
+          )}
+
+          <Card className="border-border/70 bg-card">
+            <CardHeader>
+              <CardTitle className="text-base">Instructions</CardTitle>
+              <CardDescription>
+                Tap a step to mark it complete. Timers surface automatically when durations are detected.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {scaledRecipe.instructions.map((instruction, index) => {
+                const isChecked = checkedSteps[index]
+                return (
+                  <div
+                    key={`instruction-${instruction.step}`}
+                    className={cn(
+                      'rounded-xl border border-border/70 bg-background/90 p-4 transition-colors',
+                      isChecked && 'border-primary/40 bg-primary/5'
                     )}
+                  >
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="flex items-start gap-3">
+                        <button
+                          onClick={() => toggleStep(index)}
+                          className={cn(
+                            buttonVariants({ variant: isChecked ? 'default' : 'outline', size: 'icon' }),
+                            'mt-0.5 rounded-full'
+                          )}
+                          aria-label={`Mark step ${instruction.step} as ${isChecked ? 'incomplete' : 'complete'}`}
+                        >
+                          {isChecked ? <Check className="size-4" /> : instruction.step}
+                        </button>
+                        <div className={cn('space-y-2 text-sm leading-relaxed text-foreground', isChecked && 'opacity-70 line-through')}>
+                          {renderStepWithIngredients(instruction)}
+                          {instruction.ingredients && instruction.ingredients.length > 0 && (
+                            <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                              <span>Uses:</span>
+                              {instruction.ingredients.map((ing, ingIndex) => (
+                                <Badge key={`${instruction.step}-${ingIndex}`} variant="outline">
+                                  {ing}
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      {instruction.duration && (
+                        <TimerButton duration={instruction.duration} stepNumber={instruction.step} className="sm:self-start" />
+                      )}
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
-          </ol>
+                )}
+              )}
+            </CardContent>
+            {scaledRecipe.author && (
+              <CardFooter className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                Recipe by <span className="font-medium text-foreground">{scaledRecipe.author}</span>
+                {scalingMultiplier !== 1 && (
+                  <Badge variant="outline" className="ml-auto">Scaled ×{scalingMultiplier.toFixed(2)}</Badge>
+                )}
+              </CardFooter>
+            )}
+          </Card>
         </div>
       </div>
-
-      {/* Footer */}
-      {scaledRecipe.author && (
-        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-          <p className="text-gray-600 dark:text-gray-400">
-            Recipe by <span className="font-medium">{scaledRecipe.author}</span>
-            {scalingMultiplier !== 1 && (
-              <span className="ml-2 text-sm text-blue-600 dark:text-blue-400">
-                (scaled {scalingMultiplier}× from original)
-              </span>
-            )}
-          </p>
-        </div>
-      )}
     </div>
-  );
+  )
 }
 
-export default memo(RecipeView);
+export default memo(RecipeView)
