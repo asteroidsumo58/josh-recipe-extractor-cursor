@@ -87,6 +87,15 @@ A modern, intelligent recipe extraction and management application built with Ne
 4. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
+## 🔥 Firecrawl MCP Integration
+
+The parser now integrates with the [Firecrawl MCP server](https://github.com/firecrawl/firecrawl-mcp-server) to improve scrape reliability for JavaScript-heavy recipe sites. Key points:
+
+- Configure your Firecrawl API key and mode via environment variables (`FIRECRAWL_API_KEY`, `FIRECRAWL_MODE`, etc.).
+- The `/api/parse` endpoint automatically negotiates between direct HTTP fetches and Firecrawl, emitting `X-Fetch-Source` instrumentation headers.
+- `scripts/fetch-recipes.js` shares the same logic so fixture generation benefits from MCP-powered crawling.
+- See [`docs/FIRECRAWL.md`](docs/FIRECRAWL.md) for detailed setup instructions and MCP client examples.
+
 ## 🧪 Testing
 
 ### Run All Tests

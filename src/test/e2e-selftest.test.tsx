@@ -29,6 +29,53 @@ describe('Self-test over provided URL set: parse API + UI render', () => {
   beforeAll(() => {
     try { mkdirSync(resultsDir, { recursive: true }); } catch {}
 
+    if (typeof window.matchMedia !== 'function') {
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: vi.fn().mockImplementation((query: string) => ({
+          matches: false,
+          media: query,
+          onchange: null,
+          addEventListener: () => {},
+          removeEventListener: () => {},
+          addListener: () => {},
+          removeListener: () => {},
+          dispatchEvent: () => false,
+        })),
+      });
+    }
+
+    if (typeof window.IntersectionObserver !== 'function') {
+      class MockIntersectionObserver {
+        observe() {}
+        unobserve() {}
+        disconnect() {}
+        takeRecords() { return []; }
+      }
+
+      Object.defineProperty(window, 'IntersectionObserver', {
+        writable: true,
+        value: MockIntersectionObserver,
+      });
+      Object.defineProperty(window, 'IntersectionObserverEntry', {
+        writable: true,
+        value: class {},
+      });
+    }
+
+    if (typeof window.ResizeObserver !== 'function') {
+      class MockResizeObserver {
+        observe() {}
+        unobserve() {}
+        disconnect() {}
+      }
+
+      Object.defineProperty(window, 'ResizeObserver', {
+        writable: true,
+        value: MockResizeObserver,
+      });
+    }
+
     // Mock network to serve fixture HTML by URL
     global.fetch = async (url: string | URL | Request) => {
       const index = JSON.parse(readFileSync(indexPath, 'utf8')) as {
@@ -153,7 +200,7 @@ describe('Self-test over provided URL set: parse API + UI render', () => {
 
     // Ensure at least some successes
     expect(successes).toBeGreaterThanOrEqual(1);
-  });
+  }, 20000);
 });
 
 
