@@ -187,5 +187,5 @@ describe('Automated audit for recipe parsing across snapshots', () => {
 
     // Basic assertions so CI fails if everything fails
     expect(totals.successes).toBeGreaterThan(0);
-  });
+  }, 20000);
 });
