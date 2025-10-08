@@ -6,6 +6,7 @@ import { Recipe } from '@/types/recipe';
 import { ParseError, ParsedRecipe } from '@/types/api';
 import { recipeCache } from '@/lib/cache';
 import { rateLimiter } from '@/lib/rate-limiter';
+import { fetchWithFirecrawl, FirecrawlMetadata, getFirecrawlMode, isFirecrawlEnabled } from '@/lib/firecrawl';
 
 // Request validation schema
 const ParseRequestSchema = z.object({
@@ -85,10 +86,21 @@ function validateUrl(url: string): { isValid: boolean; error?: string } {
   }
 }
 
-// Fetch webpage with proper headers and timeout
-async function fetchWebpage(url: string): Promise<{ html: string; domain: string; fetchTime: number }> {
+type FetchSource = 'direct' | 'firecrawl';
+
+interface FetchWebpageResult {
+  html: string;
+  domain: string;
+  fetchTime: number;
+  source: FetchSource;
+  metadata?: FirecrawlMetadata;
+}
+
+async function fetchDirect(url: string): Promise<{ html: string; fetchTime: number; status: number; contentType: string }> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30_000);
   const startTime = Date.now();
-  
+
   try {
     const response = await fetch(url, {
       method: 'GET',
@@ -101,32 +113,25 @@ async function fetchWebpage(url: string): Promise<{ html: string; domain: string
         'Connection': 'keep-alive',
         'Upgrade-Insecure-Requests': '1',
       },
-      // 30 second timeout
-      signal: AbortSignal.timeout(30000),
+      signal: controller.signal,
     });
-    
+
+    const fetchTime = Date.now() - startTime;
+
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
-    
-    // Check content type
+
     const contentType = response.headers.get('content-type') || '';
     if (!contentType.includes('text/html')) {
       throw new Error('URL does not return HTML content');
     }
-    
+
     const html = await response.text();
-    const domain = new URL(url).hostname;
-    const fetchTime = Date.now() - startTime;
-    
-    console.log(`✅ Fetched ${domain} in ${fetchTime}ms (${html.length} chars)`);
-    
-    return { html, domain, fetchTime };
+    return { html, fetchTime, status: response.status, contentType };
   } catch (error) {
-    const fetchTime = Date.now() - startTime;
-    
     if (error instanceof Error) {
-      if (error.name === 'TimeoutError') {
+      if (error.name === 'AbortError') {
         throw new Error('Request timeout - the website took too long to respond');
       }
       if (error.message.includes('fetch')) {
@@ -134,9 +139,66 @@ async function fetchWebpage(url: string): Promise<{ html: string; domain: string
       }
       throw error;
     }
-    
+
     throw new Error('Unknown error occurred while fetching the webpage');
+  } finally {
+    clearTimeout(timeout);
   }
+}
+
+async function fetchWebpage(url: string): Promise<FetchWebpageResult> {
+  const domain = new URL(url).hostname;
+  const mode = getFirecrawlMode();
+
+  const attempts: FetchSource[] = [];
+
+  if (mode === 'only') {
+    attempts.push('firecrawl');
+  } else if (mode === 'prefer') {
+    attempts.push('firecrawl', 'direct');
+  } else {
+    attempts.push('direct');
+    if (mode === 'fallback' && isFirecrawlEnabled()) {
+      attempts.push('firecrawl');
+    }
+  }
+
+  const errors: Array<{ source: FetchSource; error: unknown }> = [];
+
+  for (const source of attempts) {
+    try {
+      if (source === 'direct') {
+        const { html, fetchTime } = await fetchDirect(url);
+        console.log(`✅ Fetched ${domain} in ${fetchTime}ms (${html.length} chars)`);
+        return { html, domain, fetchTime, source };
+      }
+
+      const firecrawlResult = await fetchWithFirecrawl(url, { timeoutMs: 90_000 });
+      console.log(
+        `🔥 Firecrawl fetched ${domain} in ${firecrawlResult.fetchTime}ms (${firecrawlResult.html.length} chars)`,
+      );
+      return {
+        html: firecrawlResult.html,
+        domain,
+        fetchTime: firecrawlResult.fetchTime,
+        source,
+        metadata: firecrawlResult.metadata,
+      };
+    } catch (error) {
+      errors.push({ source, error });
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn(`⚠️ ${source} fetch failed for ${domain}: ${message}`);
+    }
+  }
+
+  const detail = errors
+    .map(({ source, error }) => {
+      const message = error instanceof Error ? error.message : String(error);
+      return `${source}: ${message}`;
+    })
+    .join('; ');
+
+  throw new Error(detail ? `All fetch attempts failed (${detail})` : 'Unable to fetch webpage');
 }
 
 export async function GET(request: NextRequest) {
@@ -219,6 +281,7 @@ export async function GET(request: NextRequest) {
       const response = NextResponse.json(cachedRecipe);
       response.headers.set('X-Cache', 'HIT');
       response.headers.set('X-RateLimit-Remaining', rateLimit.remaining.toString());
+      response.headers.set('X-Fetch-Source', 'cache');
       // Instrumentation headers
       try {
         // @ts-ignore - be defensive in case of partial shapes
@@ -234,9 +297,9 @@ export async function GET(request: NextRequest) {
     console.log(`💾 Cache MISS for ${new URL(url).hostname} - fetching and parsing...`);
     
     // Fetch the webpage
-    const { html, domain, fetchTime } = await fetchWebpage(url);
-    
-    console.log(`🔍 Processing ${domain} - fetch: ${fetchTime}ms, parsing...`);
+    const { html, domain, fetchTime, source, metadata } = await fetchWebpage(url);
+
+    console.log(`🔍 Processing ${domain} - fetch: ${fetchTime}ms via ${source}, parsing...`);
     
     // Try structured data parsing in order of preference
     let recipe: Recipe | null = null;
@@ -305,6 +368,10 @@ export async function GET(request: NextRequest) {
     const response = NextResponse.json(recipe);
     response.headers.set('X-Cache', 'MISS');
     response.headers.set('X-RateLimit-Remaining', rateLimit.remaining.toString());
+    response.headers.set('X-Fetch-Source', source);
+    if (source === 'firecrawl' && metadata?.statusCode) {
+      response.headers.set('X-Firecrawl-Status', String(metadata.statusCode));
+    }
     // Instrumentation headers
     try {
       // @ts-ignore - defensive access

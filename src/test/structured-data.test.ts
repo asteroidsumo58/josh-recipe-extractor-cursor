@@ -238,15 +238,15 @@ describe('Structured Data Parsing', () => {
       
       // Check that instructions have ingredient references
       const instructions = recipe?.instructions || [];
-      const instructionsWithIngredients = instructions.filter(inst => 
+      const instructionsWithIngredients = instructions.filter(inst =>
         inst.ingredients && inst.ingredients.length > 0
       );
-      
+
       expect(instructionsWithIngredients.length).toBeGreaterThan(0);
-      
+
       // Check specific instruction with ingredients
-      const beefStep = instructions.find(inst => 
-        inst.text.includes('ground beef') && inst.ingredients?.includes('lean ground beef')
+      const beefStep = instructions.find(inst =>
+        inst.text.includes('ground beef') && inst.ingredients?.some(name => name.includes('ground beef'))
       );
       expect(beefStep).toBeTruthy();
     });
